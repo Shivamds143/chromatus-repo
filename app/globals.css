@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --color-navy-rgb: 14 74 107;
+  --color-navy-light-rgb: 21 97 155;
+  --color-navy-dark-rgb: 10 51 80;
+  --color-brandblue-rgb: 31 130 197;
+  --color-brandblue-dark-rgb: 21 97 155;
+  --color-brandorange-rgb: 234 122 0;
+  --color-brandorange-dark-rgb: 196 102 0;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  background: #faf9f6;
+}
+
+body {
+  @apply bg-paper text-ink font-body antialiased;
+  font-feature-settings: "ss01" 1, "cv01" 1;
+}
+
+::selection {
+  background: #ea9322;
+  color: #0b2e42;
+}
+
+:focus-visible {
+  outline: 2px solid #ea9322;
+  outline-offset: 3px;
+}
+
+.hairline {
+  @apply border-t border-line;
+}
+
+.hairline-dark {
+  @apply border-t border-line-dark;
+}
+
+.eyebrow {
+  @apply font-mono text-[11px] uppercase tracking-[0.28em] text-slate;
+}
+
+.mono-tag {
+  @apply font-mono text-[11px] uppercase tracking-[0.14em];
+}
+
+.signal-path {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: draw 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
