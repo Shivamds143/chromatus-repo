@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import ClientLogos from "@/components/ClientLogos";
 import TrustStrip from "@/components/TrustStrip";
 import ExploreGrid from "@/components/ExploreGrid";
 import Process from "@/components/Process";
@@ -19,6 +20,7 @@ export default async function Home() {
   return (
     <>
       <Hero content={content?.hero} />
+      <ClientLogos />
       <TrustStrip />
       <ExploreGrid />
       <Process content={content?.quote} />
