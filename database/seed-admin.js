@@ -25,11 +25,11 @@ async function getNextSequence(db, name) {
 }
 
 async function main() {
-  const username = process.env.ADMIN_USERNAME || 'admin';
-  const password = process.env.ADMIN_PASSWORD;
+  const username = process.env.ADMIN_USERNAME || process.env.ADMIN_DEFAULT_EMAIL || 'admin';
+  const password = process.env.ADMIN_PASSWORD || process.env.ADMIN_DEFAULT_PASSWORD;
 
   if (!password) {
-    console.error('❌ ADMIN_PASSWORD is not set in .env.local');
+    console.error('❌ ADMIN_PASSWORD or ADMIN_DEFAULT_PASSWORD is not set in environment variables');
     process.exit(1);
   }
 
@@ -40,13 +40,28 @@ async function main() {
   }
   const dbName = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || 'chromatus2';
 
-  if (uri.startsWith('mongodb+srv://')) {
-    ensureDnsResolvers();
+  let db = null;
+  let client = null;
+
+  if (uri) {
+    if (uri.startsWith('mongodb+srv://')) {
+      ensureDnsResolvers();
+    }
+    try {
+      client = new MongoClient(uri, { serverSelectionTimeoutMS: 4000, connectTimeoutMS: 4000 });
+      await client.connect();
+      db = client.db(dbName);
+    } catch (err) {
+      console.warn(`⚠ MongoDB connection failed (${err.message}). Seeding admin user to local file storage.`);
+      db = null;
+      if (client) try { await client.close(); } catch {}
+    }
   }
 
-  const client = new MongoClient(uri, { serverSelectionTimeoutMS: 8000, connectTimeoutMS: 8000 });
-  await client.connect();
-  const db = client.db(dbName);
+  if (!db) {
+    const { getCommonLocalDb } = require('./local-seed-db');
+    db = getCommonLocalDb();
+  }
 
   const passwordHash = hashPassword(password);
   const existing = await db.collection('admin_users').findOne({ username });
@@ -57,7 +72,7 @@ async function main() {
       { $set: { password_hash: passwordHash } }
     );
   } else {
-    const id = await getNextSequence(db, 'admin_users');
+    const id = (await getNextSequence(db, 'admin_users')) || 1;
     await db.collection('admin_users').insertOne({
       _id: id,
       id,
@@ -70,10 +85,11 @@ async function main() {
   }
 
   console.log(`✔ Admin user "${username}" is ready.`);
-  console.log('  Sign in at /admin/login with the credentials from your .env.local');
-  console.log('  ⚠ Change ADMIN_PASSWORD (and re-run this script) before going to production.');
+  console.log('  Sign in at /admin/login with the credentials from your .env');
 
-  await client.close();
+  if (client && typeof client.close === 'function') {
+    try { await client.close(); } catch {}
+  }
 }
 
 main().catch((err) => {

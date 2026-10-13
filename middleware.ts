@@ -16,8 +16,9 @@ export function middleware(request: NextRequest) {
   }
 
   // 2. Fallback: Check HTTP Basic Auth (allows automated scripts or direct credentials)
-  const username = process.env.ADMIN_USERNAME || "admin";
-  const password = process.env.ADMIN_PASSWORD || "admin1234";
+  const username = (process.env.ADMIN_USERNAME || "admin").toLowerCase();
+  const email = (process.env.ADMIN_DEFAULT_EMAIL || process.env.ADMIN_EMAIL || "").toLowerCase();
+  const password = process.env.ADMIN_PASSWORD || process.env.ADMIN_DEFAULT_PASSWORD || "admin1234";
   const authorization = request.headers.get("authorization");
 
   if (authorization?.startsWith("Basic ")) {
@@ -25,9 +26,9 @@ export function middleware(request: NextRequest) {
       const credentials = atob(authorization.slice(6));
       const delimiter = credentials.indexOf(":");
       if (delimiter !== -1) {
-        const providedUsername = credentials.slice(0, delimiter);
+        const providedUsername = credentials.slice(0, delimiter).toLowerCase();
         const providedPassword = credentials.slice(delimiter + 1);
-        if (providedUsername === username && providedPassword === password) {
+        if ((providedUsername === username || (email && providedUsername === email)) && providedPassword === password) {
           return NextResponse.next();
         }
       }

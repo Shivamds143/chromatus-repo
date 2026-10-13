@@ -287,20 +287,35 @@ async function seedSeoMeta(db) {
   console.log(`  seo_meta: ${seeded} routes seeded, ${skipped} already had a saved SEO entry and were left as-is.`);
 }
 
+const { getCommonLocalDb } = require('./local-seed-db');
+
 async function main() {
   const uri = process.env.MONGODB_URI;
-  if (!uri) {
-    throw new Error('MONGODB_URI is not set. Add it to .env.local (see .env.example).');
-  }
-  const dbName = process.env.MONGODB_DB || 'chromatus_db';
+  const dbName = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || 'chromatus2';
 
-  if (uri.startsWith('mongodb+srv://')) {
-    ensureDnsResolvers();
+  let db = null;
+  let client = null;
+
+  if (uri) {
+    if (uri.startsWith('mongodb+srv://')) {
+      ensureDnsResolvers();
+    }
+    try {
+      client = new MongoClient(uri, { serverSelectionTimeoutMS: 4000, connectTimeoutMS: 4000 });
+      await client.connect();
+      db = client.db(dbName);
+      console.log('Connected to MongoDB server. Seeding MongoDB database...');
+    } catch (err) {
+      console.warn(`⚠ MongoDB connection failed (${err.message}). Falling back to seeding local file database.`);
+      db = null;
+      if (client) try { await client.close(); } catch {}
+    }
   }
 
-  const client = new MongoClient(uri, { serverSelectionTimeoutMS: 8000, connectTimeoutMS: 8000 });
-  await client.connect();
-  const db = client.db(dbName);
+  if (!db) {
+    db = getCommonLocalDb();
+    console.log('Seeding local storage (data/local_db)...');
+  }
 
   await seedSitePages(db);
   await seedPageContent(db);
@@ -310,7 +325,9 @@ async function main() {
   console.log('\u2714 Seed data inserted successfully.');
   console.log('  No sample jobs or sample insights articles were seeded \u2014');
   console.log('  add real ones from Admin \u2192 Careers and Admin \u2192 Insights.');
-  await client.close();
+  if (client && typeof client.close === 'function') {
+    try { await client.close(); } catch {}
+  }
 }
 
 main().catch((err) => {

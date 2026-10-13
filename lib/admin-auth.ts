@@ -1,6 +1,6 @@
 export const ADMIN_COOKIE_NAME = "chromatus_admin_session";
 
-const SESSION_SALT = "chromatus_portal_v1_auth_token_secret";
+const SESSION_SALT = process.env.JWT_SECRET || "chromatus_portal_v1_auth_token_secret";
 
 export function generateSessionToken(username: string): string {
   const timestamp = Date.now().toString();
@@ -40,7 +40,7 @@ export function isValidToken(token?: string | null): boolean {
     const decoded = atob(raw);
     const parts = decoded.split(":");
     if (parts.length < 3) return false;
-    return parts[2] === SESSION_SALT;
+    return parts[2] === SESSION_SALT || parts[2] === "chromatus_portal_v1_auth_token_secret";
   } catch {
     return false;
   }

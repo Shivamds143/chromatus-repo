@@ -1,4 +1,19 @@
+import dns from "dns";
 import { Db, MongoClient } from "mongodb";
+import { getLocalDb, getLocalNextSequence } from "./local-db";
+
+// Fix mongodb+srv DNS resolution on environments where default resolver fails SRV lookup
+if (typeof window === "undefined" && typeof dns.setServers === "function") {
+  try {
+    const servers = (process.env.MONGODB_DNS_SERVERS || "1.1.1.1,8.8.8.8")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    dns.setServers(servers);
+  } catch {
+    // keep system default if unable to set
+  }
+}
 
 const databaseName = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || "chromatus2";
 
@@ -7,24 +22,26 @@ declare global {
   var mongoClientInstance: MongoClient | undefined;
   // eslint-disable-next-line no-var
   var mongoClientPromise: Promise<MongoClient> | undefined;
+  // eslint-disable-next-line no-var
+  var lastMongoErrorTime: number | undefined;
+  // eslint-disable-next-line no-var
+  var lastMongoErrorMessage: string | undefined;
 }
 
-// Reset any stale rejected promises from previous attempts
-if (global.mongoClientPromise) {
-  // Test if it was already settled/failed
-  global.mongoClientPromise.catch(() => {
-    global.mongoClientPromise = undefined;
-  });
-}
+const MONGO_COOLDOWN_MS = 15000; // 15s retry cooldown when cluster connection fails
 
 export async function getClientPromise(): Promise<MongoClient> {
   const uri = process.env.MONGODB_URI;
   if (!uri) throw new Error("Missing MONGODB_URI environment variable.");
 
+  // If recently failed, fail fast to use local storage without 5s latency
+  if (global.lastMongoErrorTime && Date.now() - global.lastMongoErrorTime < MONGO_COOLDOWN_MS) {
+    throw new Error(global.lastMongoErrorMessage || "MongoDB cluster offline");
+  }
+
   if (global.mongoClientPromise) {
     try {
       const client = await global.mongoClientPromise;
-      // Quick check if still alive
       return client;
     } catch {
       global.mongoClientPromise = undefined;
@@ -32,18 +49,22 @@ export async function getClientPromise(): Promise<MongoClient> {
   }
 
   const client = new MongoClient(uri, {
-    serverSelectionTimeoutMS: 5000,
-    connectTimeoutMS: 5000,
+    serverSelectionTimeoutMS: 3000,
+    connectTimeoutMS: 3000,
   });
 
   const promise = client
     .connect()
     .then((c) => {
       global.mongoClientPromise = Promise.resolve(c);
+      global.lastMongoErrorTime = undefined;
+      global.lastMongoErrorMessage = undefined;
       return c;
     })
     .catch((err) => {
       global.mongoClientPromise = undefined;
+      global.lastMongoErrorTime = Date.now();
+      global.lastMongoErrorMessage = err?.message || String(err);
       throw err;
     });
 
@@ -59,40 +80,79 @@ export async function getDatabase(): Promise<Db> {
 export const getDb = getDatabase;
 
 export async function getCollection(name: string) {
-  const db = await getDatabase();
-  return db.collection(name);
+  try {
+    const db = await getDatabase();
+    return db.collection(name);
+  } catch {
+    return getLocalDb().collection(name) as any;
+  }
 }
 
 export async function getNextSequence(name: string): Promise<number> {
-  const db = await getDatabase();
-  const result = await db.collection("counters").findOneAndUpdate(
-    { _id: name as any },
-    { $inc: { seq: 1 } },
-    { upsert: true, returnDocument: "after" }
-  );
-  return (result as any)?.seq ?? (result as any)?.value?.seq ?? 1;
+  try {
+    const db = await getDatabase();
+    const result = await db.collection("counters").findOneAndUpdate(
+      { _id: name as any },
+      { $inc: { seq: 1 } },
+      { upsert: true, returnDocument: "after" }
+    );
+    return (result as any)?.seq ?? (result as any)?.value?.seq ?? 1;
+  } catch {
+    return getLocalNextSequence(name);
+  }
 }
 
 export async function safeRead<T>(fn: (db: Db) => Promise<T>, fallback: T = [] as any): Promise<T> {
   try {
     const db = await getDatabase();
-    return await fn(db);
+    const res = await fn(db);
+    return res;
   } catch (err: any) {
-    console.error("[mongodb] read failed:", err?.message || err);
+    // Read from local storage fallback
+    try {
+      const localDb = getLocalDb();
+      const localRes = await fn(localDb as any);
+      if (localRes !== null && localRes !== undefined) {
+        if (Array.isArray(localRes) && localRes.length === 0 && Array.isArray(fallback) && fallback.length > 0) {
+          return fallback;
+        }
+        return localRes;
+      }
+    } catch (localErr) {
+      console.warn("[local-db] read failed:", localErr);
+    }
     return fallback;
   }
 }
 
-export async function safeWrite<T>(fn: (db: Db) => Promise<T>): Promise<{ ok: boolean; result?: T; error?: string }> {
+export async function safeWrite<T>(fn: (db: Db) => Promise<T>): Promise<{ ok: boolean; result?: T; error?: string; isFallback?: boolean }> {
+  let mongoResult: T | undefined;
+  let mongoSuccess = false;
+  let mongoErrMessage = "";
+
+  // 1. Try writing to MongoDB
   try {
     const db = await getDatabase();
-    const result = await fn(db);
-    return { ok: true, result };
+    mongoResult = await fn(db);
+    mongoSuccess = true;
   } catch (err: any) {
-    const safeMessage = err?.message || String(err);
-    console.error("[mongodb] write failed:", safeMessage);
-    return { ok: false, error: safeMessage };
+    mongoErrMessage = err?.message || String(err);
   }
+
+  // 2. Always persist to local fallback store as well
+  try {
+    const localDb = getLocalDb();
+    const localResult = await fn(localDb as any);
+    if (!mongoSuccess) {
+      return { ok: true, result: localResult, isFallback: true };
+    }
+  } catch (localErr: any) {
+    if (!mongoSuccess) {
+      return { ok: false, error: mongoErrMessage || localErr?.message || "Write failed" };
+    }
+  }
+
+  return { ok: true, result: mongoResult };
 }
 
 export async function checkMongoStatus(): Promise<{

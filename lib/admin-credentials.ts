@@ -20,9 +20,9 @@ type StoredCredentials = {
 
 function getDefaultCredentials(): StoredCredentials {
   return {
-    username: process.env.ADMIN_USERNAME || "admin",
-    email: process.env.ADMIN_EMAIL || "admin@chromatus.com",
-    password: process.env.ADMIN_PASSWORD || "admin1234",
+    username: process.env.ADMIN_USERNAME || process.env.ADMIN_DEFAULT_EMAIL || "admin",
+    email: process.env.ADMIN_DEFAULT_EMAIL || process.env.ADMIN_EMAIL || "admin@chromatus.com",
+    password: process.env.ADMIN_DEFAULT_PASSWORD || process.env.ADMIN_PASSWORD || "Chromatus2026!",
     updatedAt: new Date().toISOString(),
   };
 }

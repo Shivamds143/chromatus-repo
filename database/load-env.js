@@ -2,10 +2,12 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = function loadEnv() {
-  const envPath = path.join(__dirname, '..', '.env.local');
+  const envLocalPath = path.join(__dirname, '..', '.env.local');
+  const envFilePath = path.join(__dirname, '..', '.env');
+  const envPath = fs.existsSync(envLocalPath) ? envLocalPath : (fs.existsSync(envFilePath) ? envFilePath : null);
 
-  if (!fs.existsSync(envPath)) {
-    console.error('❌ .env.local not found at:', envPath);
+  if (!envPath) {
+    console.error('❌ Neither .env.local nor .env found in root folder');
     return;
   }
 

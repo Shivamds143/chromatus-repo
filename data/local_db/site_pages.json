@@ -1,0 +1,303 @@
+[
+  {
+    "_id": "loc_1791875702215",
+    "path": "/",
+    "section": "Home",
+    "title": "Home",
+    "summary": "We turn data into decisions. Chromatus Consulting helps businesses understand their markets, their customers, and their competition."
+  },
+  {
+    "_id": "loc_1791875702220",
+    "path": "/about-us",
+    "section": "About Us",
+    "title": "About Us",
+    "summary": "Our story, leadership team, expertise, and approach."
+  },
+  {
+    "_id": "loc_1791875702222",
+    "path": "/about-us/our-story",
+    "section": "About Us",
+    "title": "Our Story",
+    "summary": "How Chromatus started and how the firm works today."
+  },
+  {
+    "_id": "loc_1791875702224",
+    "path": "/about-us/leadership-team",
+    "section": "About Us",
+    "title": "Leadership Team",
+    "summary": "The researchers and consultants who lead Chromatus, and the wider team behind them."
+  },
+  {
+    "_id": "loc_1791875702226",
+    "path": "/about-us/values-culture",
+    "section": "About Us",
+    "title": "Values & Culture",
+    "summary": "Our expertise across market & consumer research and strategy & business consulting, and our four-step research approach."
+  },
+  {
+    "_id": "loc_1791875702227",
+    "path": "/about-us/awards-recognitions",
+    "section": "About Us",
+    "title": "Awards & Recognitions",
+    "summary": "Recognition and milestones, published here as they are announced."
+  },
+  {
+    "_id": "loc_1791875702230",
+    "path": "/services",
+    "section": "Services",
+    "title": "Services",
+    "summary": "Consumer Behaviour, Brand Management, New Product Launch, Satisfaction Studies, Price Benchmarking, and more."
+  },
+  {
+    "_id": "loc_1791875702234",
+    "path": "/services/strategy-transformation",
+    "section": "Services",
+    "title": "Market Assessment",
+    "summary": "Before making a move, understand the market you are moving into."
+  },
+  {
+    "_id": "loc_1791875702236",
+    "path": "/services/technology-consulting",
+    "section": "Services",
+    "title": "New Product Launch",
+    "summary": "Turn an idea into a market-ready product."
+  },
+  {
+    "_id": "loc_1791875702239",
+    "path": "/services/data-analytics",
+    "section": "Services",
+    "title": "Consumer Behaviour",
+    "summary": "Understand the thinking behind the purchase."
+  },
+  {
+    "_id": "loc_1791875702241",
+    "path": "/services/cloud-digital-solutions",
+    "section": "Services",
+    "title": "Price Benchmarking",
+    "summary": "Make sure your pricing works for you, not against you."
+  },
+  {
+    "_id": "loc_1791875702244",
+    "path": "/services/managed-services",
+    "section": "Services",
+    "title": "Satisfaction Studies",
+    "summary": "Listen to customers before dissatisfaction becomes a problem."
+  },
+  {
+    "_id": "loc_1791875702246",
+    "path": "/services/engagement-models",
+    "section": "Services",
+    "title": "Brand Management",
+    "summary": "Know how your brand stands in the minds of customers."
+  },
+  {
+    "_id": "loc_1791875702249",
+    "path": "/services/location-feasibility-study",
+    "section": "Services",
+    "title": "Location Feasibility Study",
+    "summary": "Before you invest in a location, understand it first."
+  },
+  {
+    "_id": "loc_1791875702251",
+    "path": "/services/baseline-endline-study",
+    "section": "Services",
+    "title": "Baseline & Endline Study",
+    "summary": "Measure impact with evidence, not estimates."
+  },
+  {
+    "_id": "loc_1791875702253",
+    "path": "/services/government-surveys",
+    "section": "Services",
+    "title": "Government Surveys",
+    "summary": "Ground-level data for decisions that affect communities."
+  },
+  {
+    "_id": "loc_1791875702255",
+    "path": "/industries",
+    "section": "Industries",
+    "title": "Industries",
+    "summary": "Eight core industry verticals, from Healthcare to Chemicals & Materials."
+  },
+  {
+    "_id": "loc_1791875702257",
+    "path": "/industries/healthcare",
+    "section": "Industries",
+    "title": "Healthcare",
+    "summary": "Markets where decisions affect both business and people."
+  },
+  {
+    "_id": "loc_1791875702260",
+    "path": "/industries/automotive-transportation",
+    "section": "Industries",
+    "title": "Automotive & Transportation",
+    "summary": "From individual components to the wider mobility ecosystem."
+  },
+  {
+    "_id": "loc_1791875702262",
+    "path": "/industries/food-beverages",
+    "section": "Industries",
+    "title": "Food & Beverages",
+    "summary": "What people eat, drink, and choose is changing quickly."
+  },
+  {
+    "_id": "loc_1791875702266",
+    "path": "/industries/telecom-it",
+    "section": "Industries",
+    "title": "Telecom & IT",
+    "summary": "In technology markets, yesterday's opportunity can quickly become tomorrow's standard."
+  },
+  {
+    "_id": "loc_1791875702271",
+    "path": "/industries/aerospace-defense",
+    "section": "Industries",
+    "title": "Aerospace & Defense",
+    "summary": "Research for markets where precision matters."
+  },
+  {
+    "_id": "loc_1791875702273",
+    "path": "/industries/semiconductors-electronics",
+    "section": "Industries",
+    "title": "Semiconductors & Electronics",
+    "summary": "Small components. Large market implications."
+  },
+  {
+    "_id": "loc_1791875702275",
+    "path": "/industries/energy-power",
+    "section": "Industries",
+    "title": "Energy & Power",
+    "summary": "Understanding markets being reshaped by technology, infrastructure, and transition."
+  },
+  {
+    "_id": "loc_1791875702277",
+    "path": "/industries/chemicals-materials",
+    "section": "Industries",
+    "title": "Chemicals & Materials",
+    "summary": "Where technical complexity meets commercial opportunity."
+  },
+  {
+    "_id": "loc_1791875702279",
+    "path": "/industries/beyond-these-eight",
+    "section": "Industries",
+    "title": "Beyond These Eight",
+    "summary": "Some markets do not fit neatly into one box. Neither does our research."
+  },
+  {
+    "_id": "loc_1791875702282",
+    "path": "/insights",
+    "section": "Insights",
+    "title": "Insights",
+    "summary": "Research reports, articles, whitepapers, case studies, and webinars."
+  },
+  {
+    "_id": "loc_1791875702284",
+    "path": "/insights/blogs-articles",
+    "section": "Insights",
+    "title": "Articles & Insights",
+    "summary": "Short, focused perspectives on market developments and changing customer behaviour."
+  },
+  {
+    "_id": "loc_1791875702286",
+    "path": "/insights/whitepapers",
+    "section": "Insights",
+    "title": "Whitepapers",
+    "summary": "Detailed analysis built around specific business questions and market developments."
+  },
+  {
+    "_id": "loc_1791875702289",
+    "path": "/insights/case-studies",
+    "section": "Insights",
+    "title": "Case Studies",
+    "summary": "How research translates into business decisions."
+  },
+  {
+    "_id": "loc_1791875702293",
+    "path": "/insights/reports",
+    "section": "Insights",
+    "title": "Research Reports",
+    "summary": "Research reports going deeper into specific markets, industries, and geographies."
+  },
+  {
+    "_id": "loc_1791875702297",
+    "path": "/insights/webinars-events",
+    "section": "Insights",
+    "title": "Webinars & Events",
+    "summary": "Live and recorded sessions with Chromatus practice leads."
+  },
+  {
+    "_id": "loc_1791875702300",
+    "path": "/careers",
+    "section": "Careers",
+    "title": "Careers",
+    "summary": "Build your career around better questions."
+  },
+  {
+    "_id": "loc_1791875702303",
+    "path": "/careers/open-positions",
+    "section": "Careers",
+    "title": "Open Positions",
+    "summary": "Find your next challenge — every open role in one place."
+  },
+  {
+    "_id": "loc_1791875702305",
+    "path": "/careers/life-at-chromatus",
+    "section": "Careers",
+    "title": "Life at Chromatus",
+    "summary": "A look at day-to-day life, culture, and how our teams work together."
+  },
+  {
+    "_id": "loc_1791875702308",
+    "path": "/careers/benefits",
+    "section": "Careers",
+    "title": "Benefits",
+    "summary": "Support built around how our teams actually work."
+  },
+  {
+    "_id": "loc_1791875702310",
+    "path": "/careers/diversity-equity-inclusion",
+    "section": "Careers",
+    "title": "Diversity, Equity & Inclusion",
+    "summary": "Different perspectives make better research."
+  },
+  {
+    "_id": "loc_1791875702314",
+    "path": "/careers/early-careers",
+    "section": "Careers",
+    "title": "Early Careers",
+    "summary": "Start your career solving real problems."
+  },
+  {
+    "_id": "loc_1791875702316",
+    "path": "/contact-us",
+    "section": "Contact Us",
+    "title": "Contact Us",
+    "summary": "Get in touch, locations, and contact details."
+  },
+  {
+    "_id": "loc_1791875702319",
+    "path": "/contact-us/contact-form",
+    "section": "Contact Us",
+    "title": "Contact Form",
+    "summary": "Send us a message and the right specialist will follow up."
+  },
+  {
+    "_id": "loc_1791875702321",
+    "path": "/contact-us/office-locations",
+    "section": "Contact Us",
+    "title": "Office Locations",
+    "summary": "Find our offices and teams."
+  },
+  {
+    "_id": "loc_1791875702323",
+    "path": "/contact-us/general-inquiries",
+    "section": "Contact Us",
+    "title": "General Inquiries",
+    "summary": "A quick directory for common requests: sales, careers, press, and support."
+  },
+  {
+    "_id": "loc_1791875702325",
+    "path": "/chromatus-pro",
+    "section": "CHROMATUS PRO",
+    "title": "CHROMATUS PRO",
+    "summary": "Schedule a consultation and let's solve something extraordinary together."
+  }
+]
