@@ -22,6 +22,7 @@ const NAV = [
   { href: '/admin/insights', label: 'Insights', icon: '📰' },
   { href: '/admin/careers', label: 'Careers', icon: '💼' },
   { href: '/admin/testimonials', label: 'Testimonials', icon: '💬' },
+  { href: '/admin/clients', label: 'Client Logos', icon: '🏢' },
   { href: '/admin/faqs', label: 'FAQs', icon: '❓' },
   { href: '/admin/media', label: 'Media Library', icon: '🖼️' },
   { href: '/admin/enquiries', label: 'Enquiries', icon: '✉️' },

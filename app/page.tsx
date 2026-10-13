@@ -9,18 +9,22 @@ import CTABanner from "@/components/CTABanner";
 import { getPageContent } from "@/lib/cms";
 import { home } from "@/data/content/home";
 import { listPublishedTestimonials } from "@/lib/testimonials";
+import { listPublishedClients } from "@/lib/clients";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function Home() {
   const content = await getPageContent("home", home);
-  const testimonials = await listPublishedTestimonials();
+  const [testimonials, clientLogos] = await Promise.all([
+    listPublishedTestimonials(),
+    listPublishedClients(),
+  ]);
 
   return (
     <>
       <Hero content={content?.hero} />
-      <ClientLogos />
+      <ClientLogos items={clientLogos as any} />
       <TrustStrip />
       <ExploreGrid />
       <Process content={content?.quote} />
