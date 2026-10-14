@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import FieldEditor from '@/components/admin/ContentEditor';
+import LeadershipTeamEditor from '@/components/admin/LeadershipTeamEditor';
 import PreviewDraftButton from '@/components/admin/PreviewDraftButton';
 
 export default function EditPageContentPage() {
@@ -85,8 +86,10 @@ export default function EditPageContentPage() {
     return <p className="text-sm text-inkgray">Loading…</p>;
   }
 
+  const isLeadership = key === 'leadershipTeam';
+
   return (
-    <div className="max-w-3xl">
+    <div className={isLeadership ? "max-w-4xl" : "max-w-3xl"}>
       <Link href="/admin/pages" className="text-xs text-brandblue font-semibold">← Back to Pages</Link>
 
       <div className="flex items-center justify-between mt-2 mb-1">
@@ -107,7 +110,11 @@ export default function EditPageContentPage() {
       </p>
 
       <div className="bg-white rounded-xl2 border border-gray-100 shadow-card p-6">
-        <FieldEditor value={data} onChange={setData} />
+        {isLeadership ? (
+          <LeadershipTeamEditor value={data} onChange={setData} />
+        ) : (
+          <FieldEditor value={data} onChange={setData} />
+        )}
       </div>
 
       <div className="sticky bottom-0 mt-6 -mx-4 sm:mx-0 px-4 sm:px-0 bg-bglight/95 backdrop-blur-md py-4 border-t sm:border-t-0 border-gray-200 flex flex-wrap items-center gap-2.5 sm:gap-3 z-20">

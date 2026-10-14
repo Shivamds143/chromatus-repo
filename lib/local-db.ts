@@ -126,8 +126,13 @@ export class LocalCollection {
     let sortObj: any = null;
     let limitVal: number | null = null;
     let skipVal: number = 0;
+    let projectObj: any = null;
 
     const query = {
+      project(projection: any) {
+        projectObj = projection;
+        return query;
+      },
       sort(sort: any) {
         sortObj = sort;
         return query;
@@ -145,6 +150,25 @@ export class LocalCollection {
         if (sortObj) items = applySort(items, sortObj);
         if (skipVal > 0) items = items.slice(skipVal);
         if (limitVal !== null && limitVal >= 0) items = items.slice(0, limitVal);
+        if (projectObj && typeof projectObj === "object") {
+          const keys = Object.keys(projectObj);
+          const isExclusive = keys.some((k) => projectObj[k] === 0);
+          items = items.map((item) => {
+            if (isExclusive) {
+              const copy = { ...item };
+              for (const k of keys) {
+                if (projectObj[k] === 0) delete copy[k];
+              }
+              return copy;
+            } else {
+              const res: any = { _id: item._id, id: item.id };
+              for (const k of keys) {
+                if (projectObj[k] === 1) res[k] = item[k];
+              }
+              return res;
+            }
+          });
+        }
         return items;
       },
     };

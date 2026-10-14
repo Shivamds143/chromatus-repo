@@ -1,21 +1,9 @@
 export const insightsOverview = {
-  eyebrow: '04 / IDEAS IN MOTION',
+  eyebrow: 'IDEAS IN MOTION',
   title: 'Insights to Help You Understand What\u2019s Next',
   lead: 'Markets change quickly. Customer expectations shift. New technologies emerge. Regulations evolve. Competitive landscapes rarely stay still. Our Resources hub brings together research, analysis, industry perspectives, and findings from our work across markets and sectors — giving you practical information to better understand what is happening today and where opportunities may emerge tomorrow. Explore our latest thinking, research findings, and project insights across industries and geographies.',
   illustration: 'insightsOverview',
   categories: [
-    {
-      icon: 'zap',
-      title: 'Articles & Insights',
-      href: '/insights/blogs-articles',
-      body: 'Short, focused perspectives on market developments, emerging trends, changing customer behaviour, and business issues worth watching.'
-    },
-    {
-      icon: 'database',
-      title: 'Research Reports',
-      href: '/insights/reports',
-      body: 'Go deeper into specific markets, industries, and geographies with detailed research covering market dynamics, opportunities, competition, and growth outlooks.'
-    },
     {
       icon: 'layers',
       title: 'Whitepapers',

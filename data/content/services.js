@@ -1,5 +1,5 @@
 export const servicesOverview = {
-  eyebrow: '02 / WHAT WE DO',
+  eyebrow: 'WHAT WE DO',
   title: 'Research-backed answers before you commit resources.',
   lead: 'We help businesses answer the questions that matter most before they make a move — through primary and secondary research translated into clear, actionable recommendations.',
   illustration: 'servicesOverview',

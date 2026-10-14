@@ -7,6 +7,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 const WEBSITE_CHILDREN = [
   { href: '/admin/pages/home', label: 'Home' },
   { href: { pathname: '/admin/pages', query: { group: 'About Us' } }, label: 'About Us' },
+  { href: '/admin/pages/leadershipTeam', label: 'Leadership Team' },
   { href: '/admin/pages/servicesOverview', label: 'Services' },
   { href: '/admin/pages/industriesOverview', label: 'Industries' },
   { href: '/admin/pages/insightsOverview', label: 'Insights' },

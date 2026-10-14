@@ -47,7 +47,7 @@ export default function TrustStrip() {
   return (
     <div className="border-b border-line bg-paper-dim py-5">
       <Container>
-        <p className="eyebrow mb-3"><span className="text-signal-dark">01 /</span> Trusted by teams across</p>
+        <p className="eyebrow mb-3">Trusted Across Industries</p>
       </Container>
       <div className="overflow-hidden py-2 motion-reduce:overflow-x-auto">
         <div className="flex w-max animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:animate-none">

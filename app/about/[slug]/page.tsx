@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SectionDetail from "@/components/SectionDetail";
+import AboutVisuals from "@/components/AboutVisuals";
 import { aboutSection } from "@/lib/content";
 import { getPageContent } from "@/lib/cms";
 import { getDefaultForKey } from "@/lib/cmsDefaults";
@@ -71,5 +72,9 @@ export default async function AboutSubPage({ params }: Props) {
     }
   }
 
-  return <SectionDetail section={aboutSection} item={item} />;
+  return (
+    <SectionDetail section={aboutSection} item={item}>
+      <AboutVisuals slug={slug} />
+    </SectionDetail>
+  );
 }

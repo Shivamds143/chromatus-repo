@@ -63,10 +63,10 @@ export const aboutSection: Section = {
       summary: "From the right question to the right decision — how a Chromatus engagement runs.",
       body: [
         "Strong decisions begin with reliable evidence. At Chromatus Consulting, we follow a structured research process designed to move from clarity to evidence, evidence to insight, and insight to action.",
-        "01 — Define What Matters: We start by understanding the business question behind the brief. Through discussions with our clients, we clarify objectives, priorities, timelines, and challenges — so the research addresses the decision that truly matters, not just the question on paper.",
-        "02 — Build the Evidence: We bring together the right mix of primary and secondary research to build a well-rounded view of the market. From published data, market models, and desk research to surveys, stakeholder interviews, field studies, and CAPI, CATI, and CAWI methodologies, we go beyond surface-level information to understand what is happening on the ground.",
-        "03 — Test, Validate, Refine: Good research depends on the quality of its evidence. We apply structured scrutiny and validation throughout the process, using data checks, cross-tabulation, statistical techniques, and expert validation to strengthen the reliability of our findings.",
-        "04 — Turn Insight into Action: Data becomes valuable when it helps someone make a better decision. We translate our findings into clear conclusions, practical recommendations, and business direction — giving clients a stronger basis for evaluating opportunities, addressing challenges, and planning what comes next.",
+        "Define What Matters: We start by understanding the business question behind the brief. Through discussions with our clients, we clarify objectives, priorities, timelines, and challenges — so the research addresses the decision that truly matters, not just the question on paper.",
+        "Build the Evidence: We bring together the right mix of primary and secondary research to build a well-rounded view of the market. From published data, market models, and desk research to surveys, stakeholder interviews, field studies, and CAPI, CATI, and CAWI methodologies, we go beyond surface-level information to understand what is happening on the ground.",
+        "Test, Validate, Refine: Good research depends on the quality of its evidence. We apply structured scrutiny and validation throughout the process, using data checks, cross-tabulation, statistical techniques, and expert validation to strengthen the reliability of our findings.",
+        "Turn Insight into Action: Data becomes valuable when it helps someone make a better decision. We translate our findings into clear conclusions, practical recommendations, and business direction — giving clients a stronger basis for evaluating opportunities, addressing challenges, and planning what comes next.",
         "Evidence First. Insight Driven. Action Focused. Our approach is designed to ensure that every stage — from defining the research need to delivering the final recommendation — contributes to one outcome: greater clarity and confidence in business decisions.",
       ],
     },
@@ -284,27 +284,11 @@ export const insightsSection: Section = {
     "Markets change quickly. Customer expectations shift. New technologies emerge. Regulations evolve. Competitive landscapes rarely stay still. Our Resources hub brings together research, analysis, industry perspectives, and findings from our work across markets and sectors — giving you practical information to better understand what is happening today and where opportunities may emerge tomorrow.",
   items: [
     {
-      slug: "research-reports",
-      title: "Research Reports",
-      summary: "Go deeper into specific markets, industries, and geographies.",
-      body: [
-        "Go deeper into specific markets, industries, and geographies with detailed research covering market dynamics, opportunities, competition, and growth outlooks.",
-      ],
-    },
-    {
       slug: "industry-reports",
       title: "Industry Reports",
       summary: "Sector-focused perspectives across the industries we cover.",
       body: [
         "Explore sector-focused perspectives across Healthcare, Automotive & Transportation, Chemicals & Materials, Energy & Power, Food & Beverages, Semiconductors & Electronics, Aerospace & Defense, Telecom & IT, and other areas we cover.",
-      ],
-    },
-    {
-      slug: "articles-insights",
-      title: "Articles & Insights",
-      summary: "Short, focused perspectives on market developments and emerging trends.",
-      body: [
-        "Short, focused perspectives on market developments, emerging trends, changing customer behaviour, and business issues worth watching.",
       ],
     },
     {
@@ -324,19 +308,20 @@ export const insightsSection: Section = {
       ],
     },
     {
-      slug: "surveys-research-findings",
-      title: "Surveys & Research Findings",
-      summary: "Selected findings from primary research, surveys, and stakeholder interactions.",
-      body: [
-        "Discover selected findings from primary research, surveys, and stakeholder interactions conducted across markets. From customer satisfaction to socio-economic studies, these findings offer a closer look at what the data reveals.",
-      ],
-    },
-    {
       slug: "news-updates",
       title: "News & Updates",
       summary: "Stay informed about Chromatus — research, capabilities, and milestones.",
       body: [
         "Stay informed about Chromatus — our latest research, new capabilities, project milestones, and company updates.",
+      ],
+    },
+    {
+      slug: "webinars-events",
+      title: "Webinars & Events",
+      summary: "Live and recorded sessions with Chromatus practice leads.",
+      body: [
+        "Join Chromatus practice leads and domain specialists for discussions on emerging industry trends, research methodologies, and strategic market navigation.",
+        "Our webinars feature quantitative data presentations, sector-specific deep dives, and live Q&A sessions designed to provide strategic clarity for decision-makers.",
       ],
     },
   ],

@@ -1,138 +1,139 @@
 import Link from "next/link";
 import Container from "./Container";
-import StatCounter from "./StatCounter";
 
 const avatars = [
-  { initials: "AR", bg: "#1F82C5" },
-  { initials: "JM", bg: "#15619B" },
-  { initials: "SK", bg: "#EA9322" },
+  { initials: "AR", bg: "#2F7FC1" },
+  { initials: "JM", bg: "#7C6FD6" },
+  { initials: "SK", bg: "#F08A3C" },
 ];
 
 type HeroProps = {
   content?: {
     eyebrow?: string;
-    title?: string;
-    highlight?: string;
     subtitle?: string;
     primaryCta?: { label: string; href: string };
     secondaryCta?: { label: string; href: string };
-    caption?: { title?: string; tagline?: string };
-    stats?: Array<[string, string]>;
   };
 };
 
 export default function Hero({ content }: HeroProps) {
-  const title = content?.title || "We turn data into decisions you can act on.";
-  const highlight = content?.highlight;
+  const eyebrow = content?.eyebrow || "INDEPENDENT THINKING. EXTRAORDINARY TOGETHER.";
   const subtitle =
     content?.subtitle ||
-    "Chromatus Consulting helps businesses understand their markets, their customers, and their competition — so every decision is backed by evidence, not guesswork.";
-  const rawHref = content?.primaryCta?.href;
-  const ctaHref = rawHref && rawHref !== "/chromatus-pro" ? rawHref : "/contact#contact-form";
-  const ctaLabel = content?.primaryCta?.label || "Chromatus Pro";
-  const eyebrow = content?.eyebrow || "";
-  const tagline = content?.caption?.tagline || "Trusted by teams who are ready to move forward.";
+    "We help ambitious organizations turn complexity into clarity, and ideas into progress that lasts.";
+  const primaryHref = content?.primaryCta?.href || "/contact#contact-form";
+  const primaryLabel = content?.primaryCta?.label || "Chromatus Pro";
+  const secondaryHref = "/services";
+  const secondaryLabel = content?.secondaryCta?.label || "Explore what we do";
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-ink via-ink-soft to-indigo-dark text-paper">
-      {/* Decorative hexagon echo of the logo mark */}
-      <svg
-        viewBox="0 0 500 500"
+    <section className="relative flex min-h-[calc(100vh-82px)] overflow-hidden bg-[linear-gradient(100deg,#05203d_0%,#082c4f_40%,#0c5073_75%,#1587a8_100%)] text-white">
+      {/* Soft light glow on the right side */}
+      {/* Soft light glow on the right side */}
+      <div
+        className="pointer-events-none absolute right-[-8%] top-[22%] hidden h-[480px] w-[480px] rounded-full opacity-60 blur-3xl md:block"
+        style={{ background: "radial-gradient(circle, #2aa7c4 0%, transparent 70%)" }}
         aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -top-16 hidden h-[560px] w-[560px] opacity-[0.14] lg:block xl:-right-10"
+      />
+
+      {/* Smaller tilted circles on the right side */}
+      <svg
+        viewBox="0 0 700 700"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="pointer-events-none absolute right-[-12%] top-1/2 hidden h-[620px] w-[620px] -translate-y-1/2 select-none md:block lg:right-[-6%]"
+        aria-hidden="true"
       >
-        <polygon
-          points="250,20 445,135 445,365 250,480 55,365 55,135"
-          fill="none"
-          stroke="#3D9FDE"
-          strokeWidth="2"
-        />
-        <polygon
-          points="250,100 375,172 375,328 250,400 125,328 125,172"
-          fill="none"
-          stroke="#EA9322"
-          strokeWidth="2"
-        />
-        <polygon
-          points="250,180 305,212 305,288 250,320 195,288 195,212"
-          fill="none"
-          stroke="#F2AC52"
-          strokeWidth="2"
-        />
+        <g transform="rotate(35 350 350)">
+          <ellipse cx="350" cy="350" rx="110" ry="190" stroke="#7dd3fc" strokeWidth="1" strokeOpacity="0.4" />
+          <ellipse cx="335" cy="350" rx="150" ry="235" stroke="#7dd3fc" strokeWidth="1" strokeOpacity="0.32" />
+          <ellipse cx="320" cy="350" rx="190" ry="280" stroke="#7dd3fc" strokeWidth="1" strokeOpacity="0.24" />
+          <ellipse cx="305" cy="350" rx="230" ry="325" stroke="#7dd3fc" strokeWidth="1" strokeOpacity="0.16" />
+        </g>
       </svg>
 
-      <Container className="relative pb-16 pt-20 lg:pt-28">
-        <p className="eyebrow text-signal animate-fade-up">
-          <span className="text-signal"></span> {eyebrow.includes("/") ? eyebrow.split("/").pop()?.trim() : eyebrow}
-        </p>
-        <h1 className="mt-4 max-w-3xl animate-fade-up font-display text-[2.6rem] font-semibold leading-[1.08] tracking-tight sm:text-6xl">
-          {highlight && title.includes(highlight) ? (
-            <>
-              {title.split(highlight)[0]}
-              <span className="text-signal">{highlight}</span>
-              {title.split(highlight)[1]}
-            </>
-          ) : (
-            title
-          )}
-        </h1>
-
-        <p className="mt-7 max-w-xl animate-fade-up text-[1.05rem] leading-relaxed text-paper/60 [animation-delay:160ms]">
-          {subtitle}
-        </p>
-
-        <div className="mt-10 flex animate-fade-up flex-wrap items-center gap-5 [animation-delay:240ms]">
-          <Link
-            href={ctaHref}
-            className="group flex items-center gap-2 rounded-lg bg-paper px-7 py-3.5 text-sm font-semibold text-ink transition hover:bg-signal hover:text-ink"
-          >
-            {ctaLabel}
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="transition group-hover:translate-x-0.5">
-              <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
-        </div>
-
-        <div className="mt-20 grid grid-cols-2 gap-8 border-t border-paper/10 pt-8 sm:grid-cols-4">
-          {[
-            ["25+", "Years of research experience"],
-            ["20+", "Years of B2B consulting"],
-            ["8", "Industry verticals tracked"],
-            ["350+", "Researched topics in our knowledge base"],
-          ].map(([stat, label]) => (
-            <div key={label}>
-              <StatCounter value={stat} className="font-display text-3xl font-semibold text-signal" />
-              <p className="mt-1 text-xs leading-snug text-paper/45">{label}</p>
-            </div>
-          ))}
-        </div>
-      </Container>
-
-      {/* Trust row */}
-      <div className="relative border-t border-paper/10">
-        <Container className="flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
+      <Container className="relative flex w-full flex-col pt-16 pb-8 sm:pt-20 lg:pt-24 sm:pb-10">
+        {/* Main content */}
+        <div className="max-w-3xl">
+          {/* Small top text */}
           <div className="flex items-center gap-3">
-            <div className="flex -space-x-2.5">
+            <span className="h-[2px] w-6 bg-[#2dd4bf]" aria-hidden="true" />
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#4fd1e0]">
+              {eyebrow}
+            </p>
+          </div>
+
+          {/* Big heading */}
+          <h1 className="mt-10 font-display text-[3rem] font-bold leading-[0.95] tracking-[-0.06em] sm:text-7xl lg:text-[5.6rem]">
+            <span className="block text-white">Make your next</span>
+            <span className="block text-[#4fd1c5]">move</span>
+            <span className="block text-[#4fd1c5]">meaningful.</span>
+          </h1>
+
+          {/* Small text under heading */}
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+            {subtitle}
+          </p>
+
+          {/* Buttons */}
+          <div className="mt-10 flex flex-wrap items-center gap-6 sm:gap-8">
+            <Link
+              href={primaryHref}
+              className="group inline-flex items-center gap-3 rounded-[3px] bg-white px-5 py-4 font-mono text-xs font-bold text-[#051322] transition hover:bg-slate-100 active:scale-[0.98]"
+            >
+              <span>{primaryLabel}</span>
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+
+            <Link
+              href={secondaryHref}
+              className="group inline-flex items-center gap-2 text-xs font-bold text-white transition hover:text-[#4fd1c5]"
+            >
+              <span>{secondaryLabel}</span>
+              <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Bottom row (no line above it) */}
+        <div className="mt-auto flex flex-col gap-6 pt-20 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex -space-x-2">
               {avatars.map((a) => (
                 <span
                   key={a.initials}
                   style={{ backgroundColor: a.bg }}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink text-[11px] font-semibold text-white"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#0a3558] text-[9px] font-bold text-white"
                 >
                   {a.initials}
                 </span>
               ))}
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink bg-paper/10 text-[11px] font-semibold text-paper/70">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#0a3558] bg-[#0c2f4f] text-[10px] font-bold text-white">
                 +
               </span>
             </div>
-            <p className="text-sm font-medium text-paper/85">
-              Trusted by teams who are ready to move forward.
-            </p>
+
+            <div>
+              <p className="text-xs font-bold leading-tight text-white">
+                Trusted by teams who are ready to move forward.
+              </p>
+              <p className="mt-1 text-[10px] font-medium uppercase tracking-widest text-[#4fa8e0]">
+                Strategy · Technology · Data
+              </p>
+            </div>
           </div>
-          <p className="mono-tag text-paper/40">Strategy · Technology · Data</p>
-        </Container>
-      </div>
+
+          <div className="flex items-start gap-3 sm:mr-[22%]">
+            <span className="font-mono text-[11px] font-bold text-[#4fd1c5]">01</span>
+            <div className="text-[11px] leading-snug text-[#7dc3f0]">
+              <p>Clarity in a</p>
+              <p>complex world</p>
+            </div>
+          </div>
+        </div>
+      </Container>
     </section>
   );
 }

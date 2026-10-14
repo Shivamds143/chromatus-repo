@@ -1,19 +1,19 @@
 export const home = {
   hero: {
-    eyebrow: 'RESEARCH. PERSPECTIVE. PRACTICAL INSIGHT.',
-    title: 'We turn data into decisions.',
-    highlight: 'decisions.',
+    eyebrow: 'INDEPENDENT THINKING. EXTRAORDINARY TOGETHER.',
+    title: 'Make your next move meaningful.',
+    highlight: 'move meaningful.',
     subtitle:
-      'Chromatus Consulting helps businesses understand their markets, their customers, and their competition \u2014 so every decision is backed by evidence, not guesswork.',
+      'We help ambitious organizations turn complexity into clarity, and ideas into progress that lasts.',
     primaryCta: { label: 'Chromatus Pro', href: '/contact#contact-form' },
     secondaryCta: { label: 'Explore what we do', href: '/services' },
     caption: {
-      title: 'Research & Consulting',
-      tagline: 'Evidence First. Insight Driven. Action Focused.'
+      title: 'Clarity in a complex world',
+      tagline: 'Trusted by teams who are ready to move forward.'
     }
   },
   about: {
-    eyebrow: '04 / WHY CHROMATUS ?',
+    eyebrow: 'WHY CHROMATUS',
     title: 'Built for teams who need the answer to hold up.',
     lead:
       'Chromatus Consulting is a research and consulting firm that helps organizations make better business decisions through data \u2014 understanding their markets, benchmarking their competition, and validating their strategies before they commit resources to them.',
@@ -26,7 +26,7 @@ export const home = {
     }
   },
   capabilities: {
-    eyebrow: '02 / WHAT WE DO',
+    eyebrow: 'WHAT WE DO',
     title: 'Research-backed answers before you commit resources.',
     subtitle:
       'We help businesses answer the questions that matter most before they make a move \u2014 through primary and secondary research translated into clear, actionable recommendations.',
@@ -66,12 +66,12 @@ export const home = {
     attribution: 'OUR APPROACH'
   },
   insightsPreview: {
-    eyebrow: '04 / IDEAS IN MOTION',
+    eyebrow: 'IDEAS IN MOTION',
     title: 'Insights to help you understand what\u2019s next.',
     link: { label: 'Visit resource center', href: '/insights' }
   },
   careersPreview: {
-    eyebrow: '05 / CAREERS',
+    eyebrow: 'CAREERS',
     title: 'Build your career around better questions.',
     body: 'We look for curious minds, analytical thinkers, and people who want to keep learning.',
     cta: { label: 'Explore opportunities', href: '/careers' },
@@ -82,7 +82,7 @@ export const home = {
     ]
   },
   contactPreview: {
-    eyebrow: '06 / CONTACT US',
+    eyebrow: 'CONTACT US',
     title: 'Have a market question worth answering?',
     body: "Tell us what you are trying to understand. We'll build the research around it.",
     form: {

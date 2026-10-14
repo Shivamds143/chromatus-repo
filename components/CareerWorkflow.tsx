@@ -64,10 +64,11 @@ export default function CareerWorkflow({ roles = [] }: Props) {
       {/* Openings Section matching the reference design */}
       <section className="bg-[#f4f9f0] py-14 sm:py-20 border-b border-line/60">
         <Container>
-          {/* Centered Heading: "Showing 01 Opening" */}
+          {/* Centered Heading with clean eyebrow */}
           <div className="text-center mb-10">
+            <p className="eyebrow mb-2">Current Opportunities</p>
             <h2 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-4xl">
-              Showing {countLabel} {openingCount === 1 ? "Opening" : "Openings"}
+              {openingCount} Open {openingCount === 1 ? "Position" : "Positions"}
             </h2>
           </div>
 

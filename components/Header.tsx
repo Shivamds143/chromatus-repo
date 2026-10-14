@@ -5,14 +5,13 @@ import { useState } from "react";
 import Container from "./Container";
 import LogoMark from "./LogoMark";
 import SearchToggle from "./SearchToggle";
-import { servicesSection } from "@/lib/content";
+import { aboutSection, servicesSection, industriesSection, insightsSection } from "@/lib/content";
 
 const dropdowns = [
+  { label: "About Us", section: aboutSection },
   { label: "Services", section: servicesSection },
-];
-
-const plainLinks = [
-  { label: "About Us", href: "/about" },
+  { label: "Industries", section: industriesSection },
+  { label: "Insights", section: insightsSection },
 ];
 
 const navLinkClass =
@@ -26,17 +25,19 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-paper/10 bg-ink/95 backdrop-blur">
       <Container className="flex h-20 items-center justify-between">
-        <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <LogoMark className="h-11 w-auto" />
-          <span className="font-display text-xl font-bold uppercase tracking-tight text-white">
-            Chromatus
-          </span>
+        <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+          <LogoMark className="h-10 w-auto" />
+          <div className="flex flex-col">
+            <span className="font-display text-[15px] font-bold uppercase tracking-[0.08em] text-white leading-none">
+              Chromatus
+            </span>
+            <span className="font-display text-[9px] font-semibold uppercase tracking-[0.24em] text-paper/60 leading-tight mt-0.5">
+              Consulting
+            </span>
+          </div>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          <Link href="/about" className={navLinkClass}>
-            About Us
-          </Link>
 
           {dropdowns.map((d) => (
             <div
@@ -86,10 +87,10 @@ export default function Header() {
           <SearchToggle />
           <Link
             href="/contact#contact-form"
-            className="group flex items-center gap-1.5 rounded-lg bg-indigo px-5 py-2.5 text-sm font-medium text-paper transition hover:scale-[1.03] hover:bg-indigo-light active:scale-[0.98]"
+            className="group flex items-center gap-1.5 rounded-md border border-white/20 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white transition hover:border-white/40 hover:bg-white/[0.08]"
           >
             Chromatus Pro
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="transition group-hover:translate-x-0.5">
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
               <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
@@ -111,13 +112,6 @@ export default function Header() {
       {open && (
         <div className="border-t border-paper/10 bg-ink lg:hidden">
           <Container className="flex flex-col gap-1 py-4">
-            <Link
-              href="/about"
-              className="rounded-lg px-2 py-2.5 text-sm font-medium text-paper"
-              onClick={() => setOpen(false)}
-            >
-              About Us
-            </Link>
 
             {dropdowns.map((d) => (
               <div key={d.label}>

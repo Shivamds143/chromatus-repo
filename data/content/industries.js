@@ -1,5 +1,5 @@
 export const industriesOverview = {
-  eyebrow: '03 / WHO WE HELP',
+  eyebrow: 'WHO WE HELP',
   title: 'Where industry knowledge meets business decisions.',
   lead: 'Every industry has a different set of questions. Our research starts there. Every industry has its own customers, regulations, competitive pressures, supply chains, and growth challenges. Our research is built around understanding those differences — that is why we do not apply the same research lens to every market. Chromatus works across eight core industry verticals, combining primary research, secondary research, competitive intelligence, data analysis, and industry expertise to understand the factors shaping each market.',
   illustration: 'industriesOverview',
@@ -71,7 +71,7 @@ export const industriesOverview = {
 };
 
 export const healthcare = {
-  eyebrow: 'INDUSTRIES / 01 — HEALTHCARE',
+  eyebrow: 'HEALTHCARE',
   title: 'Healthcare',
   lead: 'Markets where decisions affect both business and people.',
   illustration: 'healthcare',
@@ -95,7 +95,7 @@ export const healthcare = {
 };
 
 export const automotiveTransportation = {
-  eyebrow: 'INDUSTRIES / 02 — AUTOMOTIVE & TRANSPORTATION',
+  eyebrow: 'AUTOMOTIVE & TRANSPORTATION',
   title: 'Automotive & Transportation',
   lead: 'From individual components to the wider mobility ecosystem.',
   illustration: 'manufacturing',
@@ -119,7 +119,7 @@ export const automotiveTransportation = {
 };
 
 export const foodBeverages = {
-  eyebrow: 'INDUSTRIES / 03 — FOOD & BEVERAGES',
+  eyebrow: 'FOOD & BEVERAGES',
   title: 'Food & Beverages',
   lead: 'What people eat, drink, and choose is changing quickly.',
   illustration: 'retail',
@@ -144,7 +144,7 @@ export const foodBeverages = {
 };
 
 export const telecomIt = {
-  eyebrow: 'INDUSTRIES / 04 — TELECOM & IT',
+  eyebrow: 'TELECOM & IT',
   title: 'Telecom & IT',
   lead: "In technology markets, yesterday's opportunity can quickly become tomorrow's standard.",
   illustration: 'technology',
@@ -168,7 +168,7 @@ export const telecomIt = {
 };
 
 export const aerospaceDefense = {
-  eyebrow: 'INDUSTRIES / 05 — AEROSPACE & DEFENSE',
+  eyebrow: 'AEROSPACE & DEFENSE',
   title: 'Aerospace & Defense',
   lead: 'Research for markets where precision matters.',
   illustration: 'aerospace',
@@ -190,7 +190,7 @@ export const aerospaceDefense = {
 };
 
 export const semiconductorsElectronics = {
-  eyebrow: 'INDUSTRIES / 06 — SEMICONDUCTORS & ELECTRONICS',
+  eyebrow: 'SEMICONDUCTORS & ELECTRONICS',
   title: 'Semiconductors & Electronics',
   lead: 'Small components. Large market implications.',
   illustration: 'semiconductors',
@@ -214,7 +214,7 @@ export const semiconductorsElectronics = {
 };
 
 export const energyPower = {
-  eyebrow: 'INDUSTRIES / 07 — ENERGY & POWER',
+  eyebrow: 'ENERGY & POWER',
   title: 'Energy & Power',
   lead: 'Understanding markets being reshaped by technology, infrastructure, and transition.',
   illustration: 'financial',
@@ -238,7 +238,7 @@ export const energyPower = {
 };
 
 export const chemicalsMaterials = {
-  eyebrow: 'INDUSTRIES / 08 — CHEMICALS & MATERIALS',
+  eyebrow: 'CHEMICALS & MATERIALS',
   title: 'Chemicals & Materials',
   lead: 'Where technical complexity meets commercial opportunity.',
   illustration: 'chemicals',

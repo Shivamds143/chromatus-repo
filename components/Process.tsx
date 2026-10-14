@@ -35,14 +35,15 @@ type ProcessProps = {
 };
 
 export default function Process({ content }: ProcessProps) {
-  const eyebrow = content?.attribution || content?.eyebrow || "03 / Our approach";
+  const rawEyebrow = content?.attribution || content?.eyebrow || "Our Methodology";
+  const cleanEyebrow = rawEyebrow.replace(/^[0-9]{1,2}\s*[\/—–-]\s*/, "").replace(/^.*?\/\s*/, "").trim() || "Our Approach";
   const title = content?.text || content?.title || "Evidence first. Insight driven. Action focused.";
   const displaySteps = content?.steps && content.steps.length > 0 ? content.steps : steps;
 
   return (
     <section className="bg-paper py-24">
       <Container>
-        <p className="eyebrow"><span className="text-signal-dark">{eyebrow.includes("/") ? eyebrow.split("/")[0] + "/" : "03 /"}</span> {eyebrow.includes("/") ? eyebrow.split("/")[1] : eyebrow}</p>
+        <p className="eyebrow">{cleanEyebrow}</p>
         <h2 className="mt-3 max-w-lg font-display text-3xl font-semibold tracking-tight sm:text-[2.6rem]">
           {title}
         </h2>

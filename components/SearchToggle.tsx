@@ -5,12 +5,11 @@ import { FormEvent, useState } from "react";
 import {
   aboutSection,
   servicesSection,
-  industriesSection,
   insightsSection,
   careersSection,
 } from "@/lib/content";
 
-const allSections = [aboutSection, servicesSection, industriesSection, insightsSection, careersSection];
+const allSections = [aboutSection, servicesSection, insightsSection, careersSection];
 
 export default function SearchToggle() {
   const [open, setOpen] = useState(false);

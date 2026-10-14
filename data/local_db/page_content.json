@@ -55,7 +55,7 @@
   {
     "page_key": "contact",
     "data": {
-      "eyebrow": "06 / CONTACT US",
+      "eyebrow": "CONTACT US",
       "title": "Have a hard thing worth solving?",
       "lead": "Tell us where you want to go. We'll help you find the way there.",
       "details": {
@@ -138,7 +138,7 @@
   {
     "page_key": "careers",
     "data": {
-      "eyebrow": "05 / CAREERS",
+      "eyebrow": "CAREERS",
       "title": "Build your career around better questions.",
       "lead": "At Chromatus, curiosity is part of the job. Good research starts with a good question — we look for curious minds, analytical thinkers, and people who want to keep learning.",
       "illustration": "careersHero",
@@ -216,7 +216,7 @@
   {
     "page_key": "insightsOverview",
     "data": {
-      "eyebrow": "04 / IDEAS IN MOTION",
+      "eyebrow": "IDEAS IN MOTION",
       "title": "Insights to Help You Understand What’s Next",
       "lead": "Markets change quickly. Customer expectations shift. New technologies emerge. Regulations evolve. Competitive landscapes rarely stay still. Our Resources hub brings together research, analysis, industry perspectives, and findings from our work across markets and sectors — giving you practical information to better understand what is happening today and where opportunities may emerge tomorrow. Explore our latest thinking, research findings, and project insights across industries and geographies.",
       "illustration": "insightsOverview",
@@ -287,7 +287,7 @@
   {
     "page_key": "chemicalsMaterials",
     "data": {
-      "eyebrow": "INDUSTRIES / 08 — CHEMICALS & MATERIALS",
+      "eyebrow": "CHEMICALS & MATERIALS",
       "title": "Chemicals & Materials",
       "lead": "Where technical complexity meets commercial opportunity.",
       "illustration": "chemicals",
@@ -319,7 +319,7 @@
   {
     "page_key": "energyPower",
     "data": {
-      "eyebrow": "INDUSTRIES / 07 — ENERGY & POWER",
+      "eyebrow": "ENERGY & POWER",
       "title": "Energy & Power",
       "lead": "Understanding markets being reshaped by technology, infrastructure, and transition.",
       "illustration": "financial",
@@ -350,7 +350,7 @@
   {
     "page_key": "semiconductorsElectronics",
     "data": {
-      "eyebrow": "INDUSTRIES / 06 — SEMICONDUCTORS & ELECTRONICS",
+      "eyebrow": "SEMICONDUCTORS & ELECTRONICS",
       "title": "Semiconductors & Electronics",
       "lead": "Small components. Large market implications.",
       "illustration": "semiconductors",
@@ -381,7 +381,7 @@
   {
     "page_key": "aerospaceDefense",
     "data": {
-      "eyebrow": "INDUSTRIES / 05 — AEROSPACE & DEFENSE",
+      "eyebrow": "AEROSPACE & DEFENSE",
       "title": "Aerospace & Defense",
       "lead": "Research for markets where precision matters.",
       "illustration": "aerospace",
@@ -410,7 +410,7 @@
   {
     "page_key": "telecomIt",
     "data": {
-      "eyebrow": "INDUSTRIES / 04 — TELECOM & IT",
+      "eyebrow": "TELECOM & IT",
       "title": "Telecom & IT",
       "lead": "In technology markets, yesterday's opportunity can quickly become tomorrow's standard.",
       "illustration": "technology",
@@ -441,7 +441,7 @@
   {
     "page_key": "foodBeverages",
     "data": {
-      "eyebrow": "INDUSTRIES / 03 — FOOD & BEVERAGES",
+      "eyebrow": "FOOD & BEVERAGES",
       "title": "Food & Beverages",
       "lead": "What people eat, drink, and choose is changing quickly.",
       "illustration": "retail",
@@ -473,7 +473,7 @@
   {
     "page_key": "automotiveTransportation",
     "data": {
-      "eyebrow": "INDUSTRIES / 02 — AUTOMOTIVE & TRANSPORTATION",
+      "eyebrow": "AUTOMOTIVE & TRANSPORTATION",
       "title": "Automotive & Transportation",
       "lead": "From individual components to the wider mobility ecosystem.",
       "illustration": "manufacturing",
@@ -504,7 +504,7 @@
   {
     "page_key": "healthcare",
     "data": {
-      "eyebrow": "INDUSTRIES / 01 — HEALTHCARE",
+      "eyebrow": "HEALTHCARE",
       "title": "Healthcare",
       "lead": "Markets where decisions affect both business and people.",
       "illustration": "healthcare",
@@ -535,7 +535,7 @@
   {
     "page_key": "industriesOverview",
     "data": {
-      "eyebrow": "03 / WHO WE HELP",
+      "eyebrow": "WHO WE HELP",
       "title": "Where industry knowledge meets business decisions.",
       "lead": "Every industry has a different set of questions. Our research starts there. Every industry has its own customers, regulations, competitive pressures, supply chains, and growth challenges. Our research is built around understanding those differences — that is why we do not apply the same research lens to every market. Chromatus works across eight core industry verticals, combining primary research, secondary research, competitive intelligence, data analysis, and industry expertise to understand the factors shaping each market.",
       "illustration": "industriesOverview",
@@ -701,7 +701,7 @@
   {
     "page_key": "servicesOverview",
     "data": {
-      "eyebrow": "02 / WHAT WE DO",
+      "eyebrow": "WHAT WE DO",
       "title": "Research-backed answers before you commit resources.",
       "lead": "We help businesses answer the questions that matter most before they make a move — through primary and secondary research translated into clear, actionable recommendations.",
       "illustration": "servicesOverview",
@@ -793,19 +793,19 @@
           "body": "Helping businesses act on that understanding through market entry strategy, feasibility studies, competitive benchmarking, and go-to-market planning."
         },
         {
-          "title": "01 — Define What Matters",
+          "title": "Define What Matters",
           "body": "We start by understanding the business question behind the brief. Through discussions with our clients, we clarify objectives, priorities, timelines, and challenges — so the research addresses the decision that truly matters, not just the question on paper."
         },
         {
-          "title": "02 — Build the Evidence",
+          "title": "Build the Evidence",
           "body": "We bring together the right mix of primary and secondary research to build a well-rounded view of the market. From published data, market models, and desk research to surveys, stakeholder interviews, field studies, and CAPI, CATI, and CAWI methodologies, we go beyond surface-level information to understand what is happening on the ground."
         },
         {
-          "title": "03 — Test, Validate, Refine",
+          "title": "Test, Validate, Refine",
           "body": "Good research depends on the quality of its evidence. We apply structured scrutiny and validation throughout the process, using data checks, cross-tabulation, statistical techniques, and expert validation to strengthen the reliability of our findings."
         },
         {
-          "title": "04 — Turn Insight into Action",
+          "title": "Turn Insight into Action",
           "body": "Data becomes valuable when it helps someone make a better decision. We translate our findings into clear conclusions, practical recommendations, and business direction — giving clients a stronger basis for evaluating opportunities, addressing challenges, and planning what comes next."
         },
         {
@@ -831,43 +831,51 @@
         {
           "name": "Vijay Natekar",
           "role": "Managing Director",
-          "bio": "Brings 15 years of experience in market research and business consulting. Has led engagements across product and concept testing, B2B research, and secondary research, and oversees project management, process design, and market engineering across Chromatus's client portfolio. Areas of expertise: Market Research Leadership, Product & Concept Testing, B2B Research, Secondary Research, Project Management, Process Design, Market Engineering, Need-Gap Analysis."
+          "photo": "",
+          "linkedin_url": "",
+          "bio": "Brings 15 years of experience in market research and business consulting. Has led engagements across product and concept testing, B2B research, and secondary research, and oversees project management, process design, and market engineering across Chromatus's client portfolio. Areas of expertise: Market Research Leadership, Product & Concept Testing, B2B Research, Secondary Research, Project Management, Process Design, Market Engineering, Need-Gap Analysis.",
+          "linkedin": ""
         },
         {
           "name": "Ameya Dingare",
           "role": "Client Engagement Head",
+          "photo": "",
+          "linkedin_url": "",
           "bio": "Has 13 years of experience in business intelligence and client engagement. Leads client management and is responsible for business and operational excellence across engagements, with strong expertise in market growth strategy, competitive intelligence, data analytics, and channel assessment. Areas of expertise: Client Management, Business Intelligence, Market Growth Strategy, Competitive Intelligence, Data Analytics, Channel Assessment, Operational Excellence."
         },
         {
           "name": "Gaurav Bhedasgaonkar",
           "role": "Field Head",
+          "photo": "",
+          "linkedin_url": "",
           "bio": "Brings 12 years of experience in the market research industry, specializing in large-scale field operations, including government surveys. Oversees data validation, product and company mapping, and end-to-end project management for B2C survey execution. Areas of expertise: Field Operations, Government Surveys, Data Validation, Product & Company Mapping, B2C Surveys, Project Management, Field Execution."
         },
         {
           "name": "Rahul Nawale",
           "role": "Research Head",
+          "photo": "",
+          "linkedin_url": "",
           "bio": "Brings 8 years of experience across manufacturing and market research. Specializes in B2B and B2C customer satisfaction (CSAT) surveys, with additional expertise in operations management, supply chain research, data evaluation, and competitive intelligence. Areas of expertise: B2B & B2C CSAT Surveys, Operations Management, Supply Chain Research, Data Evaluation, Competitive Intelligence, Market Research."
         },
         {
           "name": "Aboli Joshi",
           "role": "Senior Data Analyst",
+          "photo": "",
+          "linkedin_url": "",
           "bio": "Brings 14 years of experience spanning R&D, patent analysis, and market research. Expertise covers B2B and secondary research, data analysis, technology gap assessment, and patent intelligence, along with German language expertise supporting research involving German-speaking markets and sources. Areas of expertise: B2B Research, Secondary Research, Data Analysis, Technology Gap Assessment, Patent Analysis, German Language Expertise."
         },
         {
           "name": "Sanika Mahajan",
           "role": "Data Scientist",
+          "photo": "",
+          "linkedin_url": "",
           "bio": "Brings 3 years of experience in data analysis and field research, with hands-on expertise in primary research, large-scale data handling, and statistical analysis. Works across primary and secondary research, supporting data-driven insights and strategic business and marketing decisions. Areas of expertise: Primary Research, Data Analysis, Statistical Tools, Secondary Research, Field Coordination, Dataset Management."
-        },
-        {
-          "name": "The Wider Team",
-          "role": "20+ Researchers · 60+ Field Investigators",
-          "bio": "Beyond our core leadership, Chromatus fields a team of 20 dedicated researchers and over 60+ experienced field investigators across India, supported by academic specialists in marketing, management, statistics, operations research, rural development, and social research. This gives us the depth to run everything from a focused customer satisfaction study to a nationwide field survey."
         }
       ]
     },
     "is_published": true,
     "created_at": "2026-10-13T07:15:02.361Z",
-    "updated_at": "2026-10-13T07:15:02.361Z",
+    "updated_at": "2026-10-14T13:32:29.060Z",
     "_id": "loc_1791875702362_2xdr",
     "id": "loc_1791875702362_2xdr"
   },
@@ -905,7 +913,7 @@
   {
     "page_key": "aboutOverview",
     "data": {
-      "eyebrow": "01 / ABOUT US",
+      "eyebrow": "ABOUT US",
       "title": "We turn data into decisions.",
       "lead": "Chromatus Consulting is a research and consulting firm that helps organizations make better business decisions through data — understanding their markets, benchmarking their competition, and validating their strategies before they commit resources to them.",
       "illustration": "aboutOverview",
@@ -939,8 +947,8 @@
     "page_key": "home",
     "data": {
       "hero": {
-        "eyebrow": "RESEARCH. PERSPECTIVE. PRACTICAL INSIGHT.",
-        "title": "We turn data into decisions.",
+        "eyebrow": "INDEPENDENT THINKING. EXTRAORDINARY TOGETHER.",
+        "title": "Make your next move meaningful.",
         "highlight": "decisions.",
         "subtitle": "Chromatus Consulting helps businesses understand their markets, their customers, and their competition — so every decision is backed by evidence, not guesswork.",
         "primaryCta": {
@@ -957,7 +965,7 @@
         }
       },
       "about": {
-        "eyebrow": "04 / WHY CHROMATUS ?",
+        "eyebrow": "WHY CHROMATUS",
         "title": "Built for teams who need the answer to hold up.",
         "lead": "Chromatus Consulting is a research and consulting firm that helps organizations make better business decisions through data — understanding their markets, benchmarking their competition, and validating their strategies before they commit resources to them.",
         "body": "We work at the intersection of research and consulting — we don't just hand clients a report full of numbers. We help them understand what those numbers mean for their business, and what to do next.",
@@ -971,7 +979,7 @@
         }
       },
       "capabilities": {
-        "eyebrow": "02 / WHAT WE DO",
+        "eyebrow": "WHAT WE DO",
         "title": "Research-backed answers before you commit resources.",
         "subtitle": "We help businesses answer the questions that matter most before they make a move — through primary and secondary research translated into clear, actionable recommendations.",
         "cards": [
@@ -1010,7 +1018,7 @@
         "attribution": "OUR APPROACH"
       },
       "insightsPreview": {
-        "eyebrow": "04 / IDEAS IN MOTION",
+        "eyebrow": "IDEAS IN MOTION",
         "title": "Insights to help you understand what’s next.",
         "link": {
           "label": "Visit resource center",
@@ -1018,7 +1026,7 @@
         }
       },
       "careersPreview": {
-        "eyebrow": "05 / CAREERS",
+        "eyebrow": "CAREERS",
         "title": "Build your career around better questions.",
         "body": "We look for curious minds, analytical thinkers, and people who want to keep learning.",
         "cta": {
@@ -1041,7 +1049,7 @@
         ]
       },
       "contactPreview": {
-        "eyebrow": "06 / CONTACT US",
+        "eyebrow": "CONTACT US",
         "title": "Have a market question worth answering?",
         "body": "Tell us what you are trying to understand. We'll build the research around it.",
         "form": {

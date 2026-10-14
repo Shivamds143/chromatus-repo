@@ -20,12 +20,17 @@ export default function SectionHub({
   overrideIntro?: string;
   overrideEyebrow?: string;
 }) {
+  const imageSrc = ["services", "about", "insights"].includes(section.key)
+    ? `/${section.key}/overview.png`
+    : undefined;
+
   return (
     <>
       <PageHero
         eyebrow={overrideEyebrow || section.eyebrow}
         title={overrideTitle || section.title}
         body={overrideIntro || section.intro}
+        imageSrc={imageSrc}
       />
 
       <section className="py-24">

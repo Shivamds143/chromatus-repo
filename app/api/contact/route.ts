@@ -13,6 +13,7 @@ export async function POST(request: Request) {
 
   const {
     fullName,
+    name,
     email,
     phone,
     company,
@@ -25,7 +26,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  if (!fullName?.trim() || !company?.trim()) {
+  const resolvedName = (fullName || name)?.trim();
+
+  if (!resolvedName || !company?.trim()) {
     return NextResponse.json({ ok: false, error: "Missing required fields." }, { status: 400 });
   }
   if (!email?.trim() || !emailPattern.test(email.trim())) {
@@ -33,7 +36,7 @@ export async function POST(request: Request) {
   }
 
   const record = {
-    fullName: fullName.trim(),
+    fullName: resolvedName,
     email: email.trim().toLowerCase(),
     phone: phone?.trim() || null,
     company: company.trim(),

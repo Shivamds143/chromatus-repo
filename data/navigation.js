@@ -6,13 +6,13 @@
 export const primaryNav = [
   {
     label: 'About Us',
-    href: '/about-us',
+    href: '/about',
     description: 'Our story, mission, values, and the Chromatus difference.',
     children: [
-      { label: 'Our Story', href: '/about-us/our-story' },
-      { label: 'Leadership Team', href: '/about-us/leadership-team' },
-      { label: 'Values & Culture', href: '/about-us/values-culture' },
-      { label: 'Awards & Recognitions', href: '/about-us/awards-recognitions' }
+      { label: 'Our Story', href: '/about/our-story' },
+      { label: 'Leadership Team', href: '/about/leadership-team' },
+      { label: 'Values & Culture', href: '/about/values-culture' },
+      { label: 'Our Approach', href: '/about/our-approach' }
     ]
   },
   {
@@ -21,12 +21,12 @@ export const primaryNav = [
     description: 'Research-backed answers before you commit resources.',
     children: [
       { label: 'Service Overview', href: '/services' },
-      { label: 'Market Assessment', href: '/services/strategy-transformation' },
-      { label: 'New Product Launch', href: '/services/technology-consulting' },
-      { label: 'Consumer Behaviour', href: '/services/data-analytics' },
-      { label: 'Price Benchmarking', href: '/services/cloud-digital-solutions' },
-      { label: 'Satisfaction Studies', href: '/services/managed-services' },
-      { label: 'Brand Management', href: '/services/engagement-models' },
+      { label: 'Market Assessment', href: '/services/market-assessment' },
+      { label: 'New Product Launch', href: '/services/new-product-launch' },
+      { label: 'Consumer Behaviour', href: '/services/consumer-behaviour' },
+      { label: 'Price Benchmarking', href: '/services/price-benchmarking' },
+      { label: 'Satisfaction Studies', href: '/services/satisfaction-studies' },
+      { label: 'Brand Management', href: '/services/brand-management' },
       { label: 'Location Feasibility Study', href: '/services/location-feasibility-study' },
       { label: 'Baseline & Endline Study', href: '/services/baseline-endline-study' },
       { label: 'Government Surveys', href: '/services/government-surveys' }
@@ -35,16 +35,16 @@ export const primaryNav = [
   {
     label: 'Industries',
     href: '/industries',
-    description: 'Industries we serve and the problems we solve.',
+    description: 'Specialised domain coverage across key global verticals.',
     children: [
       { label: 'Industry Overview', href: '/industries' },
-      { label: 'Energy & Power', href: '/industries/energy-power' },
       { label: 'Healthcare', href: '/industries/healthcare' },
       { label: 'Automotive & Transportation', href: '/industries/automotive-transportation' },
       { label: 'Food & Beverages', href: '/industries/food-beverages' },
       { label: 'Telecom & IT', href: '/industries/telecom-it' },
       { label: 'Aerospace & Defense', href: '/industries/aerospace-defense' },
       { label: 'Semiconductors & Electronics', href: '/industries/semiconductors-electronics' },
+      { label: 'Energy & Power', href: '/industries/energy-power' },
       { label: 'Chemicals & Materials', href: '/industries/chemicals-materials' },
       { label: 'Beyond These Eight', href: '/industries/beyond-these-eight' }
     ]
@@ -55,10 +55,9 @@ export const primaryNav = [
     description: 'Thought leadership, articles, guides, and resources.',
     children: [
       { label: 'Resource Center', href: '/insights' },
-      { label: 'Blogs & Articles', href: '/insights/blogs-articles' },
+      { label: 'Industry Reports', href: '/insights/industry-reports' },
       { label: 'Whitepapers', href: '/insights/whitepapers' },
       { label: 'Case Studies', href: '/insights/case-studies' },
-      { label: 'Reports', href: '/insights/reports' },
       { label: 'Webinars & Events', href: '/insights/webinars-events' }
     ]
   },
@@ -69,14 +68,8 @@ export const primaryNav = [
   },
   {
     label: 'Contact Us',
-    href: '/contact-us',
-    description: 'Get in touch, locations, and contact details.',
-    children: [
-      { label: 'Contact Overview', href: '/contact-us' },
-      { label: 'Contact Form', href: '/contact-us/contact-form' },
-      { label: 'Office Locations', href: '/contact-us/office-locations' },
-      { label: 'General Inquiries', href: '/contact-us/general-inquiries' }
-    ]
+    href: '/contact',
+    description: 'Get in touch, locations, and contact details.'
   }
 ];
 
@@ -92,7 +85,7 @@ export const footerColumns = [
   {
     title: 'Company',
     links: [
-      { label: 'About Us', href: '/about-us' },
+      { label: 'About Us', href: '/about' },
       { label: 'Services', href: '/services' },
       { label: 'Industries', href: '/industries' }
     ]
@@ -102,7 +95,7 @@ export const footerColumns = [
     links: [
       { label: 'Insights', href: '/insights' },
       { label: 'Careers', href: '/careers' },
-      { label: 'Contact', href: '/contact-us' }
+      { label: 'Contact', href: '/contact' }
     ]
   }
 ];

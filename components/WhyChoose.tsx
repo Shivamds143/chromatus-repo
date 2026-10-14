@@ -27,12 +27,10 @@ type WhyChooseProps = {
 };
 
 export default function WhyChoose({ content }: WhyChooseProps) {
-  let rawEyebrow = content?.eyebrow || "04 / WHY CHROMATUS ?";
-  if (rawEyebrow.startsWith("01 /") || rawEyebrow.startsWith("1 /")) {
-    rawEyebrow = rawEyebrow.replace(/^(?:01|1)\s*\/\s*/, "04 / ");
-  }
-  if (/about(\s*us)?/i.test(rawEyebrow)) {
-    rawEyebrow = rawEyebrow.replace(/about(\s*us)?/i, "WHY CHROMATUS ?");
+  let rawEyebrow = content?.eyebrow || "Why Chromatus";
+  rawEyebrow = rawEyebrow.replace(/^[0-9]{1,2}\s*[\/—–-]\s*/, "").replace(/^.*?\/\s*/, "").replace(/\?/g, "").trim();
+  if (!rawEyebrow || /about(\s*us)?/i.test(rawEyebrow)) {
+    rawEyebrow = "Why Chromatus";
   }
   const eyebrow = rawEyebrow;
   let title = content?.title || "Built for teams who need the answer to hold up.";
@@ -44,7 +42,7 @@ export default function WhyChoose({ content }: WhyChooseProps) {
   return (
     <section className="bg-paper-dim py-24">
       <Container>
-        <p className="eyebrow"><span className="text-signal-dark">{eyebrow.includes("/") ? eyebrow.split("/")[0] + "/" : "04 /"}</span> {eyebrow.includes("/") ? eyebrow.split("/")[1].trim() : eyebrow}</p>
+        <p className="eyebrow">{eyebrow}</p>
         <h2 className="mt-3 max-w-lg font-display text-3xl font-semibold tracking-tight sm:text-[2.6rem]">
           {title}
         </h2>

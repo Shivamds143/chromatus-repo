@@ -106,7 +106,7 @@ export default function Testimonials({ items }: { items?: TestimonialItem[] }) {
       </svg>
 
       <Container className="relative">
-        <p className="eyebrow text-paper/40"><span className="text-signal">05 /</span> Client reviews</p>
+        <p className="eyebrow !text-signal-light">Client Perspectives</p>
         <h2 className="mt-3 max-w-lg font-display text-3xl font-semibold tracking-tight sm:text-[2.6rem]">
           What it's like to work with us.
         </h2>

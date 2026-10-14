@@ -1,6 +1,5 @@
 import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
-import TrustStrip from "@/components/TrustStrip";
 import ExploreGrid from "@/components/ExploreGrid";
 import Process from "@/components/Process";
 import WhyChoose from "@/components/WhyChoose";
@@ -25,7 +24,6 @@ export default async function Home() {
     <>
       <Hero content={content?.hero} />
       <ClientLogos items={clientLogos as any} />
-      <TrustStrip />
       <ExploreGrid />
       <Process content={content?.quote} />
       <WhyChoose content={content?.about} />

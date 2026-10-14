@@ -1,5 +1,5 @@
 export const careers = {
-  eyebrow: '05 / CAREERS',
+  eyebrow: 'CAREERS',
   title: 'Build your career around better questions.',
   lead: 'At Chromatus, curiosity is part of the job. Good research starts with a good question — we look for curious minds, analytical thinkers, and people who want to keep learning.',
   illustration: 'careersHero',
@@ -43,7 +43,7 @@ export const careers = {
 };
 
 export const contact = {
-  eyebrow: '06 / CONTACT US',
+  eyebrow: 'CONTACT US',
   title: 'Have a hard thing worth solving?',
   lead: "Tell us where you want to go. We'll help you find the way there.",
   details: {

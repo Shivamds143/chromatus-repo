@@ -34,6 +34,10 @@ function isLongTextKey(key) {
   return /body|lead|description|summary|text|content|bio|about/i.test(key);
 }
 
+function isLinkedInKey(key) {
+  return /linkedin/i.test(key);
+}
+
 function ArrayEditor({ label, value, onChange }) {
   const [collapsed, setCollapsed] = useState(() => new Set());
   const itemsAreObjects = value.length > 0 && isPlainObject(value[0]);
@@ -197,6 +201,38 @@ export default function FieldEditor({ label, fieldKey = '', value, onChange, nes
             className="flex-1 min-w-[180px] rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brandblue"
           />
           <MediaPickerButton onSelect={(url) => onChange(url)} />
+        </div>
+      </div>
+    );
+  }
+
+  if (isLinkedInKey(fieldKey)) {
+    return (
+      <div>
+        <div className="flex items-center justify-between mb-1">
+          <label className="block text-xs font-medium text-inkgray">{label || 'LinkedIn Profile URL'}</label>
+          {strValue && (
+            <a
+              href={strValue}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-semibold text-[#0A66C2] hover:underline flex items-center gap-1"
+            >
+              Test LinkedIn profile ↗
+            </a>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-8 h-8 rounded-lg bg-[#0A66C2] text-white flex items-center justify-center text-xs font-bold shrink-0">
+            in
+          </span>
+          <input
+            type="url"
+            value={strValue}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="https://www.linkedin.com/in/username"
+            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0A66C2]"
+          />
         </div>
       </div>
     );
