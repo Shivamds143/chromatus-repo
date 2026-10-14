@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getAdminSession } from '@/lib/requireAdmin';
 import { getCmsPageMeta } from '@/lib/cmsRegistry';
 import { getDefaultForKey } from '@/lib/cmsDefaults';
@@ -45,8 +46,18 @@ export async function PUT(request, { params }) {
     return NextResponse.json({ error: '"data" object is required' }, { status: 400 });
   }
 
-  const { ok, error } = await savePageContent(params.key, body.data, !!body.isPublished);
+  const { ok, error, isFallback } = await savePageContent(params.key, body.data, !!body.isPublished);
   if (!ok) return NextResponse.json({ error: error || 'Save failed' }, { status: 500 });
 
-  return NextResponse.json({ ok: true });
+  // Revalidate Next.js cache so Vercel edge CDN purges stale pages
+  if (meta?.route) {
+    try {
+      revalidatePath(meta.route);
+      revalidatePath('/');
+    } catch (e) {
+      console.warn('[cms] revalidatePath failed:', e);
+    }
+  }
+
+  return NextResponse.json({ ok: true, isFallback: !!isFallback });
 }

@@ -59,7 +59,11 @@ export default function EditPageContentPage() {
         return;
       }
       setIsPublished(publish);
-      setMessage(publish ? 'Published — changes are live on the site.' : 'Draft saved.');
+      if (json.isFallback) {
+        setMessage(publish ? '⚠️ Saved to local storage, but MongoDB is OFFLINE! On Vercel, changes will NOT appear on the public site until MongoDB is connected in Vercel Environment Variables.' : 'Draft saved to local storage (MongoDB is offline).');
+      } else {
+        setMessage(publish ? '✅ Published — changes are live on the site!' : 'Draft saved.');
+      }
     } catch {
       setMessage('Something went wrong. Please try again.');
     } finally {

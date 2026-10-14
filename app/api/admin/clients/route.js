@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getAdminSession } from '@/lib/requireAdmin';
 import { listAllClients, createClient, reorderClients } from '@/lib/clients';
 
@@ -27,6 +28,11 @@ export async function POST(request) {
 
   const { ok, error, result } = await createClient(body);
   if (!ok) return NextResponse.json({ error: error || 'Save failed' }, { status: 500 });
+  
+  try {
+    revalidatePath('/');
+  } catch {}
+
   return NextResponse.json({ ok: true, id: result?.insertId });
 }
 

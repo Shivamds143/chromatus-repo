@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getAdminSession } from '@/lib/requireAdmin';
 import { listAllTestimonials, createTestimonial, reorderTestimonials } from '@/lib/testimonials';
 
@@ -26,6 +27,11 @@ export async function POST(request) {
 
   const { ok, error, result } = await createTestimonial(body);
   if (!ok) return NextResponse.json({ error: error || 'Save failed' }, { status: 500 });
+  
+  try {
+    revalidatePath('/');
+  } catch {}
+
   return NextResponse.json({ ok: true, id: result.insertId });
 }
 
