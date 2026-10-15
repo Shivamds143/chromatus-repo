@@ -33,23 +33,6 @@ export const primaryNav = [
     ]
   },
   {
-    label: 'Industries',
-    href: '/industries',
-    description: 'Specialised domain coverage across key global verticals.',
-    children: [
-      { label: 'Industry Overview', href: '/industries' },
-      { label: 'Healthcare', href: '/industries/healthcare' },
-      { label: 'Automotive & Transportation', href: '/industries/automotive-transportation' },
-      { label: 'Food & Beverages', href: '/industries/food-beverages' },
-      { label: 'Telecom & IT', href: '/industries/telecom-it' },
-      { label: 'Aerospace & Defense', href: '/industries/aerospace-defense' },
-      { label: 'Semiconductors & Electronics', href: '/industries/semiconductors-electronics' },
-      { label: 'Energy & Power', href: '/industries/energy-power' },
-      { label: 'Chemicals & Materials', href: '/industries/chemicals-materials' },
-      { label: 'Beyond These Eight', href: '/industries/beyond-these-eight' }
-    ]
-  },
-  {
     label: 'Insights',
     href: '/insights',
     description: 'Thought leadership, articles, guides, and resources.',
@@ -86,8 +69,7 @@ export const footerColumns = [
     title: 'Company',
     links: [
       { label: 'About Us', href: '/about' },
-      { label: 'Services', href: '/services' },
-      { label: 'Industries', href: '/industries' }
+      { label: 'Services', href: '/services' }
     ]
   },
   {

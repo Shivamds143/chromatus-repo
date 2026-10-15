@@ -5,12 +5,11 @@ import { useState } from "react";
 import Container from "./Container";
 import LogoMark from "./LogoMark";
 import SearchToggle from "./SearchToggle";
-import { aboutSection, servicesSection, industriesSection, insightsSection } from "@/lib/content";
+import { aboutSection, servicesSection, insightsSection } from "@/lib/content";
 
 const dropdowns = [
   { label: "About Us", section: aboutSection },
   { label: "Services", section: servicesSection },
-  { label: "Industries", section: industriesSection },
   { label: "Insights", section: insightsSection },
 ];
 

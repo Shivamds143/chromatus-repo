@@ -369,7 +369,6 @@ export const careersSection: Section = {
 export const sections = [
   aboutSection,
   servicesSection,
-  industriesSection,
   insightsSection,
   careersSection,
 ];

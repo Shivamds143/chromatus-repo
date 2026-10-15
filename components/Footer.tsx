@@ -6,7 +6,6 @@ import NewsletterSignup from "./NewsletterSignup";
 const exploreLinks = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Industries", href: "/industries" },
   { label: "Insights", href: "/insights" },
 ];
 
