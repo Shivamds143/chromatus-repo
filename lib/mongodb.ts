@@ -15,7 +15,10 @@ if (typeof window === "undefined" && typeof dns.setServers === "function") {
   }
 }
 
-const databaseName = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || "chromatus2";
+export function getDbName(): string {
+  const raw = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || "chromatus_db";
+  return raw.trim().replace(/[\s\.\\\/\$]+/g, "_") || "chromatus_db";
+}
 
 declare global {
   // eslint-disable-next-line no-var
@@ -74,7 +77,7 @@ export async function getClientPromise(): Promise<MongoClient> {
 
 export async function getDatabase(): Promise<Db> {
   const client = await getClientPromise();
-  return client.db(databaseName);
+  return client.db(getDbName());
 }
 
 export const getDb = getDatabase;
@@ -167,7 +170,7 @@ export async function checkMongoStatus(): Promise<{
     return {
       connected: true,
       isIpWhitelistIssue: false,
-      databaseName,
+      databaseName: getDbName(),
     };
   } catch (err: any) {
     // Reset client promise so next call tries fresh
@@ -183,7 +186,7 @@ export async function checkMongoStatus(): Promise<{
       connected: false,
       error: message,
       isIpWhitelistIssue: isIpWhitelist,
-      databaseName,
+      databaseName: getDbName(),
     };
   }
 }

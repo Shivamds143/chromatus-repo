@@ -7,6 +7,7 @@ export async function GET() {
   return NextResponse.json({
     operational: status.connected,
     status: status.connected ? "Operational" : "Offline",
+    database: status.databaseName,
     timestamp: new Date().toISOString(),
   });
 }

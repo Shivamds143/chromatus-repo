@@ -291,7 +291,7 @@ const { getCommonLocalDb } = require('./local-seed-db');
 
 async function main() {
   const uri = process.env.MONGODB_URI;
-  const dbName = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || 'chromatus2';
+  const dbName = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || 'chromatus_db';
 
   let db = null;
   let client = null;

@@ -38,7 +38,7 @@ async function main() {
     console.error('❌ MONGODB_URI is not set in .env.local');
     process.exit(1);
   }
-  const dbName = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || 'chromatus2';
+  const dbName = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || 'chromatus_db';
 
   let db = null;
   let client = null;

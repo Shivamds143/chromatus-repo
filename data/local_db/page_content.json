@@ -947,10 +947,10 @@
     "page_key": "home",
     "data": {
       "hero": {
-        "eyebrow": "INDEPENDENT THINKING. EXTRAORDINARY TOGETHER.",
+        "eyebrow": "INDEPENDENT THINKING. EXTRAORDINARY TOGETHER.........",
         "title": "Make your next move meaningful.",
-        "highlight": "decisions.",
-        "subtitle": "Chromatus Consulting helps businesses understand their markets, their customers, and their competition — so every decision is backed by evidence, not guesswork.",
+        "highlight": "move meaningful.",
+        "subtitle": "We help ambitious organizations turn complexity into clarity, and ideas into progress that lasts.",
         "primaryCta": {
           "label": "Chromatus Pro",
           "href": "/contact#contact-form"
@@ -960,8 +960,8 @@
           "href": "/services"
         },
         "caption": {
-          "title": "Research & Consulting",
-          "tagline": "Evidence First. Insight Driven. Action Focused."
+          "title": "Clarity in a complex world",
+          "tagline": "Trusted by teams who are ready to move forward."
         }
       },
       "about": {
@@ -1072,7 +1072,7 @@
     },
     "is_published": true,
     "created_at": "2026-10-13T07:15:02.346Z",
-    "updated_at": "2026-10-13T07:26:22.763Z",
+    "updated_at": "2026-10-15T05:08:45.660Z",
     "_id": "loc_1791875702347_is4r",
     "id": "loc_1791875702347_is4r"
   }

@@ -15,7 +15,7 @@ async function main() {
   if (!uri) {
     throw new Error('MONGODB_URI is not set. Add it to .env.local (see .env.example).');
   }
-  const dbName = process.env.MONGODB_DB || 'chromatus_db';
+  const dbName = process.env.MONGODB_DB_NAME || process.env.MONGODB_DB || 'chromatus_db';
 
   if (uri.startsWith('mongodb+srv://')) {
     ensureDnsResolvers();
