@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   aboutSection,
   servicesSection,
@@ -9,19 +9,47 @@ import {
   careersSection,
 } from "@/lib/content";
 
-const allSections = [aboutSection, servicesSection, insightsSection, careersSection];
-
 export default function SearchToggle() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [liveServices, setLiveServices] = useState<any[]>(servicesSection.items);
   const router = useRouter();
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/services")
+      .then((res) => res.json())
+      .then((data) => {
+        if (!cancelled && Array.isArray(data?.items) && data.items.length > 0) {
+          setLiveServices(
+            data.items.map((it: any) => ({
+              slug: it.slug,
+              title: it.title,
+              summary: it.summary,
+              href: it.href,
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const currentSections = [
+    aboutSection,
+    { ...servicesSection, items: liveServices },
+    insightsSection,
+    careersSection,
+  ];
 
   const results =
     query.trim().length > 1
-      ? allSections
-          .flatMap((s) => s.items.map((item) => ({ ...item, section: s })))
+      ? currentSections
+          .flatMap((s) => s.items.map((item: any) => ({ ...item, section: s })))
           .filter((item) =>
-            `${item.title} ${item.summary}`.toLowerCase().includes(query.toLowerCase())
+            `${item.title} ${item.summary || ""}`.toLowerCase().includes(query.toLowerCase())
           )
           .slice(0, 6)
       : [];
@@ -29,7 +57,8 @@ export default function SearchToggle() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (results[0]) {
-      router.push(`${results[0].section.path}/${results[0].slug}`);
+      const href = results[0].href || `${results[0].section.path}/${results[0].slug}`;
+      router.push(href);
       setOpen(false);
       setQuery("");
     }
@@ -61,10 +90,10 @@ export default function SearchToggle() {
           </form>
           {results.length > 0 && (
             <ul className="mt-2 space-y-0.5">
-              {results.map((r) => (
+              {results.map((r: any) => (
                 <li key={`${r.section.key}-${r.slug}`}>
                   <a
-                    href={`${r.section.path}/${r.slug}`}
+                    href={r.href || `${r.section.path}/${r.slug}`}
                     className="block rounded-lg px-3 py-2 text-sm text-ink/80 hover:bg-paper-dim"
                     onClick={() => setOpen(false)}
                   >

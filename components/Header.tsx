@@ -1,17 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "./Container";
 import LogoMark from "./LogoMark";
 import SearchToggle from "./SearchToggle";
 import { aboutSection, servicesSection, insightsSection } from "@/lib/content";
-
-const dropdowns = [
-  { label: "About Us", section: aboutSection },
-  { label: "Services", section: servicesSection },
-  { label: "Insights", section: insightsSection },
-];
 
 const navLinkClass =
   "relative text-sm font-medium text-paper/75 transition hover:text-paper after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-signal after:transition-all after:duration-300 hover:after:w-full";
@@ -20,6 +14,35 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileSection, setMobileSection] = useState<string | null>(null);
+  const [liveServices, setLiveServices] = useState<any[]>(servicesSection.items);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/services")
+      .then((res) => res.json())
+      .then((data) => {
+        if (!cancelled && Array.isArray(data?.items) && data.items.length > 0) {
+          setLiveServices(
+            data.items.map((it: any) => ({
+              slug: it.slug,
+              title: it.title,
+              summary: it.summary,
+              href: it.href,
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const dropdowns = [
+    { label: "About Us", path: aboutSection.path, items: aboutSection.items },
+    { label: "Services", path: servicesSection.path, items: liveServices },
+    { label: "Insights", path: insightsSection.path, items: insightsSection.items },
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-paper/10 bg-ink/95 backdrop-blur">
@@ -46,7 +69,7 @@ export default function Header() {
               onMouseLeave={() => setOpenDropdown(null)}
             >
               <Link
-                href={d.section.path}
+                href={d.path}
                 className={`flex items-center gap-1 ${navLinkClass}`}
               >
                 {d.label}
@@ -59,10 +82,10 @@ export default function Header() {
                   }`}
               >
                 <div className="rounded-xl border border-line bg-white p-2 shadow-2xl shadow-ink/20">
-                  {d.section.items.map((item) => (
+                  {d.items.map((item: any) => (
                     <Link
                       key={item.slug}
-                      href={`${d.section.path}/${item.slug}`}
+                      href={item.href || `${d.path}/${item.slug}`}
                       className="block rounded-lg px-4 py-2.5 text-sm text-ink/80 transition hover:bg-paper-dim hover:text-ink"
                     >
                       {item.title}
@@ -131,10 +154,10 @@ export default function Header() {
                 </button>
                 {mobileSection === d.label && (
                   <div className="pb-1 pl-4">
-                    {d.section.items.map((item) => (
+                    {d.items.map((item: any) => (
                       <Link
                         key={item.slug}
-                        href={`${d.section.path}/${item.slug}`}
+                        href={item.href || `${d.path}/${item.slug}`}
                         className="block rounded-lg px-2 py-2 text-sm text-paper/65"
                         onClick={() => setOpen(false)}
                       >

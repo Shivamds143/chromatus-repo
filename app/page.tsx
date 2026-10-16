@@ -9,22 +9,24 @@ import { getPageContent } from "@/lib/cms";
 import { home } from "@/data/content/home";
 import { listPublishedTestimonials } from "@/lib/testimonials";
 import { listPublishedClients } from "@/lib/clients";
+import { getLiveServicesData } from "@/lib/services";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function Home() {
   const content = await getPageContent("home", home);
-  const [testimonials, clientLogos] = await Promise.all([
+  const [testimonials, clientLogos, servicesData] = await Promise.all([
     listPublishedTestimonials(),
     listPublishedClients(),
+    getLiveServicesData(),
   ]);
 
   return (
     <>
       <Hero content={content?.hero} />
       <ClientLogos items={clientLogos as any} />
-      <ExploreGrid />
+      <ExploreGrid servicesData={servicesData} />
       <Process content={content?.quote} />
       <WhyChoose content={content?.about} />
       <Testimonials items={testimonials as any} />

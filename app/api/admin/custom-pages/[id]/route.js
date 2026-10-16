@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getAdminSession } from '@/lib/requireAdmin';
 import { getCustomPageForAdmin, updateCustomPageMeta, deleteCustomPage } from '@/lib/customPages';
 
@@ -29,6 +30,15 @@ export async function PUT(request, { params }) {
     const message = /Duplicate entry/i.test(error || '') ? 'A page with that URL slug already exists.' : error;
     return NextResponse.json({ error: message || 'Save failed' }, { status: 500 });
   }
+
+  try {
+    revalidatePath('/services');
+    revalidatePath('/services/[slug]');
+    revalidatePath('/');
+  } catch (e) {
+    console.warn('[custom-pages] revalidate failed:', e);
+  }
+
   return NextResponse.json({ ok: true });
 }
 
@@ -39,5 +49,14 @@ export async function DELETE(request, { params }) {
 
   const { ok, error } = await deleteCustomPage(params.id);
   if (!ok) return NextResponse.json({ error: error || 'Delete failed' }, { status: 500 });
+
+  try {
+    revalidatePath('/services');
+    revalidatePath('/services/[slug]');
+    revalidatePath('/');
+  } catch (e) {
+    console.warn('[custom-pages] revalidate failed:', e);
+  }
+
   return NextResponse.json({ ok: true });
 }

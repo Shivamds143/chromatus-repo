@@ -9,17 +9,29 @@ import type { Section } from "@/lib/content";
 
 const barColors = ["#1F82C5", "#EA9322", "#15619B", "#F2AC52", "#3D9FDE", "#C97614"];
 
+export type SectionHubItem = {
+  slug: string;
+  title: string;
+  summary: string;
+  href?: string;
+  icon?: string;
+  color?: string;
+};
+
 export default function SectionHub({
   section,
   overrideTitle,
   overrideIntro,
   overrideEyebrow,
+  items,
 }: {
   section: Section;
   overrideTitle?: string;
   overrideIntro?: string;
   overrideEyebrow?: string;
+  items?: SectionHubItem[];
 }) {
+  const displayItems = items && items.length > 0 ? items : section.items;
   const imageSrc = ["services", "about", "insights"].includes(section.key)
     ? `/${section.key}/overview.png`
     : undefined;
@@ -36,12 +48,14 @@ export default function SectionHub({
       <section className="py-24">
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {section.items.map((item, i) => {
-              const color = barColors[i % barColors.length];
+            {displayItems.map((item: any, i: number) => {
+              const color = item.color || barColors[i % barColors.length];
+              const href = item.href || `${section.path}/${item.slug}`;
+              const iconName = item.icon || (itemIconMap[item.slug] ?? "target");
               return (
-                <Reveal key={item.slug} delay={i * 70}>
+                <Reveal key={item.slug || i} delay={i * 70}>
                   <Link
-                    href={`${section.path}/${item.slug}`}
+                    href={href}
                     className="group relative flex h-full flex-col justify-between gap-8 rounded-xl border border-line bg-white p-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_var(--glow)]"
                     style={{
                       borderTop: `3px solid ${color}`,
@@ -53,7 +67,7 @@ export default function SectionHub({
                         className="flex h-11 w-11 items-center justify-center rounded-lg"
                         style={{ backgroundColor: `${color}1A`, color }}
                       >
-                        <Icon name={itemIconMap[item.slug] ?? "target"} className="h-5 w-5" />
+                        <Icon name={iconName} className="h-5 w-5" />
                       </span>
                       <svg
                         width="16"

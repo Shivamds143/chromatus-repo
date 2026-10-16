@@ -1,26 +1,34 @@
 import type { Metadata } from "next";
 import SectionHub from "@/components/SectionHub";
 import { servicesSection } from "@/lib/content";
-import { getPageContent } from "@/lib/cms";
-import { servicesOverview } from "@/data/content/services";
+import { getLiveServicesData } from "@/lib/services";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export const metadata: Metadata = {
-  title: "Services — Chromatus Consulting",
-  description: servicesSection.intro,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getLiveServicesData();
+  return {
+    title: `${data.title || "Services"} — Chromatus Consulting`,
+    description: data.intro || servicesSection.intro,
+  };
+}
 
 export default async function ServicesPage() {
-  const content = await getPageContent("servicesOverview", servicesOverview);
+  const data = await getLiveServicesData();
 
   return (
     <SectionHub
-      section={servicesSection}
-      overrideEyebrow={content?.eyebrow}
-      overrideTitle={content?.title}
-      overrideIntro={content?.lead}
+      section={{
+        ...servicesSection,
+        eyebrow: data.eyebrow,
+        title: data.title,
+        intro: data.intro,
+      }}
+      overrideEyebrow={data.eyebrow}
+      overrideTitle={data.title}
+      overrideIntro={data.intro}
+      items={data.items}
     />
   );
 }

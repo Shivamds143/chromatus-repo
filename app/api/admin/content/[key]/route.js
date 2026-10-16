@@ -54,6 +54,9 @@ export async function PUT(request, { params }) {
     try {
       revalidatePath(meta.route);
       revalidatePath('/');
+      if (meta?.group === 'Services') {
+        revalidatePath('/services');
+      }
     } catch (e) {
       console.warn('[cms] revalidatePath failed:', e);
     }

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getAdminSession } from '@/lib/requireAdmin';
 import { updateSectionData, deleteSection } from '@/lib/customPages';
 
@@ -19,6 +20,15 @@ export async function PUT(request, { params }) {
 
   const { ok, error } = await updateSectionData(params.sectionId, body.data);
   if (!ok) return NextResponse.json({ error: error || 'Save failed' }, { status: 500 });
+
+  try {
+    revalidatePath('/services');
+    revalidatePath('/services/[slug]');
+    revalidatePath('/');
+  } catch (e) {
+    console.warn('[custom-pages] revalidate failed:', e);
+  }
+
   return NextResponse.json({ ok: true });
 }
 
@@ -29,5 +39,14 @@ export async function DELETE(request, { params }) {
 
   const { ok, error } = await deleteSection(params.sectionId);
   if (!ok) return NextResponse.json({ error: error || 'Delete failed' }, { status: 500 });
+
+  try {
+    revalidatePath('/services');
+    revalidatePath('/services/[slug]');
+    revalidatePath('/');
+  } catch (e) {
+    console.warn('[custom-pages] revalidate failed:', e);
+  }
+
   return NextResponse.json({ ok: true });
 }
