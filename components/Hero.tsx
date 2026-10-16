@@ -124,14 +124,6 @@ export default function Hero({ content }: HeroProps) {
               </p>
             </div>
           </div>
-
-          <div className="flex items-start gap-3 sm:mr-[22%]">
-            <span className="font-mono text-[11px] font-bold text-[#4fd1c5]">01</span>
-            <div className="text-[11px] leading-snug text-[#7dc3f0]">
-              <p>Clarity in a</p>
-              <p>complex world</p>
-            </div>
-          </div>
         </div>
       </Container>
     </section>

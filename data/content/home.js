@@ -6,11 +6,7 @@ export const home = {
     subtitle:
       'We help ambitious organizations turn complexity into clarity, and ideas into progress that lasts.',
     primaryCta: { label: 'Chromatus Pro', href: '/contact#contact-form' },
-    secondaryCta: { label: 'Explore what we do', href: '/services' },
-    caption: {
-      title: 'Clarity in a complex world',
-      tagline: 'Trusted by teams who are ready to move forward.'
-    }
+    secondaryCta: { label: 'Explore what we do', href: '/services' }
   },
   about: {
     eyebrow: 'WHY CHROMATUS',
