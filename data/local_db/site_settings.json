@@ -1,0 +1,25 @@
+[
+  {
+    "_id": 1,
+    "site_name": "Chromatus Consulting",
+    "tagline": "",
+    "logo_url": "/images/logo.png",
+    "color_navy": "#0E4A6B",
+    "color_navy_light": "#15619B",
+    "color_navy_dark": "#0A3350",
+    "color_brandblue": "#1F82C5",
+    "color_brandblue_dark": "#15619B",
+    "color_brandorange": "#EA7A00",
+    "color_brandorange_dark": "#C46600",
+    "color_eyebrow": "#1F82C5",
+    "color_eyebrow_dark": "#EA9322",
+    "site_url": "",
+    "default_meta_title": "Chromatus Consulting — We turn data into decisions.",
+    "default_meta_description": "Chromatus Consulting helps businesses understand their markets, their customers, and their competition — so every decision is backed by evidence, not guesswork.",
+    "default_og_image": "/images/logo.png",
+    "twitter_handle": "",
+    "organization_name": "Chromatus Consulting",
+    "organization_logo": "/images/logo.png",
+    "organization_description": ""
+  }
+]

@@ -53,5 +53,15 @@
     "notes": "Corrected: this route’s content is Energy & Power, not Financial Services.",
     "created_at": "2026-10-13T07:15:34.633Z",
     "updated_at": "2026-10-13T07:15:34.633Z"
+  },
+  {
+    "_id": 7,
+    "id": 7,
+    "from_path": "/insights/whitepapers",
+    "to_path": "/insights/white-papers",
+    "status_code": 301,
+    "is_active": true,
+    "notes": null,
+    "updated_at": "2026-10-17T05:23:20.997Z"
   }
 ]

@@ -190,10 +190,10 @@
   },
   {
     "_id": "loc_1791875702284",
-    "path": "/insights/blogs-articles",
+    "path": "/insights/industry-reports",
     "section": "Insights",
-    "title": "Articles & Insights",
-    "summary": "Short, focused perspectives on market developments and changing customer behaviour."
+    "title": "Industry Reports",
+    "summary": "Sector-focused market perspectives and quantitative intelligence across the core verticals we track."
   },
   {
     "_id": "loc_1791875702286",
@@ -211,10 +211,10 @@
   },
   {
     "_id": "loc_1791875702293",
-    "path": "/insights/reports",
+    "path": "/insights/news-updates",
     "section": "Insights",
-    "title": "Research Reports",
-    "summary": "Research reports going deeper into specific markets, industries, and geographies."
+    "title": "News & Updates",
+    "summary": "Stay informed about Chromatus — research, capabilities, and milestones."
   },
   {
     "_id": "loc_1791875702297",

@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import Container from "./Container";
 import LogoMark from "./LogoMark";
 import SearchToggle from "./SearchToggle";
-import { aboutSection, servicesSection, insightsSection } from "@/lib/content";
+import { aboutSection, servicesSection, industriesSection, insightsSection } from "@/lib/content";
+import { settingsToCssVars } from "@/lib/themeUtils";
 
 const navLinkClass =
   "relative text-sm font-medium text-paper/75 transition hover:text-paper after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-signal after:transition-all after:duration-300 hover:after:w-full";
@@ -15,24 +16,56 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [liveServices, setLiveServices] = useState<any[]>(servicesSection.items);
+  const [liveIndustries, setLiveIndustries] = useState<any[]>(industriesSection.items);
+  const [headerCta, setHeaderCta] = useState({ label: "Chromatus Pro", href: "/contact#contact-form" });
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/services")
-      .then((res) => res.json())
-      .then((data) => {
-        if (!cancelled && Array.isArray(data?.items) && data.items.length > 0) {
-          setLiveServices(
-            data.items.map((it: any) => ({
-              slug: it.slug,
-              title: it.title,
-              summary: it.summary,
-              href: it.href,
-            }))
-          );
+    Promise.all([
+      fetch("/api/services").then((res) => res.json()).catch(() => null),
+      fetch("/api/industries").then((res) => res.json()).catch(() => null),
+      fetch("/api/global-elements").then((res) => res.json()).catch(() => null)
+    ]).then(([servicesData, industriesData, globalData]) => {
+      if (cancelled) return;
+      if (Array.isArray(servicesData?.items) && servicesData.items.length > 0) {
+        setLiveServices(
+          servicesData.items.map((it: any) => ({
+            slug: it.slug,
+            title: it.title,
+            summary: it.summary,
+            href: it.href,
+          }))
+        );
+      }
+      if (Array.isArray(industriesData?.items) && industriesData.items.length > 0) {
+        setLiveIndustries(
+          industriesData.items.map((it: any) => ({
+            slug: it.slug,
+            title: it.title,
+            summary: it.summary,
+            href: it.href,
+          }))
+        );
+      }
+      if (globalData?.elements?.headerCtaLabel) {
+        setHeaderCta({
+          label: globalData.elements.headerCtaLabel,
+          href: globalData.elements.headerCtaHref || "/contact#contact-form"
+        });
+      }
+      if (globalData?.settings && typeof document !== "undefined") {
+        const css = settingsToCssVars(globalData.settings);
+        if (css) {
+          let styleEl = document.getElementById("theme-vars");
+          if (!styleEl) {
+            styleEl = document.createElement("style");
+            styleEl.id = "theme-vars";
+            document.head.appendChild(styleEl);
+          }
+          styleEl.innerHTML = css;
         }
-      })
-      .catch(() => {});
+      }
+    });
     return () => {
       cancelled = true;
     };
@@ -41,6 +74,7 @@ export default function Header() {
   const dropdowns = [
     { label: "About Us", path: aboutSection.path, items: aboutSection.items },
     { label: "Services", path: servicesSection.path, items: liveServices },
+    { label: "Industries", path: industriesSection.path, items: liveIndustries },
     { label: "Insights", path: insightsSection.path, items: insightsSection.items },
   ];
 
@@ -49,14 +83,9 @@ export default function Header() {
       <Container className="flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <LogoMark className="h-10 w-auto" />
-          <div className="flex flex-col">
-            <span className="font-display text-[15px] font-bold uppercase tracking-[0.08em] text-white leading-none">
-              Chromatus
-            </span>
-            <span className="font-display text-[9px] font-semibold uppercase tracking-[0.24em] text-paper/60 leading-tight mt-0.5">
-              Consulting
-            </span>
-          </div>
+          <span className="font-display text-[17px] sm:text-lg font-bold uppercase tracking-[0.14em] text-white leading-none">
+            CHROMATUS
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -108,10 +137,10 @@ export default function Header() {
         <div className="hidden items-center gap-4 lg:flex">
           <SearchToggle />
           <Link
-            href="/contact#contact-form"
+            href={headerCta.href || "/contact#contact-form"}
             className="group flex items-center gap-1.5 rounded-md border border-white/20 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white transition hover:border-white/40 hover:bg-white/[0.08]"
           >
-            Chromatus Pro
+            {headerCta.label}
             <svg width="11" height="11" viewBox="0 0 16 16" fill="none" className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
               <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -186,11 +215,11 @@ export default function Header() {
             </Link>
 
             <Link
-              href="/contact#contact-form"
+              href={headerCta.href || "/contact#contact-form"}
               className="mt-3 rounded-lg bg-indigo px-5 py-3 text-center text-sm font-medium text-paper"
               onClick={() => setOpen(false)}
             >
-              Chromatus Pro
+              {headerCta.label}
             </Link>
           </Container>
         </div>

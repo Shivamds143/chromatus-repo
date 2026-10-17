@@ -50,7 +50,14 @@ export default async function CustomPageView({ params }: Props) {
               return (
                 <div key={idx} className="bg-paper-dim py-12">
                   <Container>
-                    {d.eyebrow && <p className="mono-tag text-indigo">{d.eyebrow}</p>}
+                    {d.eyebrow && (
+                      <p
+                        className="mono-tag"
+                        style={{ color: d.eyebrowColor || "var(--color-eyebrow, #1F82C5)" }}
+                      >
+                        {d.eyebrow}
+                      </p>
+                    )}
                     {d.title && <h2 className="mt-2 font-display text-3xl font-bold text-ink">{d.title}</h2>}
                     {d.lead && <p className="mt-4 text-base leading-relaxed text-slate">{d.lead}</p>}
                   </Container>

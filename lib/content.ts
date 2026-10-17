@@ -3,6 +3,15 @@ export type SubItem = {
   title: string;
   summary: string;
   body: string[];
+  sections?: Array<{ heading?: string; body: string; boldHeadline?: boolean }>;
+  metricsTitle?: string;
+  metrics?: Array<{ value: string; label: string; detail?: string }>;
+  tilesTitle?: string;
+  tiles?: Array<{ label: string; icon?: string; description?: string }>;
+  stepsTitle?: string;
+  steps?: Array<{ stage?: string; title: string; text?: string; body?: string; icon?: string }>;
+  outcomeTag?: string;
+  outcomeText?: string;
 };
 
 export type Section = {
@@ -369,6 +378,7 @@ export const careersSection: Section = {
 export const sections = [
   aboutSection,
   servicesSection,
+  industriesSection,
   insightsSection,
   careersSection,
 ];

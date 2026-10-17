@@ -13,6 +13,10 @@
   --color-brandblue-dark-rgb: 21 97 155;
   --color-brandorange-rgb: 234 122 0;
   --color-brandorange-dark-rgb: 196 102 0;
+  --color-eyebrow: #1F82C5;
+  --color-eyebrow-rgb: 31 130 197;
+  --color-eyebrow-dark: #EA9322;
+  --color-eyebrow-dark-rgb: 234 147 34;
 }
 
 * {
@@ -47,11 +51,18 @@ body {
 }
 
 .eyebrow {
-  @apply font-mono text-[11px] uppercase tracking-[0.28em] text-slate;
+  @apply font-mono text-[11px] uppercase tracking-[0.28em];
+  color: var(--color-eyebrow, #1F82C5);
+}
+
+.eyebrow-dark,
+.eyebrow.eyebrow-dark {
+  color: var(--color-eyebrow-dark, #EA9322) !important;
 }
 
 .mono-tag {
   @apply font-mono text-[11px] uppercase tracking-[0.14em];
+  color: var(--color-eyebrow, #1F82C5);
 }
 
 .signal-path {

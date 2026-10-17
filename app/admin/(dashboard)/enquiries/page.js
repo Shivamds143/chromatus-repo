@@ -109,14 +109,42 @@ export default function AdminEnquiriesPage() {
             {visibleEnquiries.map((e) => (
               <div key={e.id} className="px-5 py-4">
                 <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-navy">
-                      {e.name} <span className="font-normal text-inkgray">— {e.email}</span>
-                    </p>
-                    {e.company && <p className="text-xs text-inkgray">{e.company}</p>}
-                    <p className="text-sm text-inkgray mt-2 whitespace-pre-wrap">{e.message}</p>
-                    <p className="text-xs text-inkgray mt-2">
-                      {e.source} · {new Date(e.created_at).toLocaleString()}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <p className="text-sm font-bold text-navy">{e.name}</p>
+                      <a
+                        href={`mailto:${e.email}`}
+                        className="text-xs text-inkgray hover:text-navy underline underline-offset-2"
+                      >
+                        {e.email}
+                      </a>
+                      {e.phone ? (
+                        <a
+                          href={`tel:${e.phone}`}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-brandblue hover:underline bg-blue-50 hover:bg-blue-100/80 px-2.5 py-0.5 rounded-full border border-blue-200 shadow-2xs transition"
+                          title="Call phone number"
+                        >
+                          <svg className="w-3.5 h-3.5 text-brandblue shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                          </svg>
+                          <span>{e.phone}</span>
+                        </a>
+                      ) : (
+                        <span className="text-xs text-gray-400 italic">No phone provided</span>
+                      )}
+                    </div>
+                    {e.company && (
+                      <p className="text-xs text-slate font-medium mt-1">
+                        <span className="text-gray-400 font-normal">Company:</span> {e.company}
+                      </p>
+                    )}
+                    {e.message && (
+                      <p className="text-sm text-inkgray mt-2 whitespace-pre-wrap bg-bglight/60 p-3 rounded-lg border border-gray-100">
+                        {e.message}
+                      </p>
+                    )}
+                    <p className="text-[11px] text-gray-400 mt-2 font-mono">
+                      {e.source || 'Website Contact Form'} · {new Date(e.created_at).toLocaleString()}
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-2 shrink-0">

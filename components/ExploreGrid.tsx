@@ -20,7 +20,12 @@ export default function ExploreGrid({ servicesData }: { servicesData?: LiveServi
   return (
     <section className="bg-paper py-24">
       <Container>
-        <p className="eyebrow">{eyebrow}</p>
+        <p
+          className="eyebrow"
+          style={(servicesData as any)?.eyebrowColor ? { color: (servicesData as any).eyebrowColor } : undefined}
+        >
+          {eyebrow}
+        </p>
         <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-[2.6rem]">
           {title}
         </h2>

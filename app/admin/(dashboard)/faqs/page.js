@@ -46,6 +46,14 @@ export default function FaqsAdminPage() {
   }
 
   async function handleSave() {
+    if (!form.question.trim()) {
+      setMessage('Question is required.');
+      return;
+    }
+    if (!form.answer.trim()) {
+      setMessage('Answer is required.');
+      return;
+    }
     setSaving(true);
     setMessage('');
     try {

@@ -134,6 +134,8 @@ CREATE TABLE IF NOT EXISTS site_settings (
   color_brandblue_dark VARCHAR(20) NOT NULL DEFAULT '#15619B',
   color_brandorange VARCHAR(20) NOT NULL DEFAULT '#EA9322',
   color_brandorange_dark VARCHAR(20) NOT NULL DEFAULT '#C97814',
+  color_eyebrow VARCHAR(20) NOT NULL DEFAULT '#1F82C5',
+  color_eyebrow_dark VARCHAR(20) NOT NULL DEFAULT '#EA9322',
   -- SEO sitewide defaults (Admin → SEO → Global Defaults)
   default_meta_title VARCHAR(255) DEFAULT NULL,
   default_meta_description VARCHAR(500) DEFAULT NULL,

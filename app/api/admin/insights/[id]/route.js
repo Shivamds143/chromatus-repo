@@ -2,7 +2,23 @@ import { NextResponse } from 'next/server';
 import { getAdminSession } from '@/lib/requireAdmin';
 import { getArticleByIdAdmin, updateArticle, deleteArticle } from '@/lib/insights';
 
-const VALID_TYPES = new Set(['blog', 'whitepaper', 'case_study', 'report', 'webinar']);
+const VALID_TYPES = new Set([
+  'blog',
+  'blogs',
+  'whitepaper',
+  'whitepapers',
+  'case_study',
+  'case-studies',
+  'case-study',
+  'report',
+  'reports',
+  'industry-reports',
+  'webinar',
+  'webinars',
+  'webinars-events',
+  'news',
+  'news-updates'
+]);
 
 function validate(body) {
   if (!body?.title?.trim()) return 'Title is required.';

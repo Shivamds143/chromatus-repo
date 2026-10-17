@@ -4,7 +4,7 @@ export default function LogoMark({ className = "h-9 w-auto" }: { className?: str
   return (
     <Image
       src="/logo-icon.png"
-      alt="Chromatus Consulting"
+      alt="CHROMATUS"
       width={597}
       height={624}
       priority

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
+import { getSiteSettings, settingsToCssVars } from "@/lib/settings";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -80,13 +81,24 @@ const organizationJsonLd = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const settings = await getSiteSettings().catch(() => null);
+  const cssVars = settings ? settingsToCssVars(settings) : "";
+
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <head>
+        {cssVars && (
+          <style
+            id="theme-vars"
+            dangerouslySetInnerHTML={{ __html: cssVars }}
+          />
+        )}
+      </head>
       <body className="flex min-h-screen flex-col">
         <script
           type="application/ld+json"

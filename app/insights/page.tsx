@@ -36,6 +36,15 @@ export default async function InsightsPage() {
                 <Reveal key={art.slug || art.id} delay={i * 60}>
                   <div className="flex h-full flex-col justify-between rounded-xl border border-line bg-white p-7 shadow-2xs transition hover:-translate-y-1 hover:border-indigo/40 hover:shadow-md">
                     <div>
+                      {art.cover_image && (
+                        <div className="mb-4 -mx-7 -mt-7 h-44 overflow-hidden rounded-t-xl border-b border-line bg-slate-50">
+                          <img
+                            src={art.cover_image}
+                            alt={art.title}
+                            className="h-full w-full object-cover transition duration-300 hover:scale-105"
+                          />
+                        </div>
+                      )}
                       <div className="flex items-center gap-2 text-xs text-slate mb-3">
                         {art.tag && <span className="mono-tag text-indigo">{art.tag}</span>}
                         {art.published_at && (

@@ -129,7 +129,27 @@ export default function LeadershipTeamEditor({ value, onChange }) {
         <h3 className="text-xs font-bold text-inkgray uppercase tracking-wider">Page Header Settings</h3>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-semibold text-navy mb-1">Eyebrow Tag</label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-semibold text-navy">Eyebrow Tag</label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  title="Eyebrow color"
+                  value={data.eyebrowColor || '#1F82C5'}
+                  onChange={(e) => updateField('eyebrowColor', e.target.value)}
+                  className="h-6 w-6 rounded border border-gray-200 cursor-pointer p-0"
+                />
+                {data.eyebrowColor && (
+                  <button
+                    type="button"
+                    onClick={() => updateField('eyebrowColor', '')}
+                    className="text-[10px] text-inkgray hover:text-red-600 underline"
+                  >
+                    Reset
+                  </button>
+                )}
+              </div>
+            </div>
             <input
               type="text"
               value={data.eyebrow || ''}
@@ -137,6 +157,17 @@ export default function LeadershipTeamEditor({ value, onChange }) {
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brandblue"
               placeholder="ABOUT US / LEADERSHIP TEAM"
             />
+            {data.eyebrow && (
+              <div className="mt-1 flex items-center gap-1.5">
+                <span className="text-[10px] text-inkgray">Preview:</span>
+                <span
+                  className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] px-2 py-0.5 rounded bg-gray-50 border border-gray-200"
+                  style={{ color: data.eyebrowColor || 'var(--color-eyebrow, #1F82C5)' }}
+                >
+                  {data.eyebrow}
+                </span>
+              </div>
+            )}
           </div>
           <div>
             <label className="block text-xs font-semibold text-navy mb-1">Page Title</label>

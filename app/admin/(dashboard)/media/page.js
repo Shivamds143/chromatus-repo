@@ -8,6 +8,7 @@ export default function AdminMediaPage() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
   const [copiedId, setCopiedId] = useState(null);
+  const [search, setSearch] = useState('');
   const fileInputRef = useRef(null);
 
   function load() {
@@ -57,26 +58,44 @@ export default function AdminMediaPage() {
     setTimeout(() => setCopiedId(null), 1500);
   }
 
+  const filteredMedia = media.filter((m) =>
+    !search.trim() || (m.filename || '').toLowerCase().includes(search.trim().toLowerCase())
+  );
+
   return (
     <div>
-      <div className="flex items-center justify-between mb-1">
-        <h1 className="text-2xl font-bold text-navy">Media Library</h1>
-        <label className="rounded-full bg-brandorange px-5 py-2.5 text-sm font-semibold text-white hover:bg-brandorange-dark transition cursor-pointer">
-          {uploading ? 'Uploading…' : 'Upload image'}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-1">
+        <div>
+          <h1 className="text-2xl font-bold text-navy">Media Library</h1>
+          <p className="text-sm text-inkgray">JPEG, PNG, WebP, GIF or SVG, up to 8MB.</p>
+        </div>
+        <label className="rounded-full bg-brandorange px-5 py-2.5 text-sm font-semibold text-white hover:bg-brandorange-dark transition cursor-pointer self-start sm:self-auto shadow-2xs">
+          {uploading ? 'Uploading…' : '+ Upload image'}
           <input ref={fileInputRef} type="file" accept="image/*" onChange={handleUpload} className="hidden" disabled={uploading} />
         </label>
       </div>
-      <p className="text-sm text-inkgray mb-6">JPEG, PNG, WebP, GIF or SVG, up to 8MB.</p>
+
+      <div className="my-5">
+        <input
+          type="text"
+          placeholder="Search media by filename..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full sm:max-w-md px-3.5 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandblue/30 focus:border-brandblue"
+        />
+      </div>
 
       {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
 
       {loading ? (
         <p className="text-sm text-inkgray">Loading…</p>
-      ) : media.length === 0 ? (
-        <p className="text-sm text-inkgray">No media uploaded yet.</p>
+      ) : filteredMedia.length === 0 ? (
+        <p className="text-sm text-inkgray">
+          {search ? 'No media files match your search.' : 'No media uploaded yet.'}
+        </p>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {media.map((m) => (
+          {filteredMedia.map((m) => (
             <div key={m.id} className="bg-white rounded-xl2 border border-gray-100 shadow-card overflow-hidden">
               <div className="aspect-square bg-bglight">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

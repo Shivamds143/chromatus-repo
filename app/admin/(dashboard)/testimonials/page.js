@@ -49,6 +49,14 @@ export default function TestimonialsAdminPage() {
   }
 
   async function handleSave() {
+    if (!form.quote.trim()) {
+      setMessage('Quote text is required.');
+      return;
+    }
+    if (!form.authorName.trim()) {
+      setMessage('Author name is required.');
+      return;
+    }
     setSaving(true);
     setMessage('');
     try {
@@ -108,40 +116,52 @@ export default function TestimonialsAdminPage() {
 
       {editingId && (
         <div className="bg-white rounded-xl2 border border-gray-100 shadow-card p-6 mb-6 space-y-4">
+          <p className="text-xs font-semibold text-inkgray uppercase tracking-wide">
+            {editingId === 'new' ? 'New Testimonial' : 'Edit Testimonial'}
+          </p>
           <textarea
             className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
             rows={3}
-            placeholder="Quote"
+            placeholder="Quote content *"
             value={form.quote}
             onChange={(e) => setForm({ ...form, quote: e.target.value })}
           />
           <div className="grid sm:grid-cols-2 gap-3">
             <input
               className="border border-gray-200 rounded-lg px-3 py-2 text-sm"
-              placeholder="Author name"
+              placeholder="Author name *"
               value={form.authorName}
               onChange={(e) => setForm({ ...form, authorName: e.target.value })}
             />
             <input
               className="border border-gray-200 rounded-lg px-3 py-2 text-sm"
-              placeholder="Role / title"
+              placeholder="Role / title (e.g. Marketing Manager)"
               value={form.authorRole}
               onChange={(e) => setForm({ ...form, authorRole: e.target.value })}
             />
             <input
               className="border border-gray-200 rounded-lg px-3 py-2 text-sm"
-              placeholder="Company"
+              placeholder="Company / Organization"
               value={form.company}
               onChange={(e) => setForm({ ...form, company: e.target.value })}
             />
-            <div className="flex items-center gap-2">
-              <input
-                className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm"
-                placeholder="Avatar image URL"
-                value={form.avatarUrl}
-                onChange={(e) => setForm({ ...form, avatarUrl: e.target.value })}
-              />
-              <MediaPickerButton onSelect={(url) => setForm({ ...form, avatarUrl: url })} />
+            <div>
+              <div className="flex items-center gap-2">
+                <input
+                  className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm"
+                  placeholder="Avatar image URL (optional)"
+                  value={form.avatarUrl}
+                  onChange={(e) => setForm({ ...form, avatarUrl: e.target.value })}
+                />
+                <MediaPickerButton onSelect={(url) => setForm({ ...form, avatarUrl: url })} />
+              </div>
+              {form.avatarUrl && (
+                <div className="mt-2 flex items-center gap-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={form.avatarUrl} alt="Avatar" className="w-8 h-8 rounded-full object-cover border border-gray-200" />
+                  <span className="text-[11px] text-inkgray">Avatar preview</span>
+                </div>
+              )}
             </div>
           </div>
           <label className="flex items-center gap-2 text-sm text-navy">
@@ -150,7 +170,7 @@ export default function TestimonialsAdminPage() {
               checked={form.isPublished}
               onChange={(e) => setForm({ ...form, isPublished: e.target.checked })}
             />
-            Published (visible on the site)
+            Published (visible on the homepage)
           </label>
           {message && <p className="text-sm text-red-600">{message}</p>}
           <div className="flex items-center gap-3">
@@ -159,7 +179,7 @@ export default function TestimonialsAdminPage() {
               disabled={saving}
               className="rounded-full bg-navy px-5 py-2 text-sm font-semibold text-white disabled:opacity-60"
             >
-              {saving ? 'Saving…' : 'Save'}
+              {saving ? 'Saving…' : 'Save Testimonial'}
             </button>
             <button onClick={() => setEditingId(null)} className="text-sm text-inkgray">
               Cancel
@@ -175,13 +195,24 @@ export default function TestimonialsAdminPage() {
       ) : (
         <div className="bg-white rounded-xl2 border border-gray-100 shadow-card divide-y divide-gray-100">
           {items.map((t, i) => (
-            <div key={t.id} className="flex items-start justify-between gap-4 px-5 py-4">
-              <div className="min-w-0">
-                <p className="text-sm text-navy line-clamp-2">&ldquo;{t.quote}&rdquo;</p>
-                <p className="text-xs text-inkgray mt-1">
-                  {t.author_name}
-                  {t.company ? ` · ${t.company}` : ''}
-                </p>
+            <div key={t.id} className="flex items-start justify-between gap-4 px-5 py-4 hover:bg-gray-50/50 transition">
+              <div className="flex items-start gap-3 min-w-0">
+                {t.avatar_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={t.avatar_url} alt="" className="w-10 h-10 rounded-full object-cover shrink-0 border border-gray-200" />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-brandblue/10 text-brandblue flex items-center justify-center font-bold text-xs shrink-0">
+                    {(t.author_name || 'CC').slice(0, 2).toUpperCase()}
+                  </div>
+                )}
+                <div className="min-w-0">
+                  <p className="text-sm text-navy line-clamp-2">&ldquo;{t.quote}&rdquo;</p>
+                  <p className="text-xs text-inkgray mt-1">
+                    <span className="font-semibold text-navy">{t.author_name}</span>
+                    {t.author_role ? ` · ${t.author_role}` : ''}
+                    {t.company ? ` · ${t.company}` : ''}
+                  </p>
+                </div>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <span

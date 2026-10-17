@@ -27,6 +27,7 @@ const steps = [
 type ProcessProps = {
   content?: {
     eyebrow?: string;
+    eyebrowColor?: string;
     title?: string;
     text?: string;
     attribution?: string;
@@ -43,7 +44,12 @@ export default function Process({ content }: ProcessProps) {
   return (
     <section className="bg-paper py-24">
       <Container>
-        <p className="eyebrow">{cleanEyebrow}</p>
+        <p
+          className="eyebrow"
+          style={content?.eyebrowColor ? { color: content.eyebrowColor } : undefined}
+        >
+          {cleanEyebrow}
+        </p>
         <h2 className="mt-3 max-w-lg font-display text-3xl font-semibold tracking-tight sm:text-[2.6rem]">
           {title}
         </h2>

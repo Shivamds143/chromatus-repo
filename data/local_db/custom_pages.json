@@ -1,0 +1,24 @@
+[
+  {
+    "_id": 8,
+    "id": 8,
+    "slug": "contact-thank-you",
+    "title": "Contact Thank You",
+    "meta_description": null,
+    "page_type": "custom",
+    "sort_order": 1,
+    "is_published": 0,
+    "updated_at": "2026-10-17T06:43:40.411Z"
+  },
+  {
+    "_id": 6,
+    "id": 6,
+    "slug": "home-story",
+    "title": "story",
+    "meta_description": null,
+    "page_type": "custom",
+    "sort_order": 0,
+    "is_published": 0,
+    "updated_at": "2026-10-17T05:08:49.992Z"
+  }
+]

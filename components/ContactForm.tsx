@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const fields = [
   { name: "fullName", label: "Full name", type: "text", required: true },
@@ -14,6 +15,7 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function ContactForm() {
+  const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [serverError, setServerError] = useState("");
@@ -58,6 +60,7 @@ export default function ContactForm() {
         throw new Error(result?.error || "Request failed");
       }
       setStatus("success");
+      router.push("/contact/thank-you");
     } catch {
       setStatus("error");
       setServerError(

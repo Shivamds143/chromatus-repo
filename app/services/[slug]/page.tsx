@@ -89,9 +89,10 @@ export default async function ServicesSubPage({ params }: Props) {
 
   if (item) {
     const cmsKey = SLUG_TO_CMS_KEY[slug];
+    let cmsData: any = null;
     if (cmsKey) {
       const fallback = getDefaultForKey(cmsKey);
-      const cmsData = await getPageContent(cmsKey, fallback);
+      cmsData = await getPageContent(cmsKey, fallback);
       if (cmsData) {
         item = {
           ...item,
@@ -102,12 +103,21 @@ export default async function ServicesSubPage({ params }: Props) {
             : typeof cmsData.body === "string"
             ? [cmsData.body]
             : item.body,
+          sections: cmsData.sections,
+          metricsTitle: cmsData.metricsTitle,
+          metrics: cmsData.metrics,
+          tilesTitle: cmsData.tilesTitle,
+          tiles: cmsData.tiles,
+          stepsTitle: cmsData.stepsTitle,
+          steps: cmsData.steps,
+          outcomeTag: cmsData.outcomeTag,
+          outcomeText: cmsData.outcomeText || cmsData.outcome,
         };
       }
     }
     return (
       <SectionDetail section={liveSection} item={item}>
-        <ServiceVisuals slug={slug} />
+        <ServiceVisuals slug={slug} cmsData={cmsData} />
       </SectionDetail>
     );
   }
@@ -146,7 +156,14 @@ export default async function ServicesSubPage({ params }: Props) {
           case "hero":
             return (
               <div key={idx} className="mt-8 rounded-xl bg-paper-dim/60 p-6 border border-line">
-                {d.eyebrow && <p className="mono-tag text-indigo text-xs">{d.eyebrow}</p>}
+                {d.eyebrow && (
+                  <p
+                    className="mono-tag text-xs"
+                    style={{ color: d.eyebrowColor || "var(--color-eyebrow, #1F82C5)" }}
+                  >
+                    {d.eyebrow}
+                  </p>
+                )}
                 {d.title && <h3 className="mt-1 font-display text-xl font-bold text-ink">{d.title}</h3>}
                 {d.lead && <p className="mt-2 text-sm leading-relaxed text-slate">{d.lead}</p>}
               </div>

@@ -29,7 +29,9 @@ export async function PUT(request) {
     'colorBrandblue',
     'colorBrandblueDark',
     'colorBrandorange',
-    'colorBrandorangeDark'
+    'colorBrandorangeDark',
+    'colorEyebrow',
+    'colorEyebrowDark'
   ];
   for (const field of colorFields) {
     if (body[field] && !hexPattern.test(body[field])) {

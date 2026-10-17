@@ -1,0 +1,23 @@
+[
+  {
+    "_id": 1,
+    "header_cta_label": "CHROMATUS PRO",
+    "header_cta_href": "/contact#contact-form",
+    "cta_band_heading": "Schedule a consultation and let's solve something extraordinary together.",
+    "cta_band_primary_label": "Talk to an expert",
+    "cta_band_primary_href": "/contact#contact-form",
+    "cta_band_secondary_label": "CHROMATUS PRO",
+    "cta_band_secondary_href": "/contact#contact-form",
+    "footer_tagline": "We turn data into decisions.",
+    "footer_note": "Research and consulting firm helping organizations make better business decisions through data — headquartered in Pune, working across industries.",
+    "contact_address": "Sai Shilp, Near Universal, Warje, Pune 411052",
+    "contact_phone": "+91 74984 65144",
+    "contact_email": "info@chromatus.com",
+    "contact_hours": "Monday – Friday, 9AM – 8PM IST",
+    "footer_copyright": "Chromatus Consulting. All rights reserved.",
+    "social_links": "[{\"label\":\"LinkedIn\",\"href\":\"https://www.linkedin.com/company/chromatusconsulting\",\"icon\":\"linkedin\"},{\"label\":\"Twitter\",\"href\":\"https://twitter.com/Chromatus12\",\"icon\":\"twitter\"},{\"label\":\"Facebook\",\"href\":\"https://www.facebook.com/Chromatus-Consulting-100467295012830\",\"icon\":\"facebook\"}]",
+    "font_heading": "inherit",
+    "font_body": "inherit",
+    "updated_at": "2026-10-17T05:19:18.814Z"
+  }
+]

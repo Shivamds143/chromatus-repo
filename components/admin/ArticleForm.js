@@ -1,26 +1,130 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import MediaPickerButton from '@/components/admin/MediaPickerButton';
+
+function TextareaWithToolbar({ value = '', onChange, label, rows = 4, placeholder = '', required = false, fontMono = false }) {
+  const textareaRef = useRef(null);
+
+  function wrapSelection(prefix, suffix = prefix, defaultPlaceholder = 'text') {
+    const el = textareaRef.current;
+    if (!el) return;
+    const start = el.selectionStart ?? 0;
+    const end = el.selectionEnd ?? 0;
+    const selected = value.substring(start, end) || defaultPlaceholder;
+    const next = value.substring(0, start) + prefix + selected + suffix + value.substring(end);
+    onChange(next);
+    setTimeout(() => {
+      el.focus();
+      el.setSelectionRange(start + prefix.length, start + prefix.length + selected.length);
+    }, 10);
+  }
+
+  function insertBoldHeadline() {
+    const el = textareaRef.current;
+    if (!el) return;
+    const start = el.selectionStart ?? 0;
+    const end = el.selectionEnd ?? 0;
+    const selected = value.substring(start, end) || 'Headline';
+    const prefix = start > 0 && !value.substring(0, start).endsWith('\n') ? '\n\n**' : '**';
+    const suffix = ':** ';
+    const next = value.substring(0, start) + prefix + selected + suffix + value.substring(end);
+    onChange(next);
+    setTimeout(() => {
+      el.focus();
+      el.setSelectionRange(start + prefix.length, start + prefix.length + selected.length);
+    }, 10);
+  }
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-1.5">
+        {label && <label className="block text-xs font-medium text-inkgray">{label}</label>}
+        <div className="flex items-center gap-1 bg-gray-100 rounded-md p-0.5 border border-gray-200">
+          <button
+            type="button"
+            title="Make Bold (**text**)"
+            onClick={() => wrapSelection('**', '**', 'bold text')}
+            className="px-2 py-0.5 text-xs font-bold text-navy hover:bg-white rounded transition shadow-2xs"
+          >
+            B
+          </button>
+          <button
+            type="button"
+            title="Insert Bold Headline (**Headline:**)"
+            onClick={insertBoldHeadline}
+            className="px-2 py-0.5 text-xs font-bold text-brandblue hover:bg-white rounded transition shadow-2xs flex items-center gap-0.5"
+          >
+            <span>H</span>
+            <span className="text-[10px] text-gray-500 font-normal">Bold</span>
+          </button>
+          <button
+            type="button"
+            title="Make Italic (*text*)"
+            onClick={() => wrapSelection('*', '*', 'italic text')}
+            className="px-2 py-0.5 text-xs italic font-serif text-navy hover:bg-white rounded transition shadow-2xs"
+          >
+            I
+          </button>
+          <button
+            type="button"
+            title="Add Bullet Point"
+            onClick={() => wrapSelection('\n• ', '', 'Point')}
+            className="px-2 py-0.5 text-xs text-navy hover:bg-white rounded transition shadow-2xs"
+          >
+            •
+          </button>
+        </div>
+      </div>
+      <textarea
+        ref={textareaRef}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        rows={rows}
+        placeholder={placeholder}
+        required={required}
+        className={`w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-brandblue focus:ring-1 focus:ring-brandblue outline-hidden ${
+          fontMono ? 'font-mono' : ''
+        }`}
+      />
+    </div>
+  );
+}
 
 const TYPES = [
-  { value: 'blog', label: 'Blog & Article' },
-  { value: 'whitepaper', label: 'Whitepaper' },
-  { value: 'case_study', label: 'Case Study' },
-  { value: 'report', label: 'Report' },
-  { value: 'webinar', label: 'Webinar & Event' }
+  { value: 'industry-reports', label: 'Industry Report' },
+  { value: 'whitepapers', label: 'Whitepaper' },
+  { value: 'case-studies', label: 'Case Study' },
+  { value: 'news-updates', label: 'News & Update' },
+  { value: 'webinars-events', label: 'Webinar & Event' },
+  { value: 'blog', label: 'Blog & Article' }
 ];
+
+function normalizeFormType(t) {
+  if (!t) return 'industry-reports';
+  if (t === 'report' || t === 'reports') return 'industry-reports';
+  if (t === 'whitepaper') return 'whitepapers';
+  if (t === 'case_study' || t === 'case-study') return 'case-studies';
+  if (t === 'news') return 'news-updates';
+  if (t === 'webinar') return 'webinars-events';
+  return t;
+}
 
 export default function ArticleForm({ initial, articleId }) {
   const router = useRouter();
   const [form, setForm] = useState(
-    initial || {
-      type: 'blog',
+    initial ? {
+      ...initial,
+      type: normalizeFormType(initial.type)
+    } : {
+      type: 'industry-reports',
       tag: '',
       title: '',
       slug: '',
       summary: '',
       body: '',
+      cover_image: '',
       author: 'Chromatus Consulting',
       published_at: new Date().toISOString().slice(0, 10),
       is_published: false
@@ -110,25 +214,51 @@ export default function ArticleForm({ initial, articleId }) {
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-inkgray mb-1">Summary</label>
-        <textarea
-          value={form.summary}
-          onChange={(e) => set('summary', e.target.value)}
-          rows={2}
-          className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
-          required
-        />
+        <label className="block text-xs font-medium text-inkgray mb-1">Cover Image (optional)</label>
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={form.cover_image || ''}
+            onChange={(e) => set('cover_image', e.target.value)}
+            placeholder="https://... or /media/image.jpg"
+            className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm"
+          />
+          <MediaPickerButton
+            onSelect={(url) => set('cover_image', url)}
+            buttonLabel="Choose Image"
+            buttonClassName="rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-navy hover:bg-gray-50 transition"
+          />
+        </div>
+        {form.cover_image && (
+          <div className="mt-2 relative w-32 h-20 rounded-md overflow-hidden border border-gray-200 bg-gray-50">
+            <img src={form.cover_image} alt="Cover preview" className="w-full h-full object-cover" />
+            <button
+              type="button"
+              onClick={() => set('cover_image', '')}
+              className="absolute top-1 right-1 rounded-full bg-black/60 text-white p-0.5 text-xs hover:bg-black"
+              title="Remove image"
+            >
+              ✕
+            </button>
+          </div>
+        )}
       </div>
 
-      <div>
-        <label className="block text-xs font-medium text-inkgray mb-1">Body</label>
-        <textarea
-          value={form.body}
-          onChange={(e) => set('body', e.target.value)}
-          rows={8}
-          className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm font-mono"
-        />
-      </div>
+      <TextareaWithToolbar
+        label="Summary"
+        value={form.summary}
+        onChange={(val) => set('summary', val)}
+        rows={2}
+        required
+      />
+
+      <TextareaWithToolbar
+        label="Body"
+        value={form.body}
+        onChange={(val) => set('body', val)}
+        rows={8}
+        fontMono
+      />
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div>

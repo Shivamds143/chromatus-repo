@@ -123,3 +123,79 @@ export const faq = {
   title: 'Common questions.',
   body: "If you don't see your question here, it's usually faster to just ask us directly."
 };
+
+export const contactThankYou = {
+  eyebrow: 'INQUIRY CONFIRMED',
+  title: 'Thank You for Reaching Out',
+  lead: 'Your message has been safely received by our advisory and research team.',
+  cardEyebrow: 'Message Successfully Received',
+  cardTitle: "We've Got Your Request",
+  cardDescription: 'A Chromatus practice specialist will review your requirements and follow up with you within one business day.',
+  stepsHeading: 'What Happens Next',
+  steps: [
+    {
+      step: '1',
+      title: 'Requirement Review',
+      description: 'We analyze your business question, methodology requirements, and sector scope.'
+    },
+    {
+      step: '2',
+      title: 'Tailored Proposal',
+      description: 'We prepare a structured scoping proposal with timelines and sample deliverables.'
+    },
+    {
+      step: '3',
+      title: 'Direct Consultation',
+      description: 'A structured call with our practice lead to address initial questions and finalize scope.'
+    }
+  ],
+  supportBoxTitle: 'Need immediate assistance?',
+  supportNote: 'Contact our Pune headquarters directly:',
+  supportPhone: '+91 74984 65144',
+  supportEmail: 'info@chromatus.com',
+  supportHours: 'Mon – Fri, 9AM – 8PM IST',
+  primaryButtonText: 'Explore Consulting Services',
+  primaryButtonHref: '/services',
+  secondaryButtonText: 'Browse Industry Insights',
+  secondaryButtonHref: '/insights',
+  homeButtonText: 'Return to Homepage',
+  homeButtonHref: '/'
+};
+
+export const careerThankYou = {
+  eyebrow: 'APPLICATION RECEIVED',
+  title: 'Thank You for Your Application!',
+  lead: 'Your resume and application details have been safely received by our talent acquisition team.',
+  cardEyebrow: 'Submission Confirmed',
+  cardTitle: "We're Excited to Review Your Profile",
+  cardDescription: 'Our team reviews every submitted CV with care. We appreciate the time you took to consider joining Chromatus.',
+  stepsHeading: 'What to Expect Next',
+  steps: [
+    {
+      step: '1',
+      title: 'Profile Review',
+      description: 'Our hiring managers and practice leads review your background, domain exposure, and analytical skills.'
+    },
+    {
+      step: '2',
+      title: 'Interview Invitation',
+      description: 'If your experience matches an active opening, we will reach out via email or phone to coordinate an introductory conversation.'
+    },
+    {
+      step: '3',
+      title: 'Talent Network',
+      description: "Even if there isn't an immediate fit, we maintain your CV in our confidential network for future practice expansion."
+    }
+  ],
+  supportBoxTitle: 'Questions about your application?',
+  supportNote: 'Contact our recruiting office with your full name and the role you applied for:',
+  recruitingEmail: 'info@chromatus.com',
+  recruitingLocation: 'Pune, Maharashtra',
+  primaryButtonText: 'Explore Other Open Roles',
+  primaryButtonHref: '/careers/open-positions',
+  secondaryButtonText: 'Learn About Life at Chromatus',
+  secondaryButtonHref: '/careers',
+  homeButtonText: 'Return to Homepage',
+  homeButtonHref: '/'
+};
+

@@ -10,6 +10,7 @@ const avatars = [
 type HeroProps = {
   content?: {
     eyebrow?: string;
+    eyebrowColor?: string;
     subtitle?: string;
     primaryCta?: { label: string; href: string };
     secondaryCta?: { label: string; href: string };
@@ -18,6 +19,7 @@ type HeroProps = {
 
 export default function Hero({ content }: HeroProps) {
   const eyebrow = content?.eyebrow || "INDEPENDENT THINKING. EXTRAORDINARY TOGETHER.";
+  const eyebrowColor = content?.eyebrowColor || "var(--color-eyebrow-dark, #4fd1e0)";
   const subtitle =
     content?.subtitle ||
     "We help ambitious organizations turn complexity into clarity, and ideas into progress that lasts.";
@@ -57,8 +59,11 @@ export default function Hero({ content }: HeroProps) {
         <div className="max-w-3xl">
           {/* Small top text */}
           <div className="flex items-center gap-3">
-            <span className="h-[2px] w-6 bg-[#2dd4bf]" aria-hidden="true" />
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#4fd1e0]">
+            <span className="h-[2px] w-6" style={{ backgroundColor: eyebrowColor }} aria-hidden="true" />
+            <p
+              className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em]"
+              style={{ color: eyebrowColor }}
+            >
               {eyebrow}
             </p>
           </div>

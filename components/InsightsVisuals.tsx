@@ -74,56 +74,90 @@ const insightsVisualsData: Record<string, InsightVisual> = {
     ],
     summaryNote: "Stay connected with the latest research milestones, fieldwork expansions, and perspectives from Chromatus Consulting.",
   },
+  "webinars-events": {
+    featuresTitle: "What Our Sessions Cover",
+    features: [
+      { label: "Sector Outlooks", text: "Interactive forecasts and emerging industrial disruptions.", icon: "chart-bar" },
+      { label: "Methodological Masterclasses", text: "Best practices in CATI/CAPI, sampling and ground validation.", icon: "flask" },
+      { label: "Executive Q&A", text: "Direct access to practice directors and principal researchers.", icon: "users" },
+      { label: "Dataset Appendices", text: "Downloadable presentation decks and reference datasets.", icon: "file-text" },
+    ],
+    highlights: [
+      { tag: "Format", value: "Live & On-Demand" },
+      { tag: "Audience", value: "Business Leaders" },
+      { tag: "Duration", value: "45–60 Minutes" },
+      { tag: "Access", value: "Complimentary" },
+    ],
+    summaryNote: "Every webinar translates complex market dynamics into actionable strategy, featuring ground-truth data from active Chromatus engagements.",
+  },
 };
 
-export default function InsightsVisuals({ slug }: { slug: string }) {
-  const v = insightsVisualsData[slug];
-  if (!v) return null;
+export default function InsightsVisuals({ slug, cmsData }: { slug: string; cmsData?: any }) {
+  const fallback = insightsVisualsData[slug];
+
+  const highlights = (Array.isArray(cmsData?.metrics) && cmsData.metrics.length > 0)
+    ? cmsData.metrics.map((m: any) => ({ tag: m.label, value: m.value }))
+    : fallback?.highlights || [];
+
+  const features = (Array.isArray(cmsData?.tiles) && cmsData.tiles.length > 0)
+    ? cmsData.tiles.map((t: any) => ({ label: t.label, text: t.description || "", icon: t.icon || "target" }))
+    : fallback?.features || [];
+
+  const featuresTitle = cmsData?.tilesTitle || fallback?.featuresTitle || "Core Areas";
+  const summaryNote = cmsData?.outcomeText || cmsData?.outcome || fallback?.summaryNote;
+
+  if (highlights.length === 0 && features.length === 0 && !summaryNote) return null;
 
   return (
     <div className="!mt-10 space-y-8">
       {/* Highlights Bar */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {v.highlights.map((h) => (
-          <div key={h.tag} className="rounded-xl border border-line bg-bglight p-3 text-center">
-            <span className="mono-tag text-[10px] text-slate block">{h.tag}</span>
-            <span className="font-display text-xs font-semibold text-ink sm:text-sm mt-0.5 block">
-              {h.value}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* Features Grid */}
-      <section aria-labelledby="insights-features">
-        <h3 id="insights-features" className="eyebrow">
-          {v.featuresTitle}
-        </h3>
-        <div className="mt-3.5 grid gap-3 sm:grid-cols-2">
-          {v.features.map((f) => (
-            <div
-              key={f.label}
-              className="flex items-start gap-3 rounded-xl border border-line bg-white p-3.5 shadow-2xs"
-            >
-              <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-indigo/10 text-indigo-dark mt-0.5">
-                <Icon name={f.icon} className="h-4 w-4" />
+      {highlights.length > 0 && (
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {highlights.map((h: any, idx: number) => (
+            <div key={h.tag || idx} className="rounded-xl border border-line bg-bglight p-3 text-center">
+              <span className="mono-tag text-[10px] text-slate block">{h.tag}</span>
+              <span className="font-display text-xs font-semibold text-ink sm:text-sm mt-0.5 block">
+                {h.value}
               </span>
-              <div>
-                <p className="font-display text-xs font-semibold text-ink sm:text-sm">{f.label}</p>
-                <p className="mt-1 text-xs text-slate leading-relaxed">{f.text}</p>
-              </div>
             </div>
           ))}
         </div>
-      </section>
+      )}
+
+      {/* Features Grid */}
+      {features.length > 0 && (
+        <section aria-labelledby="insights-features">
+          <h3 id="insights-features" className="eyebrow">
+            {featuresTitle}
+          </h3>
+          <div className="mt-3.5 grid gap-3 sm:grid-cols-2">
+            {features.map((f: any, idx: number) => (
+              <div
+                key={f.label || idx}
+                className="flex items-start gap-3 rounded-xl border border-line bg-white p-3.5 shadow-2xs"
+              >
+                <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-indigo/10 text-indigo-dark mt-0.5">
+                  <Icon name={f.icon || "target"} className="h-4 w-4" />
+                </span>
+                <div>
+                  <p className="font-display text-xs font-semibold text-ink sm:text-sm">{f.label}</p>
+                  <p className="mt-1 text-xs text-slate leading-relaxed">{f.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Summary Note */}
-      <div className="rounded-xl border border-l-4 border-line border-l-signal bg-paper-dim/60 p-4">
-        <p className="text-xs leading-relaxed text-ink/80 sm:text-[0.875rem]">
-          <span className="font-semibold text-ink">Analytical Standard: </span>
-          {v.summaryNote}
-        </p>
-      </div>
+      {summaryNote && (
+        <div className="rounded-xl border border-l-4 border-line border-l-signal bg-paper-dim/60 p-4">
+          <p className="text-xs leading-relaxed text-ink/80 sm:text-[0.875rem]">
+            <span className="font-semibold text-ink">Analytical Standard: </span>
+            {summaryNote}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

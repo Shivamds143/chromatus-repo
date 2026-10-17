@@ -222,16 +222,10 @@
       "illustration": "insightsOverview",
       "categories": [
         {
-          "icon": "zap",
-          "title": "Articles & Insights",
-          "href": "/insights/blogs-articles",
-          "body": "Short, focused perspectives on market developments, emerging trends, changing customer behaviour, and business issues worth watching."
-        },
-        {
-          "icon": "database",
-          "title": "Research Reports",
-          "href": "/insights/reports",
-          "body": "Go deeper into specific markets, industries, and geographies with detailed research covering market dynamics, opportunities, competition, and growth outlooks."
+          "icon": "file-text",
+          "title": "Industry Reports",
+          "href": "/insights/industry-reports",
+          "body": "Sector-focused market perspectives and quantitative intelligence across the core verticals we track."
         },
         {
           "icon": "layers",
@@ -246,10 +240,16 @@
           "body": "See how research translates into business decisions. Explore selected engagements covering market assessment, market entry, customer satisfaction, competitive intelligence, and other strategic challenges."
         },
         {
+          "icon": "badge",
+          "title": "News & Updates",
+          "href": "/insights/news-updates",
+          "body": "Stay informed about Chromatus — our latest research, new capabilities, project milestones, and company updates."
+        },
+        {
           "icon": "users",
           "title": "Webinars & Events",
           "href": "/insights/webinars-events",
-          "body": "Live and recorded sessions with Chromatus practice leads."
+          "body": "Live and recorded sessions with Chromatus practice leads and domain specialists."
         }
       ]
     },
@@ -773,7 +773,7 @@
     },
     "is_published": true,
     "created_at": "2026-10-13T07:15:02.369Z",
-    "updated_at": "2026-10-13T07:15:02.369Z",
+    "updated_at": "2026-10-16T13:53:25.820Z",
     "_id": "loc_1791875702371_oglc",
     "id": "loc_1791875702371_oglc"
   },
@@ -882,7 +882,7 @@
   {
     "page_key": "ourStory",
     "data": {
-      "eyebrow": "ABOUT US / OUR STORY",
+      "eyebrow": "OUR STORY",
       "title": "Our story",
       "lead": "For over a decade, we've been helping companies understand their markets, benchmark their competition, and validate their strategies before they commit resources to them.",
       "sections": [
@@ -906,7 +906,7 @@
     },
     "is_published": true,
     "created_at": "2026-10-13T07:15:02.355Z",
-    "updated_at": "2026-10-13T07:15:02.355Z",
+    "updated_at": "2026-10-17T06:01:07.494Z",
     "_id": "loc_1791875702357_d60k",
     "id": "loc_1791875702357_d60k"
   },
@@ -947,7 +947,7 @@
     "page_key": "home",
     "data": {
       "hero": {
-        "eyebrow": "INDEPENDENT THINKING. EXTRAORDINARY TOGETHER.........",
+        "eyebrow": "INDEPENDENT THINKING. EXTRAORDINARY TOGETHER.",
         "title": "Make your next move meaningful.",
         "highlight": "move meaningful.",
         "subtitle": "We help ambitious organizations turn complexity into clarity, and ideas into progress that lasts.",
@@ -958,6 +958,10 @@
         "secondaryCta": {
           "label": "Explore what we do",
           "href": "/services"
+        },
+        "caption": {
+          "title": "Clarity in a complex world",
+          "tagline": "Trusted by teams who are ready to move forward."
         }
       },
       "about": {
@@ -1068,8 +1072,420 @@
     },
     "is_published": true,
     "created_at": "2026-10-13T07:15:02.346Z",
-    "updated_at": "2026-10-15T05:08:45.660Z",
+    "updated_at": "2026-10-17T07:48:59.916Z",
     "_id": "loc_1791875702347_is4r",
     "id": "loc_1791875702347_is4r"
+  },
+  {
+    "page_key": "industryReports",
+    "data": {
+      "eyebrow": "INSIGHTS / INDUSTRY REPORTS",
+      "title": "Industry Reports",
+      "lead": "Sector-focused market perspectives and quantitative intelligence across the core verticals we track.",
+      "body": [
+        "Explore rigorous sector intelligence grounded in primary stakeholder fieldwork and secondary market analysis across Healthcare, Automotive & Mobility, Chemicals & Materials, Energy & Power, Food & Beverages, Semiconductors & Electronics, Aerospace & Defense, and Telecom & IT.",
+        "Each report examines market size, CAGR projections, supply chain dynamics, pricing benchmarks, and regulatory developments."
+      ],
+      "metricsTitle": "Research Scope & Depth",
+      "metrics": [
+        {
+          "value": "8+",
+          "label": "Core Verticals",
+          "detail": "Deep sector coverage from day one"
+        },
+        {
+          "value": "5-Yr",
+          "label": "CAGR Forecasts",
+          "detail": "Quantitative projections and scenario modeling"
+        },
+        {
+          "value": "350+",
+          "label": "Topics Covered",
+          "detail": "Knowledge base across 12 business sectors"
+        },
+        {
+          "value": "100%",
+          "label": "Field-Verified",
+          "detail": "Cross-checked with primary ground investigations"
+        }
+      ],
+      "tilesTitle": "Report Deliverables",
+      "tiles": [
+        {
+          "label": "Market Sizing & 5-Year CAGR",
+          "icon": "chart-bar",
+          "description": "Quantitative projections across regions and segments"
+        },
+        {
+          "label": "Competitive Landscaping",
+          "icon": "target",
+          "description": "Tier 1 and emerging players, market share and positioning"
+        },
+        {
+          "label": "Value Chain & Supply Dynamics",
+          "icon": "factory",
+          "description": "Material flows, manufacturing bottlenecks and margins"
+        },
+        {
+          "label": "Regulatory & Policy Watch",
+          "icon": "shield",
+          "description": "Domestic and international standards impacting growth"
+        }
+      ],
+      "outcomeTag": "Analytical Standard",
+      "outcomeText": "Every Chromatus report is grounded in primary stakeholder surveys and secondary intelligence — never automated scraping or unverified estimates."
+    },
+    "is_published": true,
+    "created_at": "2026-10-17T06:00:00.000Z",
+    "updated_at": "2026-10-17T06:00:00.000Z",
+    "_id": "loc_page_industryReports",
+    "id": "loc_page_industryReports"
+  },
+  {
+    "page_key": "whitepapers",
+    "data": {
+      "eyebrow": "INSIGHTS / WHITEPAPERS",
+      "title": "Whitepapers",
+      "lead": "Detailed analysis built around specific business questions, strategic frameworks, and emerging disruptions.",
+      "body": [
+        "Designed for CxOs and strategy heads looking to move past headline trends, our whitepapers provide rigorous frameworks to evaluate capital allocation, technology adoption, and competitive pivots.",
+        "We combine econometric modeling with qualitative executive interviews to deliver actionable strategic scorecards."
+      ],
+      "metricsTitle": "Analytical Benchmarks",
+      "metrics": [
+        {
+          "value": "CxO",
+          "label": "Orientation",
+          "detail": "Built for board-level decision makers"
+        },
+        {
+          "value": "Deep-Dive",
+          "label": "Thematic Rigor",
+          "detail": "Focused inquiries into market disruptions"
+        },
+        {
+          "value": "Delphi",
+          "label": "Expert Validation",
+          "detail": "Structured expert panels and synthesis"
+        },
+        {
+          "value": "Forward",
+          "label": "Looking Outlook",
+          "detail": "Actionable evaluation scorecards"
+        }
+      ],
+      "tilesTitle": "Strategic Focus Areas",
+      "tiles": [
+        {
+          "label": "Strategic Problem Solving",
+          "icon": "compass",
+          "description": "Focused inquiries into specific market pivots and disruptions"
+        },
+        {
+          "label": "Econometric Modeling",
+          "icon": "flask",
+          "description": "Underlying elasticity, adoption curves and demand sensitivity"
+        },
+        {
+          "label": "Technology Evaluation",
+          "icon": "chip",
+          "description": "Assessing readiness levels, patent landscapes and barriers"
+        },
+        {
+          "label": "Actionable Frameworks",
+          "icon": "file-text",
+          "description": "Evaluation scorecards and decision matrices for leadership"
+        }
+      ],
+      "outcomeTag": "Leadership Focus",
+      "outcomeText": "Designed for leaders seeking structured thinking beyond headline trends to guide long-term capital allocation."
+    },
+    "is_published": true,
+    "created_at": "2026-10-17T06:00:00.000Z",
+    "updated_at": "2026-10-17T06:00:00.000Z",
+    "_id": "loc_page_whitepapers",
+    "id": "loc_page_whitepapers"
+  },
+  {
+    "page_key": "caseStudies",
+    "data": {
+      "eyebrow": "INSIGHTS / CASE STUDIES",
+      "title": "Case Studies",
+      "lead": "See how field-grade research translates into measurable strategic advantage and decisive outcomes.",
+      "body": [
+        "Explore selected engagements covering market assessment, foreign market entry validation, customer satisfaction, public sector surveys, and competitive turnarounds.",
+        "Every case study demonstrates the journey from the core business question to ground-truth evidence and client impact."
+      ],
+      "metricsTitle": "Proven Track Record",
+      "metrics": [
+        {
+          "value": "10+",
+          "label": "Years Experience",
+          "detail": "Decade of strategic engagements"
+        },
+        {
+          "value": "F500 & Ent.",
+          "label": "Client Base",
+          "detail": "Multinationals, Indian enterprises & public bodies"
+        },
+        {
+          "value": "Quantified",
+          "label": "Impact Focus",
+          "detail": "Measurable value and risk mitigation"
+        },
+        {
+          "value": "Multi-Modal",
+          "label": "Investigation",
+          "detail": "Primary fieldwork combined with analytical rigor"
+        }
+      ],
+      "tilesTitle": "Engagement Themes",
+      "tiles": [
+        {
+          "label": "Market Entry Validation",
+          "icon": "compass",
+          "description": "De-risking foreign market entry with ground-truth demand validation"
+        },
+        {
+          "label": "Product Pre-Launch CSAT",
+          "icon": "heart",
+          "description": "Testing buyer willingness-to-pay and feature trade-offs"
+        },
+        {
+          "label": "Civic & Government Impact",
+          "icon": "users-two",
+          "description": "Ward-level field surveys guiding public initiatives"
+        },
+        {
+          "label": "Competitive Turnaround",
+          "icon": "target",
+          "description": "Pinpointing churn drivers to reclaim lost market share"
+        }
+      ],
+      "outcomeTag": "Impact Delivered",
+      "outcomeText": "Explore how Chromatus has partnered with leadership teams across industries to turn ambiguous market conditions into decisive action."
+    },
+    "is_published": true,
+    "created_at": "2026-10-17T06:00:00.000Z",
+    "updated_at": "2026-10-17T06:00:00.000Z",
+    "_id": "loc_page_caseStudies",
+    "id": "loc_page_caseStudies"
+  },
+  {
+    "page_key": "newsUpdates",
+    "data": {
+      "eyebrow": "INSIGHTS / NEWS & UPDATES",
+      "title": "News & Updates",
+      "lead": "Stay connected with the latest research milestones, fieldwork expansions, and perspectives from Chromatus Consulting.",
+      "body": [
+        "Here we publish firm announcements, regional fieldwork network expansions, keynote addresses, and methodological advances across our teams in India and globally."
+      ],
+      "metricsTitle": "Firm Presence",
+      "metrics": [
+        {
+          "value": "60+",
+          "label": "Field Network",
+          "detail": "Investigators active across Indian states"
+        },
+        {
+          "value": "National",
+          "label": "Coverage",
+          "detail": "Ground investigation reach across metros & rural wards"
+        },
+        {
+          "value": "Regular",
+          "label": "Update Cadence",
+          "detail": "Firm releases and research announcements"
+        },
+        {
+          "value": "Active",
+          "label": "Media Office",
+          "detail": "Direct press contact at info@chromatus.com"
+        }
+      ],
+      "tilesTitle": "Announcements & Coverage",
+      "tiles": [
+        {
+          "label": "Research Publications",
+          "icon": "file-text",
+          "description": "New sector outlooks and thematic briefs"
+        },
+        {
+          "label": "Conferences & Keynotes",
+          "icon": "users",
+          "description": "Speaking engagements at major industrial symposia"
+        },
+        {
+          "label": "Methodological Innovations",
+          "icon": "chip",
+          "description": "Adoption of advanced survey toolkits and CAPI updates"
+        },
+        {
+          "label": "Firm Milestones",
+          "icon": "badge",
+          "description": "Team expansions and regional field network updates"
+        }
+      ],
+      "outcomeTag": "Stay Connected",
+      "outcomeText": "Stay connected with the latest research milestones, fieldwork expansions, and perspectives from Chromatus Consulting."
+    },
+    "is_published": true,
+    "created_at": "2026-10-17T06:00:00.000Z",
+    "updated_at": "2026-10-17T06:00:00.000Z",
+    "_id": "loc_page_newsUpdates",
+    "id": "loc_page_newsUpdates"
+  },
+  {
+    "page_key": "webinarsEvents",
+    "data": {
+      "eyebrow": "INSIGHTS / WEBINARS & EVENTS",
+      "title": "Webinars & Events",
+      "lead": "Live and recorded sessions with Chromatus practice leads and domain specialists.",
+      "body": [
+        "Join our practice directors and researchers for quantitative data presentations, sector-specific deep dives, and live Q&A sessions designed to provide strategic clarity for decision-makers."
+      ],
+      "metricsTitle": "Event Cadence",
+      "metrics": [
+        {
+          "value": "Live & Rec.",
+          "label": "Session Formats",
+          "detail": "Interactive sessions with on-demand access"
+        },
+        {
+          "value": "45–60",
+          "label": "Minutes Duration",
+          "detail": "Concise, high-impact executive sessions"
+        },
+        {
+          "value": "Q&A",
+          "label": "Direct Access",
+          "detail": "Ask questions to principal researchers"
+        },
+        {
+          "value": "Data Decks",
+          "label": "Appendices",
+          "detail": "Downloadable reference materials included"
+        }
+      ],
+      "tilesTitle": "What Our Sessions Cover",
+      "tiles": [
+        {
+          "label": "Sector Outlooks",
+          "icon": "chart-bar",
+          "description": "Interactive forecasts and emerging industrial disruptions"
+        },
+        {
+          "label": "Methodological Masterclasses",
+          "icon": "flask",
+          "description": "Best practices in CATI/CAPI, sampling and ground validation"
+        },
+        {
+          "label": "Executive Q&A",
+          "icon": "users",
+          "description": "Direct access to practice directors and principal researchers"
+        },
+        {
+          "label": "Dataset Appendices",
+          "icon": "file-text",
+          "description": "Downloadable presentation decks and reference datasets"
+        }
+      ],
+      "outcomeTag": "Executive Knowledge",
+      "outcomeText": "Every webinar translates complex market dynamics into actionable strategy, featuring ground-truth data from active Chromatus engagements."
+    },
+    "is_published": true,
+    "created_at": "2026-10-17T06:00:00.000Z",
+    "updated_at": "2026-10-17T06:00:00.000Z",
+    "_id": "loc_page_webinarsEvents",
+    "id": "loc_page_webinarsEvents"
+  },
+  {
+    "page_key": "contactThankYou",
+    "data": {
+      "eyebrow": "INQUIRY CONFIRMED",
+      "title": "Thank You for Reaching Out",
+      "lead": "Your message has been safely received by our advisory and research team.",
+      "cardEyebrow": "Message Successfully Received",
+      "cardTitle": "We've Got Your Request",
+      "cardDescription": "A Chromatus practice specialist will review your requirements and follow up with you within one business day.",
+      "stepsHeading": "What Happens Next",
+      "steps": [
+        {
+          "step": "1",
+          "title": "Requirement Review",
+          "description": "We analyze your business question, methodology requirements, and sector scope."
+        },
+        {
+          "step": "2",
+          "title": "Tailored Proposal",
+          "description": "We prepare a structured scoping proposal with timelines and sample deliverables."
+        },
+        {
+          "step": "3",
+          "title": "Direct Consultation",
+          "description": "A structured call with our practice lead to address initial questions and finalize scope."
+        }
+      ],
+      "supportBoxTitle": "Need immediate assistance?",
+      "supportNote": "Contact our Pune headquarters directly:",
+      "supportPhone": "+91 74984 65144",
+      "supportEmail": "info@chromatus.com",
+      "supportHours": "Mon – Fri, 9AM – 8PM IST",
+      "primaryButtonText": "Explore Consulting Services",
+      "primaryButtonHref": "/services",
+      "secondaryButtonText": "Browse Industry Insights",
+      "secondaryButtonHref": "/insights",
+      "homeButtonText": "Return to Homepage",
+      "homeButtonHref": "/"
+    },
+    "is_published": true,
+    "created_at": "2026-10-17T07:00:00.000Z",
+    "updated_at": "2026-10-17T07:00:00.000Z",
+    "_id": "loc_page_contactThankYou",
+    "id": "loc_page_contactThankYou"
+  },
+  {
+    "page_key": "careerThankYou",
+    "data": {
+      "eyebrow": "APPLICATION RECEIVED",
+      "title": "Thank You for Your Application!",
+      "lead": "Your resume and application details have been safely received by our talent acquisition team.",
+      "cardEyebrow": "Submission Confirmed",
+      "cardTitle": "We're Excited to Review Your Profile",
+      "cardDescription": "Our team reviews every submitted CV with care. We appreciate the time you took to consider joining Chromatus.",
+      "stepsHeading": "What to Expect Next",
+      "steps": [
+        {
+          "step": "1",
+          "title": "Profile Review",
+          "description": "Our hiring managers and practice leads review your background, domain exposure, and analytical skills."
+        },
+        {
+          "step": "2",
+          "title": "Interview Invitation",
+          "description": "If your experience matches an active opening, we will reach out via email or phone to coordinate an introductory conversation."
+        },
+        {
+          "step": "3",
+          "title": "Talent Network",
+          "description": "Even if there isn't an immediate fit, we maintain your CV in our confidential network for future practice expansion."
+        }
+      ],
+      "supportBoxTitle": "Questions about your application?",
+      "supportNote": "Contact our recruiting office with your full name and the role you applied for:",
+      "recruitingEmail": "info@chromatus.com",
+      "recruitingLocation": "Pune, Maharashtra",
+      "primaryButtonText": "Explore Other Open Roles",
+      "primaryButtonHref": "/careers/open-positions",
+      "secondaryButtonText": "Learn About Life at Chromatus",
+      "secondaryButtonHref": "/careers",
+      "homeButtonText": "Return to Homepage",
+      "homeButtonHref": "/"
+    },
+    "is_published": true,
+    "created_at": "2026-10-17T07:00:00.000Z",
+    "updated_at": "2026-10-17T07:00:00.000Z",
+    "_id": "loc_page_careerThankYou",
+    "id": "loc_page_careerThankYou"
   }
 ]

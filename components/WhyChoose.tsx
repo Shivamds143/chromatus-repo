@@ -19,6 +19,7 @@ const pillars = [
 type WhyChooseProps = {
   content?: {
     eyebrow?: string;
+    eyebrowColor?: string;
     title?: string;
     lead?: string;
     body?: string;
@@ -42,7 +43,12 @@ export default function WhyChoose({ content }: WhyChooseProps) {
   return (
     <section className="bg-paper-dim py-24">
       <Container>
-        <p className="eyebrow">{eyebrow}</p>
+        <p
+          className="eyebrow"
+          style={content?.eyebrowColor ? { color: content.eyebrowColor } : undefined}
+        >
+          {eyebrow}
+        </p>
         <h2 className="mt-3 max-w-lg font-display text-3xl font-semibold tracking-tight sm:text-[2.6rem]">
           {title}
         </h2>

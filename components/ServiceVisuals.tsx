@@ -158,10 +158,23 @@ const visuals: Record<string, ServiceVisual> = {
   },
 };
 
-export default function ServiceVisuals({ slug }: { slug: string }) {
-  const v = visuals[slug];
-  // Custom pages created in the admin have no entry here, so they render as before.
-  if (!v) return null;
+export default function ServiceVisuals({ slug, cmsData }: { slug: string; cmsData?: any }) {
+  const fallback = visuals[slug] || {};
+  const tilesTitle = cmsData?.tilesTitle ?? fallback.tilesTitle ?? "What We Deliver";
+  const tiles: Tile[] = Array.isArray(cmsData?.tiles) && cmsData.tiles.length > 0 ? cmsData.tiles : fallback.tiles || [];
+  const rawSteps = Array.isArray(cmsData?.steps) && cmsData.steps.length > 0 ? cmsData.steps : fallback.steps || [];
+  const steps: Step[] = rawSteps.map((s: any, idx: number) => ({
+    title: s.title || `Step ${idx + 1}`,
+    text: s.text || s.body || "",
+    icon: s.icon || "target"
+  }));
+  const outcome = cmsData?.outcomeText ?? cmsData?.outcome ?? fallback.outcome;
+  const metrics = Array.isArray(cmsData?.metrics) ? cmsData.metrics : [];
+
+  const hasAny = tiles.length > 0 || steps.length > 0 || outcome || metrics.length > 0;
+  if (!hasAny) return null;
+
+  const v = { tilesTitle, tiles, steps, outcome };
 
   return (
     // `!mt-14` beats the parent's `space-y-5` spacing so this block sits clear of the text.

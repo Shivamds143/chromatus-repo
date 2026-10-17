@@ -1,19 +1,29 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import SectionDetail from "@/components/SectionDetail";
+import SectionDetail, { renderFormattedParagraph, parseInlineMarkdown } from "@/components/SectionDetail";
 import InsightsVisuals from "@/components/InsightsVisuals";
 import SubpageBand from "@/components/SubpageBand";
 import Container from "@/components/Container";
 import CTABanner from "@/components/CTABanner";
 import { insightsSection } from "@/lib/content";
 import { getArticles, getArticleBySlug } from "@/lib/insights";
+import { getPageContent } from "@/lib/cms";
+import { getDefaultForKey } from "@/lib/cmsDefaults";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 type Props = {
   params: Promise<{ slug: string }> | { slug: string };
+};
+
+const SLUG_TO_CMS_KEY: Record<string, string> = {
+  "industry-reports": "industryReports",
+  "whitepapers": "whitepapers",
+  "case-studies": "caseStudies",
+  "news-updates": "newsUpdates",
+  "webinars-events": "webinarsEvents",
 };
 
 export function generateStaticParams() {
@@ -24,6 +34,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await Promise.resolve(params);
   const item = insightsSection.items.find((i) => i.slug === slug);
   if (item) {
+    const cmsKey = SLUG_TO_CMS_KEY[slug];
+    if (cmsKey) {
+      const fallback = getDefaultForKey(cmsKey);
+      const cmsData = await getPageContent(cmsKey, fallback);
+      if (cmsData?.title) {
+        return { title: `${cmsData.title} — Chromatus Consulting` };
+      }
+    }
     return { title: `${item.title} — Chromatus Consulting` };
   }
   const article = await getArticleBySlug(slug);
@@ -35,14 +53,48 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function InsightsSubPage({ params }: Props) {
   const { slug } = await Promise.resolve(params);
-  const item = insightsSection.items.find((i) => i.slug === slug);
+  let item = insightsSection.items.find((i) => i.slug === slug);
 
   if (item) {
+    const cmsKey = SLUG_TO_CMS_KEY[slug];
+    let cmsData: any = null;
+    if (cmsKey) {
+      const fallback = getDefaultForKey(cmsKey);
+      cmsData = await getPageContent(cmsKey, fallback);
+      if (cmsData) {
+        let bodyLines = item.body;
+        let sections: any[] | undefined = undefined;
+
+        if (Array.isArray(cmsData.sections) && cmsData.sections.length > 0) {
+          sections = cmsData.sections;
+          bodyLines = cmsData.sections.map((s: any) => `${s.heading ? s.heading + ": " : ""}${s.body}`);
+        } else if (Array.isArray(cmsData.body) && cmsData.body.length > 0) {
+          bodyLines = cmsData.body;
+        }
+
+        item = {
+          ...item,
+          title: cmsData.title || item.title,
+          summary: cmsData.lead || item.summary,
+          body: bodyLines,
+          sections: sections,
+          metricsTitle: cmsData.metricsTitle,
+          metrics: cmsData.metrics,
+          tilesTitle: cmsData.tilesTitle,
+          tiles: cmsData.tiles,
+          stepsTitle: cmsData.stepsTitle,
+          steps: cmsData.steps,
+          outcomeTag: cmsData.outcomeTag,
+          outcomeText: cmsData.outcomeText || cmsData.outcome,
+        };
+      }
+    }
+
     const articles = await getArticles({ type: slug });
 
     return (
       <SectionDetail section={insightsSection} item={item}>
-        <InsightsVisuals slug={slug} />
+        <InsightsVisuals slug={slug} cmsData={cmsData} />
 
         <div className="!mt-12 pt-8 border-t border-line/70 space-y-6">
           <div className="flex items-center justify-between">
@@ -222,18 +274,28 @@ export default async function InsightsSubPage({ params }: Props) {
           <div className="rounded-2xl border border-line bg-white p-7 shadow-card sm:p-10 order-1 lg:order-2">
             <span className="mb-6 block h-[3px] w-9 bg-signal" aria-hidden="true" />
             
+            {article.cover_image && (
+              <div className="mb-8 overflow-hidden rounded-xl border border-line bg-slate-50">
+                <img
+                  src={article.cover_image}
+                  alt={article.title}
+                  className="w-full h-64 sm:h-80 object-cover"
+                />
+              </div>
+            )}
+
             {article.summary && (
               <div className="mb-8 rounded-xl border border-line bg-bglight p-5 border-l-4 border-l-indigo">
                 <p className="mono-tag text-indigo text-xs mb-1">Executive Summary</p>
-                <p className="text-sm sm:text-base font-medium leading-relaxed text-ink/85">
-                  {article.summary}
-                </p>
+                <div className="text-sm sm:text-base font-medium leading-relaxed text-ink/85">
+                  {parseInlineMarkdown(article.summary)}
+                </div>
               </div>
             )}
 
             {article.body && (
-              <div className="prose prose-slate max-w-none text-base leading-relaxed text-slate whitespace-pre-line space-y-5">
-                {article.body}
+              <div className="space-y-4 text-base leading-relaxed text-slate">
+                {article.body.split(/\n\s*\n/).map((para: string, idx: number) => renderFormattedParagraph(para, idx))}
               </div>
             )}
 

@@ -41,6 +41,7 @@ export const primaryNav = [
       { label: 'Industry Reports', href: '/insights/industry-reports' },
       { label: 'Whitepapers', href: '/insights/whitepapers' },
       { label: 'Case Studies', href: '/insights/case-studies' },
+      { label: 'News & Updates', href: '/insights/news-updates' },
       { label: 'Webinars & Events', href: '/insights/webinars-events' }
     ]
   },

@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, DragEvent, FormEvent, useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   initialPosition?: string;
@@ -43,6 +44,7 @@ export default function CareerApplicationForm({
   className = "",
   onResetPosition,
 }: Props) {
+  const router = useRouter();
   const [selectedPosition, setSelectedPosition] = useState(
     initialPosition || defaultPositionOptions[0]
   );
@@ -182,6 +184,7 @@ export default function CareerApplicationForm({
       }
 
       setStatus("success");
+      router.push("/career/thank-you");
     } catch (err: any) {
       setStatus("error");
       setServerError(

@@ -10,5 +10,9 @@
   {
     "_id": "admin_users",
     "seq": 1
+  },
+  {
+    "_id": "insights_articles",
+    "seq": 6
   }
 ]

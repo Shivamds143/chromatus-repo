@@ -4,46 +4,57 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-const WEBSITE_CHILDREN = [
-  { href: '/admin/pages/home', label: 'Home' },
-  { href: { pathname: '/admin/pages', query: { group: 'About Us' } }, label: 'About Us' },
-  { href: '/admin/pages/leadershipTeam', label: 'Leadership Team' },
-  { href: '/admin/pages/servicesOverview', label: 'Services' },
-  { href: '/admin/pages/industriesOverview', label: 'Industries' },
-  { href: '/admin/pages/insightsOverview', label: 'Insights' },
-  { href: { pathname: '/admin/pages', query: { group: 'Careers' } }, label: 'Careers' },
-  { href: { pathname: '/admin/pages', query: { group: 'Contact Us' } }, label: 'Contact Us' }
+const NAV_GROUPS = [
+  {
+    title: 'Overview',
+    items: [
+      { href: '/admin', label: 'Dashboard', icon: '🏠' }
+    ]
+  },
+  {
+    title: 'Website & Content',
+    items: [
+      { href: '/admin/pages', label: 'Pages & Sections', icon: '🌐' },
+      { href: '/admin/services', label: 'Services', icon: '🧩' },
+      { href: '/admin/industries', label: 'Industries', icon: '🏭' },
+      { href: '/admin/insights', label: 'Insights & Blog', icon: '📰' },
+      { href: '/admin/careers', label: 'Careers & Jobs', icon: '💼' },
+      { href: '/admin/custom-pages', label: 'Custom Pages', icon: '📄' }
+    ]
+  },
+  {
+    title: 'Showcase & Media',
+    items: [
+      { href: '/admin/clients', label: 'Client Logos', icon: '🏢' },
+      { href: '/admin/testimonials', label: 'Testimonials', icon: '💬' },
+      { href: '/admin/faqs', label: 'FAQs', icon: '❓' },
+      { href: '/admin/media', label: 'Media Library', icon: '🖼️' }
+    ]
+  },
+  {
+    title: 'Communication',
+    items: [
+      { href: '/admin/enquiries', label: 'Enquiries & Leads', icon: '✉️' },
+      { href: '/admin/careers/applications', label: 'Job Applications', icon: '📋' }
+    ]
+  },
+  {
+    title: 'Site Configuration',
+    items: [
+      { href: '/admin/theme-branding', label: 'Theme, Header & Footer', icon: '🎨' },
+      { href: '/admin/seo', label: 'SEO & Metadata', icon: '🔍' },
+      { href: '/admin/redirects', label: 'Redirects', icon: '↪️' },
+      { href: '/admin/cookie-privacy', label: 'Cookie & Privacy', icon: '🍪' },
+      { href: '/admin/settings', label: 'Account & Security', icon: '⚙️' }
+    ]
+  }
 ];
-
-const NAV = [
-  { href: '/admin', label: 'Dashboard', icon: '🏠' },
-  { href: '/admin/pages', label: 'Website', icon: '🌐', children: WEBSITE_CHILDREN },
-  { href: '/admin/services', label: 'Services', icon: '🧩' },
-  { href: '/admin/industries', label: 'Industries', icon: '🏭' },
-  { href: '/admin/insights', label: 'Insights', icon: '📰' },
-  { href: '/admin/careers', label: 'Careers', icon: '💼' },
-  { href: '/admin/testimonials', label: 'Testimonials', icon: '💬' },
-  { href: '/admin/clients', label: 'Client Logos', icon: '🏢' },
-  { href: '/admin/faqs', label: 'FAQs', icon: '❓' },
-  { href: '/admin/media', label: 'Media Library', icon: '🖼️' },
-  { href: '/admin/enquiries', label: 'Enquiries', icon: '✉️' },
-  { href: '/admin/theme-branding', label: 'Theme & Branding', icon: '🎨' },
-  { href: '/admin/seo', label: 'SEO', icon: '🔍' },
-  { href: '/admin/redirects', label: 'Redirects', icon: '↪️' },
-  { href: '/admin/cookie-privacy', label: 'Cookie & Privacy', icon: '🍪' },
-  { href: '/admin/settings', label: 'Settings', icon: '⚙️' }
-];
-
-const WEBSITE_EXTRA_CHILD = { href: '/admin/custom-pages', label: 'Custom Pages' };
 
 export default function AdminSidebar({ username }) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState(
-    pathname.startsWith('/admin/pages') || pathname.startsWith('/admin/custom-pages')
-  );
 
   // Close mobile drawer when route changes
   useEffect(() => {
@@ -71,17 +82,19 @@ export default function AdminSidebar({ username }) {
   function isActive(href) {
     if (href === '/admin') return pathname === '/admin';
     const path = typeof href === 'object' ? href.pathname : href.split('?')[0];
-    return pathname === path || pathname.startsWith(`${path}/`);
+    return pathname === path || (path !== '/admin' && pathname.startsWith(`${path}/`));
   }
 
   const sidebarNavContent = (
     <>
-      <div className="px-6 py-5 border-b border-white/10 flex items-center justify-between">
+      {/* Brand Header */}
+      <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between shrink-0 bg-navy">
         <div>
-          <p className="text-xs font-bold tracking-[0.2em] text-brandorange">CHROMATUS</p>
-          <p className="text-sm font-semibold text-white/90">Admin CMS</p>
+          <span className="text-[11px] font-bold tracking-[0.22em] text-brandorange block leading-none">
+            CHROMATUS
+          </span>
+          <p className="text-sm font-semibold text-white/95 mt-1">Management CMS</p>
         </div>
-        {/* Mobile close button */}
         <button
           type="button"
           onClick={() => setMobileOpen(false)}
@@ -92,98 +105,62 @@ export default function AdminSidebar({ username }) {
         </button>
       </div>
 
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {NAV.map((item) => {
-          if (!item.children) {
-            const active = isActive(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition ${
-                  active ? 'bg-white/15 text-white font-semibold shadow-xs' : 'text-white/75 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <span className="text-base" aria-hidden>{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            );
-          }
-
-          const parentActive = isActive(item.href) || pathname.startsWith('/admin/custom-pages');
-          const children = [...item.children, WEBSITE_EXTRA_CHILD];
-
-          return (
-            <div key={item.href} className="space-y-0.5">
-              <button
-                type="button"
-                onClick={() => setOpenMenu((v) => !v)}
-                className={`w-full flex items-center justify-between gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition ${
-                  parentActive ? 'bg-white/15 text-white font-semibold' : 'text-white/75 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <span className="flex items-center gap-2.5">
-                  <span className="text-base" aria-hidden>{item.icon}</span>
-                  <span>{item.label}</span>
-                </span>
-                <span
-                  aria-hidden
-                  className={`text-xs font-bold transition-transform duration-200 ${openMenu ? 'rotate-90' : ''}`}
-                >
-                  ›
-                </span>
-              </button>
-
-              {openMenu && (
-                <div className="mt-1 ml-4 pl-3 border-l border-white/15 space-y-1">
-                  {children.map((child) => {
-                    const isObjHref = typeof child.href === 'object';
-                    const childPath = isObjHref ? child.href.pathname : child.href;
-                    const childGroup = isObjHref ? child.href.query?.group : undefined;
-                    const childActive =
-                      pathname === childPath && (childGroup === undefined || searchParams.get('group') === childGroup);
-                    return (
-                      <Link
-                        key={isObjHref ? `${childPath}-${childGroup}` : childPath}
-                        href={child.href}
-                        onClick={() => setMobileOpen(false)}
-                        className={`block rounded-lg px-3 py-1.5 text-xs font-medium transition ${
-                          childActive
-                            ? 'bg-white/20 text-white font-semibold'
-                            : 'text-white/65 hover:bg-white/10 hover:text-white'
-                        }`}
-                      >
-                        {child.label}
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
+      {/* Nav Groups */}
+      <nav className="flex-1 px-3 py-4 space-y-5 overflow-y-auto custom-scrollbar">
+        {NAV_GROUPS.map((group) => (
+          <div key={group.title}>
+            <p className="px-3 text-[10px] font-bold tracking-wider uppercase text-white/45 mb-1.5">
+              {group.title}
+            </p>
+            <div className="space-y-0.5">
+              {group.items.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs sm:text-sm font-medium transition duration-150 ${
+                      active
+                        ? 'bg-brandblue text-white font-semibold shadow-xs'
+                        : 'text-white/75 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    <span className="text-base shrink-0 leading-none" aria-hidden>{item.icon}</span>
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </nav>
 
-      <div className="px-5 py-4 border-t border-white/10 bg-navy/50">
+      {/* Footer User Info */}
+      <div className="px-5 py-3.5 border-t border-white/10 bg-black/20 shrink-0">
         <div className="flex items-center justify-between mb-2">
-          <p className="text-xs text-white/60 truncate font-mono">User: {username}</p>
-          <span className="w-2 h-2 rounded-full bg-emerald-400" title="Online" />
+          <p className="text-xs text-white/70 truncate font-mono">
+            User: <span className="font-semibold text-white">{username}</span>
+          </p>
+          <span className="w-2 h-2 rounded-full bg-emerald-400" title="Connected" />
         </div>
-        <div className="flex items-center justify-between gap-2 pt-1">
+        <div className="flex items-center justify-between gap-3 pt-1 border-t border-white/5">
+          <Link
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-white/70 hover:text-white flex items-center gap-1 transition"
+          >
+            <span>Live Site</span>
+            <span className="text-[10px]">↗</span>
+          </Link>
           <button
+            type="button"
             onClick={handleLogout}
-            className="text-xs font-semibold text-brandorange hover:text-white transition"
+            className="text-xs font-semibold text-brandorange hover:text-brandorange-light transition"
           >
             Sign out
           </button>
-          <Link
-            href="/"
-            onClick={() => setMobileOpen(false)}
-            className="text-xs text-white/60 hover:text-white transition"
-          >
-            ← View Site
-          </Link>
         </div>
       </div>
     </>
@@ -213,6 +190,8 @@ export default function AdminSidebar({ username }) {
         <div className="flex items-center gap-2">
           <Link
             href="/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs text-white/70 hover:text-white bg-white/5 border border-white/10 px-2.5 py-1.5 rounded-lg transition"
           >
             Site ↗
@@ -229,7 +208,7 @@ export default function AdminSidebar({ username }) {
       {/* Mobile Drawer Backdrop */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs md:hidden animate-fade-in"
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs md:hidden"
           onClick={() => setMobileOpen(false)}
           aria-hidden="true"
         />

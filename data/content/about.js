@@ -42,7 +42,23 @@ export const ourStory = {
       body:
         'Our team includes trained analysts, market researchers, and domain specialists across sectors like healthcare, automotive, chemicals, energy, telecom, aerospace, and food & beverages. Combined, our team brings 25+ years of quantitative and qualitative research experience and 20+ years of B2B consulting experience to every engagement. Beyond our core leadership, Chromatus fields a team of 20 dedicated researchers and over 60+ experienced field investigators across India, supported by academic specialists in marketing, management, statistics, operations research, rural development, and social research.'
     }
-  ]
+  ],
+  metricsTitle: 'Scale & Track Record',
+  metrics: [
+    { value: '25+', label: 'Years Experience', detail: 'Quantitative & qualitative research depth' },
+    { value: '350+', label: 'Research Topics', detail: 'Knowledge base across 12 business sectors' },
+    { value: '60+', label: 'Field Officers', detail: 'On-ground investigation network across India' },
+    { value: '8+', label: 'Core Verticals', detail: 'Deep industry-specialized practice teams' }
+  ],
+  tilesTitle: 'Core Consulting Capabilities',
+  tiles: [
+    { label: 'Primary Field Studies', icon: 'compass', description: 'Surveys, CATI/CAPI & ground investigations' },
+    { label: 'Secondary Synthesis', icon: 'file-text', description: 'Market data & competitive intelligence' },
+    { label: 'Market Engineering', icon: 'chart-bar', description: 'Gap analysis, forecasting & pricing models' },
+    { label: 'Executive Strategy', icon: 'target', description: 'Directives built for board-level decisions' }
+  ],
+  outcomeTag: 'Our Guiding Promise',
+  outcomeText: 'We work at the intersection of research and consulting — ensuring every dataset translates directly into measurable strategic advantage.'
 };
 
 export const leadershipTeam = {
@@ -136,7 +152,23 @@ export const valuesCulture = {
       title: 'Evidence First. Insight Driven. Action Focused.',
       body: 'Our approach is designed to ensure that every stage — from defining the research need to delivering the final recommendation — contributes to one outcome: greater clarity and confidence in business decisions.'
     }
-  ]
+  ],
+  metricsTitle: 'Operating Principles',
+  metrics: [
+    { value: '100%', label: 'Evidence-Backed', detail: 'Zero unverified assumptions in our findings' },
+    { value: '12', label: 'Industry Practices', detail: 'Deep sector context from day one' },
+    { value: '20+', label: 'In-House Analysts', detail: 'Trained researchers, economists & statisticians' },
+    { value: 'Cross-Sector', label: 'Multi-Disciplinary', detail: 'Social, industrial & commercial breadth' }
+  ],
+  tilesTitle: 'Core Values Behind Every Engagement',
+  tiles: [
+    { label: 'Evidence Over Assumption', icon: 'shield', description: 'Rigorous scrutiny before findings reach clients' },
+    { label: 'Client-Centric Pragmatism', icon: 'handshake', description: 'Focused on the decision that truly matters' },
+    { label: 'Methodological Depth', icon: 'flask', description: 'Combining multi-channel quantitative & qualitative rigor' },
+    { label: 'Uncompromised Integrity', icon: 'badge', description: 'Objective truths, even when they challenge conventions' }
+  ],
+  outcomeTag: 'Culture in Action',
+  outcomeText: 'We maintain working knowledge across 350+ topics so our clients rarely start from zero — we bring contextual depth from day one.'
 };
 
 export const awardsRecognitions = {
@@ -150,26 +182,20 @@ export const ourApproach = {
   eyebrow: 'OUR APPROACH',
   title: 'Our approach',
   lead: 'From the right question to the right decision — how a Chromatus engagement runs.',
+  tilesTitle: 'Research Methodologies We Deploy',
+  tiles: [
+    { label: 'CAPI & CATI Surveys', icon: 'chart-bar', description: 'Structured quantitative data collection' },
+    { label: 'CAWI Digital Research', icon: 'chip', description: 'Broad online stakeholder reach' },
+    { label: 'In-Depth Stakeholder Interviews', icon: 'users', description: 'Qualitative nuance and expert insight' },
+    { label: 'Statistical Cross-Tabulation', icon: 'file-text', description: 'Multi-variable pattern identification' }
+  ],
+  stepsTitle: 'The Four-Stage Engagement Process',
   steps: [
-    {
-      stage: '01',
-      title: 'Define What Matters',
-      body: 'We start by understanding the business question behind the brief. Through discussions with our clients, we clarify objectives, priorities, timelines, and challenges — so the research addresses the decision that truly matters, not just the question on paper.'
-    },
-    {
-      stage: '02',
-      title: 'Build the Evidence',
-      body: 'We bring together the right mix of primary and secondary research to build a well-rounded view of the market. From published data, market models, and desk research to surveys, stakeholder interviews, field studies, and CAPI, CATI, and CAWI methodologies, we go beyond surface-level information to understand what is happening on the ground.'
-    },
-    {
-      stage: '03',
-      title: 'Test, Validate, Refine',
-      body: 'Good research depends on the quality of its evidence. We apply structured scrutiny and validation throughout the process, using data checks, cross-tabulation, statistical techniques, and expert validation to strengthen the reliability of our findings.'
-    },
-    {
-      stage: '04',
-      title: 'Turn Insight into Action',
-      body: 'Data becomes valuable when it helps someone make a better decision. We translate our findings into clear conclusions, practical recommendations, and business direction — giving clients a stronger basis for evaluating opportunities, addressing challenges, and planning what comes next.'
-    }
-  ]
+    { stage: '01', title: 'Define What Matters', text: 'Clarify the core business question behind the brief.', icon: 'target' },
+    { stage: '02', title: 'Build the Evidence', text: 'Multi-modal primary fieldwork and secondary intelligence.', icon: 'compass' },
+    { stage: '03', title: 'Test, Validate, Refine', text: 'Data sanity checks, statistical rigor & expert validation.', icon: 'shield' },
+    { stage: '04', title: 'Turn Insight into Action', text: 'Clear conclusions, practical trade-offs & execution plans.', icon: 'chart-bar' }
+  ],
+  outcomeTag: 'The Approach Outcome',
+  outcomeText: 'Evidence First. Insight Driven. Action Focused. A repeatable, disciplined framework that eliminates uncertainty from high-stakes decisions.'
 };

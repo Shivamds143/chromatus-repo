@@ -6,12 +6,14 @@ export default function PageHero({
   body,
   imageSrc,
   children,
+  eyebrowColor,
 }: {
   eyebrow: string;
   title: string;
   body: string;
   imageSrc?: string;
   children?: React.ReactNode;
+  eyebrowColor?: string;
 }) {
   const cleanEyebrow = eyebrow
     ? eyebrow
@@ -24,7 +26,12 @@ export default function PageHero({
     <SubpageBand>
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
         <div className="max-w-2xl">
-          <p className="eyebrow !text-signal-light">{cleanEyebrow}</p>
+          <p
+            className="eyebrow eyebrow-dark"
+            style={eyebrowColor ? { color: eyebrowColor } : undefined}
+          >
+            {cleanEyebrow}
+          </p>
           <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
             {title}
           </h1>

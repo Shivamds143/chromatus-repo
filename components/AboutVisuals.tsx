@@ -72,9 +72,20 @@ const aboutVisualsData: Record<string, AboutVisual> = {
   },
 };
 
-export default function AboutVisuals({ slug }: { slug: string }) {
-  const v = aboutVisualsData[slug];
-  if (!v) return null;
+export default function AboutVisuals({ slug, cmsData }: { slug: string; cmsData?: any }) {
+  const fallback = aboutVisualsData[slug] || {};
+  const v = {
+    metricsTitle: cmsData?.metricsTitle ?? fallback.metricsTitle,
+    metrics: Array.isArray(cmsData?.metrics) && cmsData.metrics.length > 0 ? cmsData.metrics : fallback.metrics,
+    tilesTitle: cmsData?.tilesTitle ?? fallback.tilesTitle,
+    tiles: Array.isArray(cmsData?.tiles) && cmsData.tiles.length > 0 ? cmsData.tiles : fallback.tiles,
+    stepsTitle: cmsData?.stepsTitle ?? fallback.stepsTitle,
+    steps: Array.isArray(cmsData?.steps) && cmsData.steps.length > 0 ? cmsData.steps : fallback.steps,
+    outcomeTag: cmsData?.outcomeTag ?? fallback.outcomeTag,
+    outcomeText: cmsData?.outcomeText ?? cmsData?.outcome ?? fallback.outcomeText,
+  };
+  const hasContent = (v.metrics && v.metrics.length > 0) || (v.tiles && v.tiles.length > 0) || (v.steps && v.steps.length > 0) || v.outcomeText;
+  if (!hasContent) return null;
 
   return (
     <div className="!mt-12 space-y-12">
@@ -85,7 +96,7 @@ export default function AboutVisuals({ slug }: { slug: string }) {
             {v.metricsTitle || "Key Highlights"}
           </h2>
           <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {v.metrics.map((m) => (
+            {v.metrics.map((m: any) => (
               <div
                 key={m.label}
                 className="rounded-xl border border-line bg-bglight p-4 transition hover:border-indigo/40"
@@ -109,7 +120,7 @@ export default function AboutVisuals({ slug }: { slug: string }) {
           {v.tilesTitle}
         </h2>
         <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {v.tiles.map((t) => (
+          {v.tiles.map((t: any) => (
             <li
               key={t.label}
               className="flex items-start gap-3.5 rounded-xl border border-line bg-white p-4 shadow-sm"
@@ -135,7 +146,7 @@ export default function AboutVisuals({ slug }: { slug: string }) {
             {v.stepsTitle || "Execution Flow"}
           </h2>
           <ol className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-4">
-            {v.steps.map((s, i) => (
+            {v.steps.map((s: any, i: number) => (
               <li
                 key={s.title}
                 className="relative rounded-xl border border-line bg-white p-4 shadow-sm"
@@ -149,7 +160,7 @@ export default function AboutVisuals({ slug }: { slug: string }) {
                   </span>
                 </div>
                 <p className="mt-3 font-display text-sm font-semibold text-ink">{s.title}</p>
-                <p className="mt-1 text-xs leading-relaxed text-slate">{s.text}</p>
+                <p className="mt-1 text-xs leading-relaxed text-slate">{s.text || (s as any).body}</p>
               </li>
             ))}
           </ol>
@@ -157,10 +168,12 @@ export default function AboutVisuals({ slug }: { slug: string }) {
       )}
 
       {/* Outcome Banner */}
-      <div className="rounded-xl border border-l-4 border-line border-l-signal bg-paper-dim/60 p-5">
-        <p className="mono-tag text-signal-dark">{v.outcomeTag}</p>
-        <p className="mt-1.5 text-sm leading-relaxed text-ink/90 sm:text-[0.95rem]">{v.outcomeText}</p>
-      </div>
+      {v.outcomeText && (
+        <div className="rounded-xl border border-l-4 border-line border-l-signal bg-paper-dim/60 p-5">
+          {v.outcomeTag && <p className="mono-tag text-signal-dark">{v.outcomeTag}</p>}
+          <p className="mt-1.5 text-sm leading-relaxed text-ink/90 sm:text-[0.95rem]">{v.outcomeText}</p>
+        </div>
+      )}
     </div>
   );
 }

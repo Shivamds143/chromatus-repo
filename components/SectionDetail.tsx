@@ -2,7 +2,71 @@ import Link from "next/link";
 import Container from "./Container";
 import CTABanner from "./CTABanner";
 import SubpageBand from "./SubpageBand";
+import Icon from "./Icon";
 import type { Section, SubItem } from "@/lib/content";
+
+export function parseInlineMarkdown(str: string): React.ReactNode[] {
+  const regex = /(\*\*[^*]+\*\*|\*[^*]+\*|<b>.*?<\/b>|<i>.*?<\/i>)/g;
+  const parts = str.split(regex);
+  return parts.map((part, idx) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={idx} className="font-bold text-ink">{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith("<b>") && part.endsWith("</b>")) {
+      return <strong key={idx} className="font-bold text-ink">{part.slice(3, -4)}</strong>;
+    }
+    if (part.startsWith("*") && part.endsWith("*")) {
+      return <em key={idx} className="italic text-ink/85">{part.slice(1, -1)}</em>;
+    }
+    if (part.startsWith("<i>") && part.endsWith("</i>")) {
+      return <em key={idx} className="italic text-ink/85">{part.slice(3, -4)}</em>;
+    }
+    return part;
+  });
+}
+
+export function renderFormattedParagraph(para: string, key: any) {
+  const trimmed = para.trim();
+  if (!trimmed) return null;
+
+  if (trimmed.startsWith("### ")) {
+    return (
+      <h4 key={key} className="font-display text-base sm:text-lg font-bold text-ink mt-5 mb-2 tracking-tight flex items-center gap-2">
+        <span className="h-3.5 w-1 bg-signal rounded-full shrink-0" aria-hidden="true" />
+        <span>{parseInlineMarkdown(trimmed.replace(/^###\s+/, ""))}</span>
+      </h4>
+    );
+  }
+  if (trimmed.startsWith("## ")) {
+    return (
+      <h3 key={key} className="font-display text-lg sm:text-xl font-bold text-ink mt-6 mb-2 tracking-tight flex items-center gap-2.5">
+        <span className="h-4 w-1 bg-signal rounded-full shrink-0" aria-hidden="true" />
+        <span>{parseInlineMarkdown(trimmed.replace(/^##\s+/, ""))}</span>
+      </h3>
+    );
+  }
+
+  // Check if paragraph starts with a labeled bold headline like "**Who we are:** ..." or "Who we are: ..."
+  const boldPrefixMatch = trimmed.match(/^(\*\*[^*]+:\*\*|\*\*[^*]+\*\*:?|^[A-Z][A-Za-z0-9\s,&'/-]{1,40}:)\s*(.*)$/);
+  if (boldPrefixMatch) {
+    const rawHeadline = boldPrefixMatch[1].replace(/^\*\*|\*\*$/g, "").replace(/:$/, "").trim();
+    const rest = boldPrefixMatch[2];
+    return (
+      <p key={key} className="text-sm leading-relaxed text-ink/75 sm:text-[0.95rem]">
+        <strong className="font-display font-bold text-ink text-[0.98rem] sm:text-base mr-1.5 block sm:inline">
+          {rawHeadline}:
+        </strong>{" "}
+        {parseInlineMarkdown(rest)}
+      </p>
+    );
+  }
+
+  return (
+    <p key={key} className="text-sm leading-relaxed text-ink/75 sm:text-[0.95rem]">
+      {parseInlineMarkdown(trimmed)}
+    </p>
+  );
+}
 
 export default function SectionDetail({
   section,
@@ -73,7 +137,7 @@ export default function SectionDetail({
         <Container className="relative grid gap-10 lg:grid-cols-[320px_1fr] lg:gap-12">
           {/* Left: Blue Information Box */}
           <aside className="self-start rounded-2xl bg-ink p-6 lg:sticky lg:top-24 order-2 lg:order-1 text-white shadow-card">
-            <p className="eyebrow !text-signal-light">More in {section.eyebrow}</p>
+            <p className="eyebrow eyebrow-dark">More in {section.eyebrow}</p>
             <ul className="mt-4">
               {otherItems.map((other) => (
                 <li key={other.slug} className="border-t border-paper/10">
@@ -115,12 +179,118 @@ export default function SectionDetail({
           {/* Right: Main White Information Box */}
           <div className="rounded-2xl border border-line bg-white p-7 shadow-card sm:p-10 order-1 lg:order-2">
             <span className="mb-6 block h-[3px] w-9 bg-signal" aria-hidden="true" />
-            <div className="space-y-5">
-              {item.body.map((para, i) => (
-                <p key={i} className="text-sm leading-relaxed text-ink/75 sm:text-[0.95rem]">
-                  {para}
-                </p>
-              ))}
+            <div className="space-y-6">
+              {item.sections && item.sections.length > 0 ? (
+                <div className="space-y-6">
+                  {item.sections.map((sec, i) => (
+                    <div key={i} className="space-y-2">
+                      {sec.heading && (
+                        <h3 className="font-display text-lg sm:text-xl font-bold text-ink tracking-tight flex items-center gap-2.5">
+                          <span className="h-4 w-1 bg-signal rounded-full shrink-0" aria-hidden="true" />
+                          <span>{parseInlineMarkdown(sec.heading)}</span>
+                        </h3>
+                      )}
+                      <div className="text-sm leading-relaxed text-ink/75 sm:text-[0.95rem]">
+                        {renderFormattedParagraph(sec.body, `sec-body-${i}`)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-5">
+                  {item.body.map((para, i) => renderFormattedParagraph(para, i))}
+                </div>
+              )}
+
+              {/* Injected Visual Boxes (if passed via item and no children) */}
+              {!children && (item.metrics || item.tiles || item.steps || item.outcomeText) && (
+                <div className="!mt-12 space-y-12">
+                  {item.metrics && item.metrics.length > 0 && (
+                    <section aria-labelledby="custom-metrics">
+                      <h2 id="custom-metrics" className="eyebrow">
+                        {item.metricsTitle || "Key Highlights"}
+                      </h2>
+                      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                        {item.metrics.map((m, idx) => (
+                          <div
+                            key={m.label || idx}
+                            className="rounded-xl border border-line bg-bglight p-4 transition hover:border-indigo/40"
+                          >
+                            <div className="font-display text-2xl font-bold text-indigo sm:text-3xl">
+                              {m.value}
+                            </div>
+                            <div className="mt-1 font-display text-xs font-semibold uppercase tracking-wider text-ink">
+                              {m.label}
+                            </div>
+                            {m.detail && <p className="mt-1 text-[11px] leading-relaxed text-slate">{m.detail}</p>}
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
+                  {item.tiles && item.tiles.length > 0 && (
+                    <section aria-labelledby="custom-tiles">
+                      <h2 id="custom-tiles" className="eyebrow">
+                        {item.tilesTitle || "Core Capabilities"}
+                      </h2>
+                      <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        {item.tiles.map((t, idx) => (
+                          <li
+                            key={t.label || idx}
+                            className="flex items-start gap-3.5 rounded-xl border border-line bg-white p-4 shadow-sm transition hover:border-indigo/40"
+                          >
+                            <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-indigo/10 text-indigo-dark mt-0.5">
+                              <Icon name={t.icon || "target"} className="h-5 w-5" />
+                            </span>
+                            <div>
+                              <span className="font-display text-sm font-semibold text-ink block">{t.label}</span>
+                              {t.description && (
+                                <p className="mt-1 text-xs text-slate leading-relaxed">{t.description}</p>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
+
+                  {item.steps && item.steps.length > 0 && (
+                    <section aria-labelledby="custom-steps">
+                      <h2 id="custom-steps" className="eyebrow">
+                        {item.stepsTitle || "Execution Flow"}
+                      </h2>
+                      <ol className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-4">
+                        {item.steps.map((s, idx) => (
+                          <li
+                            key={s.title || idx}
+                            className="relative rounded-xl border border-line bg-white p-4 shadow-sm"
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo/10 text-indigo-dark">
+                                <Icon name={s.icon || "target"} className="h-4 w-4" />
+                              </span>
+                              <span className="font-mono text-xs font-semibold text-signal-dark">
+                                {s.stage || `0${idx + 1}`}
+                              </span>
+                            </div>
+                            <p className="mt-3 font-display text-sm font-semibold text-ink">{s.title}</p>
+                            <p className="mt-1 text-xs leading-relaxed text-slate">{s.text || s.body}</p>
+                          </li>
+                        ))}
+                      </ol>
+                    </section>
+                  )}
+
+                  {item.outcomeText && (
+                    <div className="rounded-xl border border-l-4 border-line border-l-signal bg-paper-dim/60 p-5">
+                      {item.outcomeTag && <p className="mono-tag text-signal-dark">{item.outcomeTag}</p>}
+                      <p className="mt-1.5 text-sm leading-relaxed text-ink/90 sm:text-[0.95rem]">{item.outcomeText}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {children}
             </div>
           </div>
