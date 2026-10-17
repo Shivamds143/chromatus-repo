@@ -112,11 +112,15 @@ export default async function ServicesSubPage({ params }: Props) {
           steps: cmsData.steps,
           outcomeTag: cmsData.outcomeTag,
           outcomeText: cmsData.outcomeText || cmsData.outcome,
+          // Include CMS image so the header illustration can be overridden
+          image: cmsData.image || cmsData.photo || undefined,
         };
       }
     }
+    // Use the CMS-supplied image as the header illustration (overrides static fallback)
+    const cmsImageSrc = cmsData?.image || cmsData?.photo || undefined;
     return (
-      <SectionDetail section={liveSection} item={item}>
+      <SectionDetail section={liveSection} item={item!} imageSrc={cmsImageSrc}>
         <ServiceVisuals slug={slug} cmsData={cmsData} />
       </SectionDetail>
     );
@@ -146,8 +150,20 @@ export default async function ServicesSubPage({ params }: Props) {
   const hasFaq = sections.some((s: any) => s.type === "faq");
   const faqs = hasFaq ? await listPublishedFaqs() : [];
 
+  // Check page-level image, or image in hero section, or any section image
+  const heroSection = sections.find(
+    (s: any) => (s.type === "hero" || s.section_type === "hero") && s.data?.image
+  );
+  const anyImageSection = sections.find((s: any) => s.data?.image || s.data?.photo);
+  const customImageSrc =
+    customPage.image ||
+    heroSection?.data?.image ||
+    anyImageSection?.data?.image ||
+    anyImageSection?.data?.photo ||
+    undefined;
+
   return (
-    <SectionDetail section={liveSection} item={customItem}>
+    <SectionDetail section={liveSection} item={customItem} imageSrc={customImageSrc}>
       {sections.map((sec: any, idx: number) => {
         const d = sec.data || {};
         const type = sec.type || sec.section_type;
@@ -166,6 +182,11 @@ export default async function ServicesSubPage({ params }: Props) {
                 )}
                 {d.title && <h3 className="mt-1 font-display text-xl font-bold text-ink">{d.title}</h3>}
                 {d.lead && <p className="mt-2 text-sm leading-relaxed text-slate">{d.lead}</p>}
+                {d.image && (
+                  <div className="mt-4 overflow-hidden rounded-xl border border-line bg-white p-3">
+                    <img src={d.image} alt={d.title || ""} className="max-h-72 w-full object-contain rounded-lg" />
+                  </div>
+                )}
               </div>
             );
 

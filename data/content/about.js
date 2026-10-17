@@ -4,6 +4,7 @@ export const aboutOverview = {
   lead:
     'Chromatus Consulting is a research and consulting firm that helps organizations make better business decisions through data — understanding their markets, benchmarking their competition, and validating their strategies before they commit resources to them.',
   illustration: 'aboutOverview',
+  image: '',
   body:
     "We work at the intersection of research and consulting — we don't just hand clients a report full of numbers. We help them understand what those numbers mean for their business, and what to do next.",
   feature: {
@@ -21,6 +22,7 @@ export const ourStory = {
   eyebrow: 'OUR STORY',
   title: 'Our story',
   lead: "For over a decade, we've been helping companies understand their markets, benchmark their competition, and validate their strategies before they commit resources to them.",
+  image: '',
   sections: [
     {
       heading: 'Who we are',
@@ -66,6 +68,7 @@ export const leadershipTeam = {
   title: 'Leadership team',
   lead: 'The operators, technologists, and researchers who lead Chromatus — combined, our leadership team is supported by 20 dedicated researchers and 60+ field investigators across India.',
   illustration: 'leadershipTeam',
+  image: '',
   members: [
     {
       name: 'Vijay Natekar',
@@ -123,6 +126,7 @@ export const valuesCulture = {
   eyebrow: 'VALUES & CULTURE',
   title: 'Our expertise & approach',
   lead: 'We track eight key industry verticals and maintain a working knowledge base of 350+ researched topics across 12 business sectors, which means we rarely start from zero — we bring context from day one.',
+  image: '',
   values: [
     {
       title: 'Market & Consumer Research',
@@ -182,6 +186,7 @@ export const ourApproach = {
   eyebrow: 'OUR APPROACH',
   title: 'Our approach',
   lead: 'From the right question to the right decision — how a Chromatus engagement runs.',
+  image: '',
   tilesTitle: 'Research Methodologies We Deploy',
   tiles: [
     { label: 'CAPI & CATI Surveys', icon: 'chart-bar', description: 'Structured quantitative data collection' },

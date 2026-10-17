@@ -39,13 +39,15 @@ export default async function CustomPageView({ params }: Props) {
         eyebrow="Overview"
         title={page.title}
         body={page.meta_description || ""}
+        imageSrc={page.image || undefined}
       />
 
       <div className="space-y-16 py-12">
         {(page.sections || []).map((sec: any, idx: number) => {
           const d = sec.data || {};
+          const type = sec.type || sec.section_type;
 
-          switch (sec.section_type) {
+          switch (type) {
             case "hero":
               return (
                 <div key={idx} className="bg-paper-dim py-12">
@@ -60,6 +62,11 @@ export default async function CustomPageView({ params }: Props) {
                     )}
                     {d.title && <h2 className="mt-2 font-display text-3xl font-bold text-ink">{d.title}</h2>}
                     {d.lead && <p className="mt-4 text-base leading-relaxed text-slate">{d.lead}</p>}
+                    {d.image && (
+                      <div className="mt-6 overflow-hidden rounded-xl border border-line bg-white p-3">
+                        <img src={d.image} alt={d.title || ""} className="max-h-80 w-full object-contain rounded-lg" />
+                      </div>
+                    )}
                   </Container>
                 </div>
               );

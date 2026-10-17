@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import SectionHub from "@/components/SectionHub";
 import { industriesSection } from "@/lib/content";
 import { getLiveIndustriesData } from "@/lib/industries";
+import { getIndustriesEnabled } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
+  const enabled = await getIndustriesEnabled();
+  if (!enabled) return { title: "Not Found" };
   const data = await getLiveIndustriesData();
   return {
     title: `${data.title || "Industries"} — Chromatus Consulting`,
@@ -15,6 +19,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function IndustriesPage() {
+  const enabled = await getIndustriesEnabled();
+  if (!enabled) return notFound();
+
   const data = await getLiveIndustriesData();
 
   return (
@@ -32,3 +39,4 @@ export default async function IndustriesPage() {
     />
   );
 }
+

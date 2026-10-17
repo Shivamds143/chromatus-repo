@@ -68,6 +68,34 @@ export function renderFormattedParagraph(para: string, key: any) {
   );
 }
 
+import HeaderIllustration from "./HeaderIllustration";
+
+const KNOWN_STATIC_PAGE_IMAGES: Record<string, string[]> = {
+  services: [
+    "baseline-endline-study",
+    "brand-management",
+    "consumer-behaviour",
+    "government-surveys",
+    "location-feasibility-study",
+    "market-assessment",
+    "new-product-launch",
+    "price-benchmarking",
+    "satisfaction-studies",
+  ],
+  about: [
+    "leadership-team",
+    "our-approach",
+    "our-story",
+    "values-culture",
+  ],
+  insights: [
+    "case-studies",
+    "industry-reports",
+    "news-updates",
+    "whitepapers",
+  ],
+};
+
 export default function SectionDetail({
   section,
   item,
@@ -80,11 +108,11 @@ export default function SectionDetail({
   imageSrc?: string;
 }) {
   const otherItems = section.items.filter((i) => i.slug !== item.slug);
+  const isKnownStatic = KNOWN_STATIC_PAGE_IMAGES[section.key]?.includes(item.slug);
   const resolvedImageSrc =
-    imageSrc ||
-    (["services", "about", "insights"].includes(section.key)
-      ? `/${section.key}/${item.slug}.png`
-      : undefined);
+    imageSrc && imageSrc.trim() !== ""
+      ? imageSrc.trim()
+      : (isKnownStatic ? `/${section.key}/${item.slug}.png` : undefined);
 
   return (
     <>
@@ -107,17 +135,7 @@ export default function SectionDetail({
           </div>
 
           {/* Section Illustration placed in header band */}
-          {resolvedImageSrc && (
-            <div className="relative z-10 flex items-center justify-start lg:justify-end shrink-0">
-              <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/95 p-3.5 shadow-2xl backdrop-blur transition hover:scale-[1.02]">
-                <img
-                  src={resolvedImageSrc}
-                  alt={item.title}
-                  className="h-36 sm:h-44 w-auto max-w-[260px] sm:max-w-[320px] object-contain rounded-xl"
-                />
-              </div>
-            </div>
-          )}
+          <HeaderIllustration src={resolvedImageSrc} alt={item.title} />
         </div>
       </SubpageBand>
 

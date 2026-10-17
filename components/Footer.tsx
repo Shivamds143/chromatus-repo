@@ -40,6 +40,8 @@ export default function Footer() {
     ] as SocialLink[],
   });
 
+  const [customPages, setCustomPages] = useState<Array<{ slug: string; title: string }>>([]);
+
   useEffect(() => {
     let cancelled = false;
     fetch("/api/global-elements")
@@ -48,6 +50,9 @@ export default function Footer() {
         if (cancelled || !json?.elements) return;
         const el = json.elements;
         const set = json.settings || {};
+        if (Array.isArray(json.footerPages)) {
+          setCustomPages(json.footerPages);
+        }
         setData({
           siteName: set.siteName || "Chromatus Consulting",
           footerNote:
@@ -132,6 +137,13 @@ export default function Footer() {
               <li key={link.href}>
                 <Link href={link.href} className="text-paper/60 transition hover:text-paper">
                   {link.label}
+                </Link>
+              </li>
+            ))}
+            {customPages.map((cp) => (
+              <li key={cp.slug}>
+                <Link href={`/pages/${cp.slug}`} className="text-paper/60 transition hover:text-paper">
+                  {cp.title}
                 </Link>
               </li>
             ))}

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { getAdminSession } from '@/lib/requireAdmin';
-import { getCustomPageForAdmin, updateCustomPageMeta, deleteCustomPage } from '@/lib/customPages';
+import { getCustomPageForAdmin, updateCustomPageMeta, updateSectionData, deleteCustomPage } from '@/lib/customPages';
 
 export async function GET(request, { params }) {
   params = await params;
@@ -31,9 +31,21 @@ export async function PUT(request, { params }) {
     return NextResponse.json({ error: message || 'Save failed' }, { status: 500 });
   }
 
+  // If sections were also provided in the payload, save all section data simultaneously
+  if (Array.isArray(body?.sections)) {
+    for (const sec of body.sections) {
+      if (sec.id && sec.data !== undefined) {
+        await updateSectionData(sec.id, sec.data);
+      }
+    }
+  }
+
   try {
     revalidatePath('/services');
-    revalidatePath('/services/[slug]');
+    revalidatePath('/services/[slug]', 'page');
+    revalidatePath('/industries');
+    revalidatePath('/industries/[slug]', 'page');
+    revalidatePath('/pages/[slug]', 'page');
     revalidatePath('/');
   } catch (e) {
     console.warn('[custom-pages] revalidate failed:', e);

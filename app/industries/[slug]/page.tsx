@@ -9,6 +9,8 @@ import { getCustomPageBySlug, listPublishedCustomPages } from "@/lib/customPages
 import { getLiveIndustriesData, INDUSTRY_SLUG_TO_CMS_KEY } from "@/lib/industries";
 import { isPreviewActive } from "@/lib/preview";
 import { listPublishedFaqs } from "@/lib/faqs";
+import { getIndustriesEnabled } from "@/lib/settings";
+
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -27,6 +29,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const enabled = await getIndustriesEnabled();
+  if (!enabled) return { title: "Not Found" };
   const { slug } = await Promise.resolve(params);
   const preview = await isPreviewActive();
   const item = industriesSection.items.find((i) => i.slug === slug);
@@ -59,6 +63,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function IndustriesSubPage({ params }: Props) {
+  const enabled = await getIndustriesEnabled();
+  if (!enabled) return notFound();
+
   const { slug } = await Promise.resolve(params);
   const preview = await isPreviewActive();
   const industriesData = await getLiveIndustriesData();
@@ -119,7 +126,8 @@ export default async function IndustriesSubPage({ params }: Props) {
       ...extraProps,
     };
 
-    return <SectionDetail section={liveSection} item={detailItem} />;
+    const cmsImageSrc = extraProps?.image || extraProps?.photo || undefined;
+    return <SectionDetail section={liveSection} item={detailItem} imageSrc={cmsImageSrc} />;
   }
 
   // Check for custom dynamic industry page created in Admin -> Industries
@@ -146,8 +154,19 @@ export default async function IndustriesSubPage({ params }: Props) {
   const hasFaq = sections.some((s: any) => s.type === "faq");
   const faqs = hasFaq ? await listPublishedFaqs() : [];
 
+  const heroSection = sections.find(
+    (s: any) => (s.type === "hero" || s.section_type === "hero") && s.data?.image
+  );
+  const anyImageSection = sections.find((s: any) => s.data?.image || s.data?.photo);
+  const customImageSrc =
+    customPage.image ||
+    heroSection?.data?.image ||
+    anyImageSection?.data?.image ||
+    anyImageSection?.data?.photo ||
+    undefined;
+
   return (
-    <SectionDetail section={liveSection} item={customItem}>
+    <SectionDetail section={liveSection} item={customItem} imageSrc={customImageSrc}>
       {sections.map((sec: any, idx: number) => {
         const d = sec.data || {};
         const type = sec.type || sec.section_type;
@@ -166,6 +185,11 @@ export default async function IndustriesSubPage({ params }: Props) {
                 )}
                 {d.title && <h3 className="mt-1 font-display text-xl font-bold text-ink">{d.title}</h3>}
                 {d.lead && <p className="mt-2 text-sm leading-relaxed text-slate">{d.lead}</p>}
+                {d.image && (
+                  <div className="mt-4 overflow-hidden rounded-xl border border-line bg-white p-3">
+                    <img src={d.image} alt={d.title || ""} className="max-h-72 w-full object-contain rounded-lg" />
+                  </div>
+                )}
               </div>
             );
 

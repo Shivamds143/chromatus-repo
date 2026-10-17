@@ -20,6 +20,7 @@
     "twitter_handle": "",
     "organization_name": "Chromatus Consulting",
     "organization_logo": "/images/logo.png",
-    "organization_description": ""
+    "organization_description": "",
+    "industries_enabled": false
   }
 ]

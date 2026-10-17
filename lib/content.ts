@@ -12,6 +12,7 @@ export type SubItem = {
   steps?: Array<{ stage?: string; title: string; text?: string; body?: string; icon?: string }>;
   outcomeTag?: string;
   outcomeText?: string;
+  image?: string;
 };
 
 export type Section = {

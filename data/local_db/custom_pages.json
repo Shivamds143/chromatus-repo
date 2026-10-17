@@ -1,5 +1,30 @@
 [
   {
+    "_id": 12,
+    "id": 12,
+    "slug": "story-teller",
+    "title": "story teller",
+    "meta_description": "Important: The thank-you page should appear only after successful form submission. This ensures visitors know their contact inquiry or job application has actually been received.",
+    "image": null,
+    "show_in_footer": 0,
+    "page_type": "custom",
+    "sort_order": 3,
+    "is_published": 0,
+    "updated_at": "2026-10-17T13:04:47.197Z"
+  },
+  {
+    "_id": 10,
+    "id": 10,
+    "slug": "pages-story",
+    "title": "story articles",
+    "meta_description": null,
+    "image": null,
+    "page_type": "custom",
+    "sort_order": 2,
+    "is_published": 0,
+    "updated_at": "2026-10-17T12:45:04.487Z"
+  },
+  {
     "_id": 8,
     "id": 8,
     "slug": "contact-thank-you",

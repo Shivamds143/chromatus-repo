@@ -17,6 +17,7 @@ export default function Header() {
   const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [liveServices, setLiveServices] = useState<any[]>(servicesSection.items);
   const [liveIndustries, setLiveIndustries] = useState<any[]>(industriesSection.items);
+  const [industriesEnabled, setIndustriesEnabled] = useState(true);
   const [headerCta, setHeaderCta] = useState({ label: "Chromatus Pro", href: "/contact#contact-form" });
 
   useEffect(() => {
@@ -47,6 +48,10 @@ export default function Header() {
           }))
         );
       }
+      // Hide the Industries nav entry when the admin has toggled it off
+      if (industriesData && typeof industriesData.enabled === 'boolean') {
+        setIndustriesEnabled(industriesData.enabled);
+      }
       if (globalData?.elements?.headerCtaLabel) {
         setHeaderCta({
           label: globalData.elements.headerCtaLabel,
@@ -71,12 +76,18 @@ export default function Header() {
     };
   }, []);
 
-  const dropdowns = [
+  const allDropdowns = [
     { label: "About Us", path: aboutSection.path, items: aboutSection.items },
     { label: "Services", path: servicesSection.path, items: liveServices },
     { label: "Industries", path: industriesSection.path, items: liveIndustries },
     { label: "Insights", path: insightsSection.path, items: insightsSection.items },
   ];
+
+  // Filter out disabled sections
+  const dropdowns = allDropdowns.filter((d) => {
+    if (d.label === "Industries" && !industriesEnabled) return false;
+    return true;
+  });
 
   return (
     <header className="sticky top-0 z-50 border-b border-paper/10 bg-ink/95 backdrop-blur">

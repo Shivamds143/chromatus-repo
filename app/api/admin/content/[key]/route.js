@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { getAdminSession } from '@/lib/requireAdmin';
 import { getCmsPageMeta } from '@/lib/cmsRegistry';
 import { getDefaultForKey } from '@/lib/cmsDefaults';
-import { getRawPageContent, savePageContent } from '@/lib/cms';
+import { getRawPageContent, savePageContent, deepMergeContent } from '@/lib/cms';
 
 export async function GET(request, { params }) {
   params = await params;
@@ -19,9 +19,11 @@ export async function GET(request, { params }) {
   return NextResponse.json({
     meta,
     fallback,
-    // What the editor should load: the saved draft if one exists, else
-    // the original static content (deep-cloned via JSON round-trip).
-    current: data ?? JSON.parse(JSON.stringify(fallback)),
+    // What the editor should load: the saved draft if one exists (merged over fallback defaults
+    // so any newly introduced schema fields like image are available to edit), else fallback.
+    current: data
+      ? deepMergeContent(JSON.parse(JSON.stringify(fallback)), data)
+      : JSON.parse(JSON.stringify(fallback)),
     isPublished,
     updatedAt
   });

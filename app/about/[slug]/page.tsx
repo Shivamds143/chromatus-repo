@@ -86,12 +86,17 @@ export default async function AboutSubPage({ params }: Props) {
         steps: cmsData.steps,
         outcomeTag: cmsData.outcomeTag,
         outcomeText: cmsData.outcomeText || cmsData.outcome,
+        // Include CMS image so the header illustration can be overridden
+        image: cmsData.image || cmsData.photo || undefined,
       };
     }
   }
 
+  // Use the CMS-supplied image as the header illustration (overrides static fallback)
+  const cmsImageSrc = cmsData?.image || cmsData?.photo || undefined;
+
   return (
-    <SectionDetail section={aboutSection} item={item}>
+    <SectionDetail section={aboutSection} item={item!} imageSrc={cmsImageSrc}>
       <AboutVisuals slug={slug} cmsData={cmsData} />
     </SectionDetail>
   );

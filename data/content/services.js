@@ -74,6 +74,7 @@ export const strategyTransformation = {
   eyebrow: 'SERVICES / MARKET ASSESSMENT',
   title: 'Market Assessment',
   lead: 'Before making a move, understand the market you are moving into.',
+  image: '',
   illustration: 'strategy',
   body: [
     'Markets are shaped by more than size and growth. The real opportunity lies in understanding what is driving demand, where competition is strongest, what barriers exist, and where whitespace remains.',
@@ -97,6 +98,7 @@ export const technologyConsulting = {
   eyebrow: 'SERVICES / NEW PRODUCT LAUNCH',
   title: 'New Product Launch',
   lead: 'Turn an idea into a market-ready product.',
+  image: '',
   illustration: 'code',
   body: [
     'A good idea must still prove its value in the real market.',
@@ -118,6 +120,7 @@ export const dataAnalytics = {
   eyebrow: 'SERVICES / CONSUMER BEHAVIOUR',
   title: 'Consumer Behaviour',
   lead: 'Understand the thinking behind the purchase.',
+  image: '',
   illustration: 'data',
   body: [
     'We study how consumers think, decide, and behave. We uncover the motivations, triggers, preferences, and barriers that shape decisions — from first awareness to purchase and repeat use.',
@@ -138,6 +141,7 @@ export const cloudDigitalSolutions = {
   eyebrow: 'SERVICES / PRICE BENCHMARKING',
   title: 'Price Benchmarking',
   lead: 'Make sure your pricing works for you, not against you.',
+  image: '',
   illustration: 'cloud',
   body: [
     'We help businesses understand how their pricing compares with competitors and how customers perceive the value behind it.',
@@ -159,6 +163,7 @@ export const managedServices = {
   eyebrow: 'SERVICES / SATISFACTION STUDIES',
   title: 'Satisfaction Studies',
   lead: 'Listen to customers before dissatisfaction becomes a problem.',
+  image: '',
   illustration: 'managed',
   body: [
     'Customer satisfaction is more than a score — it shows where your experience is working and where it is failing.',
@@ -180,6 +185,7 @@ export const engagementModels = {
   eyebrow: 'SERVICES / BRAND MANAGEMENT',
   title: 'Brand Management',
   lead: 'Know how your brand stands in the minds of customers.',
+  image: '',
   illustration: 'engagement',
   body: [
     'Your brand already exists in the minds of customers — even if you are not actively shaping it.',
@@ -200,6 +206,7 @@ export const locationFeasibilityStudy = {
   eyebrow: 'SERVICES / LOCATION FEASIBILITY STUDY',
   title: 'Location Feasibility Study',
   lead: 'Before you invest in a location, understand it first.',
+  image: '',
   illustration: 'map-pin',
   body: [
     'A location can directly determine the success or failure of your business expansion.',
@@ -223,6 +230,7 @@ export const baselineEndlineStudy = {
   eyebrow: 'SERVICES / BASELINE & ENDLINE STUDY',
   title: 'Baseline & Endline Study',
   lead: 'Measure impact with evidence, not estimates.',
+  image: '',
   illustration: 'target',
   body: [
     'For CSR programs, public projects, and development initiatives, impact must be measured from a clear starting point.',
@@ -244,6 +252,7 @@ export const governmentSurveys = {
   eyebrow: 'SERVICES / GOVERNMENT SURVEYS',
   title: 'Government Surveys',
   lead: 'Ground-level data for decisions that affect communities.',
+  image: '',
   illustration: 'briefcase',
   body: [
     'Public-sector decisions need to reflect what is happening on the ground.',
