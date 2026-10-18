@@ -10,7 +10,7 @@ import type { LiveServicesData } from "@/lib/services";
 const barColors = ["#1F82C5", "#EA9322", "#15619B", "#F2AC52", "#3D9FDE", "#C97614"];
 
 export default function ExploreGrid({ servicesData }: { servicesData?: LiveServicesData }) {
-  const eyebrow = servicesData?.eyebrow || "Services & Capabilities";
+  const eyebrow = (servicesData as any)?.homepageEyebrow || "Services & Capabilities";
   const title = servicesData?.title || servicesSection.title;
   const intro = servicesData?.intro || servicesSection.intro;
   const items = servicesData?.items && servicesData.items.length > 0
@@ -22,7 +22,7 @@ export default function ExploreGrid({ servicesData }: { servicesData?: LiveServi
       <Container>
         <p
           className="eyebrow"
-          style={(servicesData as any)?.eyebrowColor ? { color: (servicesData as any).eyebrowColor } : undefined}
+          style={{ color: (servicesData as any)?.eyebrowColor || "#EA9322" }}
         >
           {eyebrow}
         </p>

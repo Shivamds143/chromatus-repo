@@ -28,16 +28,8 @@ type WhyChooseProps = {
 };
 
 export default function WhyChoose({ content }: WhyChooseProps) {
-  let rawEyebrow = content?.eyebrow || "Why Chromatus";
-  rawEyebrow = rawEyebrow.replace(/^[0-9]{1,2}\s*[\/—–-]\s*/, "").replace(/^.*?\/\s*/, "").replace(/\?/g, "").trim();
-  if (!rawEyebrow || /about(\s*us)?/i.test(rawEyebrow)) {
-    rawEyebrow = "Why Chromatus";
-  }
-  const eyebrow = rawEyebrow;
-  let title = content?.title || "Built for teams who need the answer to hold up.";
-  if (/we turn data into decisions/i.test(title)) {
-    title = "Built for teams who need the answer to hold up.";
-  }
+  const eyebrow = content?.eyebrow || "Why Chromatus";
+  const title = content?.title || "Built for teams who need the answer to hold up.";
   const displayPillars = content?.pillars && content.pillars.length > 0 ? content.pillars : pillars;
 
   return (
@@ -45,7 +37,7 @@ export default function WhyChoose({ content }: WhyChooseProps) {
       <Container>
         <p
           className="eyebrow"
-          style={content?.eyebrowColor ? { color: content.eyebrowColor } : undefined}
+          style={{ color: content?.eyebrowColor || "#EA9322" }}
         >
           {eyebrow}
         </p>

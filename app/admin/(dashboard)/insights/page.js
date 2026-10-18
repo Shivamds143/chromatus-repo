@@ -96,8 +96,19 @@ export default function AdminInsightsListPage() {
 
   async function handleDelete(id) {
     if (!confirm('Delete this article? This cannot be undone.')) return;
-    const res = await fetch(`/api/admin/insights/${id}`, { method: 'DELETE' });
-    if (res.ok) setArticles((prev) => prev.filter((a) => a.id !== id));
+    try {
+      const res = await fetch(`/api/admin/insights/${id}`, { method: 'DELETE' });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setArticles((prev) =>
+          prev.filter((a) => String(a.id) !== String(id) && String(a._id) !== String(id))
+        );
+      } else {
+        alert(data.error || 'Failed to delete article');
+      }
+    } catch {
+      alert('Network error while deleting article');
+    }
   }
 
   const filtered = articles.filter((a) => {

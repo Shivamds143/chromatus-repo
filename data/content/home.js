@@ -11,49 +11,18 @@ export const home = {
   about: {
     eyebrow: 'WHY CHROMATUS',
     title: 'Built for teams who need the answer to hold up.',
-    lead:
-      'Chromatus Consulting is a research and consulting firm that helps organizations make better business decisions through data \u2014 understanding their markets, benchmarking their competition, and validating their strategies before they commit resources to them.',
-    body:
-      "We work at the intersection of research and consulting \u2014 we don't just hand clients a report full of numbers. We help them understand what those numbers mean for their business, and what to do next.",
-    link: { label: 'Meet Chromatus', href: '/about-us' },
-    feature: {
-      title: 'Evidence first. Insight driven. Action focused.',
-      body: 'Every stage \u2014 from defining the research need to delivering the final recommendation \u2014 contributes to one outcome: greater clarity and confidence in business decisions.'
-    }
-  },
-  capabilities: {
-    eyebrow: 'WHAT WE DO',
-    title: 'Research-backed answers before you commit resources.',
-    subtitle:
-      'We help businesses answer the questions that matter most before they make a move \u2014 through primary and secondary research translated into clear, actionable recommendations.',
-    cards: [
+    pillars: [
       {
-        icon: 'trending-up',
-        color: 'brandblue',
-        title: 'Market Assessment',
-        body: 'Before making a move, understand the market you are moving into.',
-        href: '/services/strategy-transformation'
+        title: 'A decade of track record',
+        body: 'For over a decade, Chromatus has helped organizations make better business decisions through data \u2014 validating strategies before they commit resources to them.'
       },
       {
-        icon: 'code',
-        color: 'purple',
-        title: 'New Product Launch',
-        body: 'Turn an idea into a market-ready product.',
-        href: '/services/technology-consulting'
+        title: 'Research and consulting, not just reports',
+        body: "We don't just hand clients a report full of numbers. We help them understand what those numbers mean for their business, and what to do next."
       },
       {
-        icon: 'database',
-        color: 'teal',
-        title: 'Consumer Behaviour',
-        body: 'Understand the thinking behind the purchase.',
-        href: '/services/data-analytics'
-      },
-      {
-        icon: 'cloud',
-        color: 'brandorange',
-        title: 'Price Benchmarking',
-        body: 'Make sure your pricing works for you, not against you.',
-        href: '/services/cloud-digital-solutions'
+        title: 'A team built for depth',
+        body: '20 dedicated researchers and 60+ field investigators, supported by specialists in marketing, statistics, operations research, and social research \u2014 the depth to run anything from a focused CSAT study to a nationwide field survey.'
       }
     ]
   },

@@ -289,7 +289,7 @@ export default function ArticleForm({ initial, articleId }) {
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      <div className="flex items-center gap-3 pt-2">
+      <div className="flex items-center justify-between pt-2">
         <button
           type="submit"
           disabled={saving}
@@ -297,6 +297,28 @@ export default function ArticleForm({ initial, articleId }) {
         >
           {saving ? 'Saving…' : 'Save article'}
         </button>
+
+        {articleId && (
+          <button
+            type="button"
+            onClick={async () => {
+              if (!confirm('Are you sure you want to delete this publication? This cannot be undone.')) return;
+              try {
+                const res = await fetch(`/api/admin/insights/${articleId}`, { method: 'DELETE' });
+                if (res.ok) {
+                  router.push('/admin/insights');
+                } else {
+                  alert('Failed to delete article');
+                }
+              } catch {
+                alert('Network error while deleting article');
+              }
+            }}
+            className="rounded-full border border-red-200 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition"
+          >
+            Delete Publication
+          </button>
+        )}
       </div>
     </form>
   );

@@ -5,6 +5,8 @@ import Container from "@/components/Container";
 import Reveal from "@/components/Reveal";
 import { insightsSection } from "@/lib/content";
 import { getArticles } from "@/lib/insights";
+import { getPageContent } from "@/lib/cms";
+import { insightsOverview } from "@/data/content/insights";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -15,11 +17,20 @@ export const metadata: Metadata = {
 };
 
 export default async function InsightsPage() {
-  const articles = await getArticles();
+  const [articles, content] = await Promise.all([
+    getArticles(),
+    getPageContent("insightsOverview", insightsOverview).catch(() => null),
+  ]);
 
   return (
     <>
-      <SectionHub section={insightsSection} />
+      <SectionHub
+        section={insightsSection}
+        overrideEyebrow={content?.eyebrow}
+        overrideTitle={content?.title}
+        overrideIntro={content?.lead}
+        overrideImage={content?.image || content?.photo || undefined}
+      />
 
       {articles && articles.length > 0 && (
         <section className="py-20 border-t border-line bg-paper-dim/50">

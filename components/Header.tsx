@@ -15,7 +15,14 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileSection, setMobileSection] = useState<string | null>(null);
-  const [liveServices, setLiveServices] = useState<any[]>(servicesSection.items);
+  const [liveAbout, setLiveAbout] = useState<any[]>([
+    { slug: "about-overview", title: "About Overview", href: "/about" },
+    ...aboutSection.items
+  ]);
+  const [liveServices, setLiveServices] = useState<any[]>([
+    { slug: "services-overview", title: "Services Overview", href: "/services" },
+    ...servicesSection.items
+  ]);
   const [liveIndustries, setLiveIndustries] = useState<any[]>(industriesSection.items);
   const [industriesEnabled, setIndustriesEnabled] = useState(true);
   const [headerCta, setHeaderCta] = useState({ label: "Chromatus Pro", href: "/contact#contact-form" });
@@ -23,20 +30,25 @@ export default function Header() {
   useEffect(() => {
     let cancelled = false;
     Promise.all([
+      fetch("/api/about").then((res) => res.json()).catch(() => null),
       fetch("/api/services").then((res) => res.json()).catch(() => null),
       fetch("/api/industries").then((res) => res.json()).catch(() => null),
       fetch("/api/global-elements").then((res) => res.json()).catch(() => null)
-    ]).then(([servicesData, industriesData, globalData]) => {
+    ]).then(([aboutData, servicesData, industriesData, globalData]) => {
       if (cancelled) return;
+      if (Array.isArray(aboutData?.items) && aboutData.items.length > 0) {
+        setLiveAbout(aboutData.items);
+      }
       if (Array.isArray(servicesData?.items) && servicesData.items.length > 0) {
-        setLiveServices(
-          servicesData.items.map((it: any) => ({
+        setLiveServices([
+          { slug: "services-overview", title: "Services Overview", href: "/services" },
+          ...servicesData.items.map((it: any) => ({
             slug: it.slug,
             title: it.title,
             summary: it.summary,
             href: it.href,
           }))
-        );
+        ]);
       }
       if (Array.isArray(industriesData?.items) && industriesData.items.length > 0) {
         setLiveIndustries(
@@ -77,7 +89,7 @@ export default function Header() {
   }, []);
 
   const allDropdowns = [
-    { label: "About Us", path: aboutSection.path, items: aboutSection.items },
+    { label: "About Us", path: aboutSection.path, items: liveAbout },
     { label: "Services", path: servicesSection.path, items: liveServices },
     { label: "Industries", path: industriesSection.path, items: liveIndustries },
     { label: "Insights", path: insightsSection.path, items: insightsSection.items },
@@ -158,22 +170,28 @@ export default function Header() {
           </Link>
         </div>
 
-        <button
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-paper/20 text-paper lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
-            <path d="M0 1H18" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M0 7H18" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M0 13H18" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <SearchToggle />
+          <button
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-paper/20 text-paper"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+              <path d="M0 1H18" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M0 7H18" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M0 13H18" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+          </button>
+        </div>
       </Container>
 
       {open && (
         <div className="border-t border-paper/10 bg-ink lg:hidden">
           <Container className="flex flex-col gap-1 py-4">
+            <div className="mb-2 px-1">
+              <SearchToggle showFullTrigger buttonLabel="Search Chromatus…" />
+            </div>
 
             {dropdowns.map((d) => (
               <div key={d.label}>

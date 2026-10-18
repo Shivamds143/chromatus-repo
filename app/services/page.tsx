@@ -28,6 +28,7 @@ export default async function ServicesPage() {
       overrideEyebrow={data.eyebrow}
       overrideTitle={data.title}
       overrideIntro={data.intro}
+      overrideImage={data.image}
       items={data.items}
     />
   );

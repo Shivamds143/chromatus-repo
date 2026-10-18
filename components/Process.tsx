@@ -46,7 +46,7 @@ export default function Process({ content }: ProcessProps) {
       <Container>
         <p
           className="eyebrow"
-          style={content?.eyebrowColor ? { color: content.eyebrowColor } : undefined}
+          style={{ color: content?.eyebrowColor || "#EA9322" }}
         >
           {cleanEyebrow}
         </p>

@@ -123,15 +123,15 @@ export default function AboutVisuals({ slug, cmsData }: { slug: string; cmsData?
           {v.tiles.map((t: any) => (
             <li
               key={t.label}
-              className="flex items-start gap-3.5 rounded-xl border border-line bg-white p-4 shadow-sm"
+              className="flex min-w-0 items-start gap-3.5 rounded-xl border border-line bg-white p-4 shadow-sm"
             >
               <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-indigo/10 text-indigo-dark mt-0.5">
                 <Icon name={t.icon} className="h-5 w-5" />
               </span>
-              <div>
-                <span className="font-display text-sm font-semibold text-ink block">{t.label}</span>
+              <div className="min-w-0 flex-1">
+                <span className="font-display text-sm font-semibold text-ink block break-words">{t.label}</span>
                 {t.description && (
-                  <p className="mt-1 text-xs text-slate leading-relaxed">{t.description}</p>
+                  <p className="mt-1 text-xs text-slate leading-relaxed break-words">{t.description}</p>
                 )}
               </div>
             </li>

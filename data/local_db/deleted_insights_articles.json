@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "undefined",
+    "slug": "undefined",
+    "deleted_at": "2026-10-18T07:10:16.004Z"
+  },
+  {
+    "_id": "5",
+    "id": 5,
+    "slug": "5",
+    "deleted_at": "2026-10-18T07:10:50.559Z"
+  },
+  {
+    "_id": "1",
+    "id": 1,
+    "slug": "global-ev-component-architecture-outlook",
+    "deleted_at": "2026-10-18T07:12:27.914Z"
+  },
+  {
+    "_id": "2",
+    "id": 2,
+    "slug": "de-risking-new-market-entry-framework",
+    "deleted_at": "2026-10-18T07:14:55.148Z"
+  },
+  {
+    "_id": "3",
+    "id": 3,
+    "slug": "commercial-solar-adoption-tier-2-cities",
+    "deleted_at": "2026-10-18T07:14:57.999Z"
+  },
+  {
+    "_id": "4",
+    "id": 4,
+    "slug": "test-delete-article",
+    "deleted_at": "2026-10-18T07:15:00.828Z"
+  }
+]

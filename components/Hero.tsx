@@ -71,8 +71,8 @@ export default function Hero({ content }: HeroProps) {
           {/* Big heading */}
           <h1 className="mt-10 font-display text-[3rem] font-bold leading-[0.95] tracking-[-0.06em] sm:text-7xl lg:text-[5.6rem]">
             <span className="block text-white">Make your next</span>
-            <span className="block text-[#4fd1c5]">move</span>
-            <span className="block text-[#4fd1c5]">meaningful.</span>
+            <span className="block text-brandorange">move</span>
+            <span className="block text-brandorange">meaningful.</span>
           </h1>
 
           {/* Small text under heading */}
@@ -94,7 +94,7 @@ export default function Hero({ content }: HeroProps) {
 
             <Link
               href={secondaryHref}
-              className="group inline-flex items-center gap-2 text-xs font-bold text-white transition hover:text-[#4fd1c5]"
+              className="group inline-flex items-center gap-2 text-xs font-bold text-white transition hover:text-brandorange"
             >
               <span>{secondaryLabel}</span>
               <span className="text-sm transition-transform group-hover:translate-x-1">→</span>

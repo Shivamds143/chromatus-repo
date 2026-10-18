@@ -195,7 +195,7 @@ export default function SectionDetail({
           </aside>
 
           {/* Right: Main White Information Box */}
-          <div className="rounded-2xl border border-line bg-white p-7 shadow-card sm:p-10 order-1 lg:order-2">
+          <div className="rounded-2xl border border-line bg-white p-5 shadow-card sm:p-10 order-1 lg:order-2">
             <span className="mb-6 block h-[3px] w-9 bg-signal" aria-hidden="true" />
             <div className="space-y-6">
               {item.sections && item.sections.length > 0 ? (
@@ -256,15 +256,15 @@ export default function SectionDetail({
                         {item.tiles.map((t, idx) => (
                           <li
                             key={t.label || idx}
-                            className="flex items-start gap-3.5 rounded-xl border border-line bg-white p-4 shadow-sm transition hover:border-indigo/40"
+                            className="flex min-w-0 items-start gap-3.5 rounded-xl border border-line bg-white p-4 shadow-sm transition hover:border-indigo/40"
                           >
                             <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-indigo/10 text-indigo-dark mt-0.5">
                               <Icon name={t.icon || "target"} className="h-5 w-5" />
                             </span>
-                            <div>
-                              <span className="font-display text-sm font-semibold text-ink block">{t.label}</span>
+                            <div className="min-w-0 flex-1">
+                              <span className="font-display text-sm font-semibold text-ink block break-words">{t.label}</span>
                               {t.description && (
-                                <p className="mt-1 text-xs text-slate leading-relaxed">{t.description}</p>
+                                <p className="mt-1 text-xs text-slate leading-relaxed break-words">{t.description}</p>
                               )}
                             </div>
                           </li>

@@ -20,6 +20,7 @@ export type LiveServicesData = {
   eyebrow: string;
   title: string;
   intro: string;
+  image?: string;
   items: ServiceCardItem[];
 };
 
@@ -154,6 +155,7 @@ export async function getLiveServicesData(): Promise<LiveServicesData> {
     eyebrow: overview?.eyebrow || servicesSection.eyebrow,
     title: overview?.title || servicesSection.title,
     intro: overview?.lead || servicesSection.intro,
+    image: overview?.image || overview?.photo || undefined,
     items,
   };
 }

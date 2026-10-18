@@ -183,16 +183,18 @@ export default function ServiceVisuals({ slug, cmsData }: { slug: string; cmsDat
         <h2 id="service-uncover" className="eyebrow">
           {v.tilesTitle}
         </h2>
-        <ul className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <ul className="mt-4 grid grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4">
           {v.tiles.map((t) => (
             <li
               key={t.label}
-              className="flex items-center gap-3 rounded-xl border border-line bg-white px-4 py-3 shadow-sm"
+              className="flex min-w-0 items-center gap-2 rounded-xl border border-line bg-white px-2.5 py-2.5 shadow-sm sm:gap-3 sm:px-4 sm:py-3"
             >
-              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-indigo/10 text-indigo-dark">
-                <Icon name={t.icon} className="h-[18px] w-[18px]" />
+              <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-indigo/10 text-indigo-dark sm:h-9 sm:w-9">
+                <Icon name={t.icon} className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />
               </span>
-              <span className="font-display text-sm font-medium leading-snug text-ink">{t.label}</span>
+              <span className="min-w-0 flex-1 break-words font-display text-xs font-medium leading-tight text-ink sm:text-sm sm:leading-snug">
+                {t.label}
+              </span>
             </li>
           ))}
         </ul>

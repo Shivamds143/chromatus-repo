@@ -23,18 +23,26 @@ export default function SectionHub({
   overrideTitle,
   overrideIntro,
   overrideEyebrow,
+  overrideImage,
   items,
+  children,
 }: {
   section: Section;
   overrideTitle?: string;
   overrideIntro?: string;
   overrideEyebrow?: string;
+  overrideImage?: string;
   items?: SectionHubItem[];
+  children?: React.ReactNode;
 }) {
   const displayItems = items && items.length > 0 ? items : section.items;
-  const imageSrc = ["services", "about", "insights"].includes(section.key)
-    ? `/${section.key}/overview.png`
-    : undefined;
+  const imageSrc =
+    (overrideImage && typeof overrideImage === "string" && overrideImage.trim() !== ""
+      ? overrideImage.trim()
+      : undefined) ||
+    (["services", "about", "insights"].includes(section.key)
+      ? `/${section.key}/overview.png`
+      : undefined);
 
   return (
     <>
@@ -47,6 +55,7 @@ export default function SectionHub({
 
       <section className="py-24">
         <Container>
+          {children}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {displayItems.map((item: any, i: number) => {
               const color = item.color || barColors[i % barColors.length];

@@ -917,6 +917,7 @@
       "title": "We turn data into decisions.",
       "lead": "Chromatus Consulting is a research and consulting firm that helps organizations make better business decisions through data — understanding their markets, benchmarking their competition, and validating their strategies before they commit resources to them.",
       "illustration": "aboutOverview",
+      "image": "",
       "body": "We work at the intersection of research and consulting — we don't just hand clients a report full of numbers. We help them understand what those numbers mean for their business, and what to do next.",
       "feature": {
         "title": "Evidence first. Insight driven. Action focused.",
@@ -939,7 +940,7 @@
     },
     "is_published": true,
     "created_at": "2026-10-13T07:15:02.351Z",
-    "updated_at": "2026-10-13T07:15:02.351Z",
+    "updated_at": "2026-10-18T06:49:43.504Z",
     "_id": "loc_1791875702353_rm3a",
     "id": "loc_1791875702353_rm3a"
   },
@@ -967,49 +968,18 @@
       "about": {
         "eyebrow": "WHY CHROMATUS",
         "title": "Built for teams who need the answer to hold up.",
-        "lead": "Chromatus Consulting is a research and consulting firm that helps organizations make better business decisions through data — understanding their markets, benchmarking their competition, and validating their strategies before they commit resources to them.",
-        "body": "We work at the intersection of research and consulting — we don't just hand clients a report full of numbers. We help them understand what those numbers mean for their business, and what to do next.",
-        "link": {
-          "label": "Meet Chromatus",
-          "href": "/about-us"
-        },
-        "feature": {
-          "title": "Evidence first. Insight driven. Action focused.",
-          "body": "Every stage — from defining the research need to delivering the final recommendation — contributes to one outcome: greater clarity and confidence in business decisions."
-        }
-      },
-      "capabilities": {
-        "eyebrow": "WHAT WE DO",
-        "title": "Research-backed answers before you commit resources.",
-        "subtitle": "We help businesses answer the questions that matter most before they make a move — through primary and secondary research translated into clear, actionable recommendations.",
-        "cards": [
+        "pillars": [
           {
-            "icon": "trending-up",
-            "color": "brandblue",
-            "title": "Market Assessment",
-            "body": "Before making a move, understand the market you are moving into.",
-            "href": "/services/strategy-transformation"
+            "title": "A decade of track record",
+            "body": "For over a decade, Chromatus has helped organizations make better business decisions through data — validating strategies before they commit resources to them."
           },
           {
-            "icon": "code",
-            "color": "purple",
-            "title": "New Product Launch",
-            "body": "Turn an idea into a market-ready product.",
-            "href": "/services/technology-consulting"
+            "title": "Research and consulting, not just reports",
+            "body": "We don't just hand clients a report full of numbers. We help them understand what those numbers mean for their business, and what to do next."
           },
           {
-            "icon": "database",
-            "color": "teal",
-            "title": "Consumer Behaviour",
-            "body": "Understand the thinking behind the purchase.",
-            "href": "/services/data-analytics"
-          },
-          {
-            "icon": "cloud",
-            "color": "brandorange",
-            "title": "Price Benchmarking",
-            "body": "Make sure your pricing works for you, not against you.",
-            "href": "/services/cloud-digital-solutions"
+            "title": "A team built for depth",
+            "body": "20 dedicated researchers and 60+ field investigators, supported by specialists in marketing, statistics, operations research, and social research — the depth to run anything from a focused CSAT study to a nationwide field survey."
           }
         ]
       },
@@ -1072,7 +1042,7 @@
     },
     "is_published": true,
     "created_at": "2026-10-13T07:15:02.346Z",
-    "updated_at": "2026-10-17T07:48:59.916Z",
+    "updated_at": "2026-10-17T14:11:13.322Z",
     "_id": "loc_1791875702347_is4r",
     "id": "loc_1791875702347_is4r"
   },
@@ -1487,5 +1457,71 @@
     "updated_at": "2026-10-17T07:00:00.000Z",
     "_id": "loc_page_careerThankYou",
     "id": "loc_page_careerThankYou"
+  },
+  {
+    "page_key": "ourApproach",
+    "data": {
+      "eyebrow": "OUR APPROACH",
+      "title": "Our approach",
+      "lead": "From the right question to the right decision — how a Chromatus engagement runs.",
+      "image": "",
+      "tilesTitle": "Research Methodologies We Deploy",
+      "tiles": [
+        {
+          "label": "CAPI & CATI Surveys",
+          "icon": "chart-bar",
+          "description": "Structured quantitative data collection"
+        },
+        {
+          "label": "CAWI Digital Research",
+          "icon": "chip",
+          "description": "Broad online stakeholder reach"
+        },
+        {
+          "label": "In-Depth Stakeholder Interviews",
+          "icon": "users",
+          "description": "Qualitative nuance and expert insight"
+        },
+        {
+          "label": "Statistical Cross-Tabulation",
+          "icon": "file-text",
+          "description": "Multi-variable pattern identification"
+        }
+      ],
+      "stepsTitle": "The Four-Stage Engagement Process",
+      "steps": [
+        {
+          "stage": "01",
+          "title": "Define What Matters",
+          "text": "Clarify the core business question behind the brief.",
+          "icon": "target"
+        },
+        {
+          "stage": "02",
+          "title": "Build the Evidence",
+          "text": "Multi-modal primary fieldwork and secondary intelligence.",
+          "icon": "compass"
+        },
+        {
+          "stage": "03",
+          "title": "Test, Validate, Refine",
+          "text": "Data sanity checks, statistical rigor & expert validation.",
+          "icon": "shield"
+        },
+        {
+          "stage": "04",
+          "title": "Turn Insight into Action",
+          "text": "Clear conclusions, practical trade-offs & execution plans.",
+          "icon": "chart-bar"
+        }
+      ],
+      "outcomeTag": "The Approach Outcome",
+      "outcomeText": "Evidence First. Insight Driven. Action Focused. A repeatable, disciplined framework that eliminates uncertainty from high-stakes decisions."
+    },
+    "is_published": true,
+    "created_at": "2026-10-17T14:11:13.323Z",
+    "updated_at": "2026-10-17T14:11:13.323Z",
+    "_id": "loc_1792246273323_ourapp",
+    "id": "loc_1792246273323_ourapp"
   }
 ]
