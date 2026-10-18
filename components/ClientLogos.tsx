@@ -107,7 +107,8 @@ function LogoItem({ item }: { item: ClientItem }) {
     <img
       src={logoSrc}
       alt={item.name}
-      className="h-6 sm:h-7 max-h-7 w-auto max-w-[130px] shrink-0 object-contain opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 mix-blend-multiply"
+      loading="lazy"
+      className="h-7 sm:h-8 max-h-9 w-auto max-w-[140px] shrink-0 object-contain opacity-75 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:scale-105 mix-blend-multiply"
     />
   ) : (
     <div className="shrink-0 text-slate-400 transition-colors duration-300 hover:text-ink">
@@ -121,7 +122,7 @@ function LogoItem({ item }: { item: ClientItem }) {
         href={item.website}
         target="_blank"
         rel="noopener noreferrer"
-        className="shrink-0 outline-none transition-opacity"
+        className="shrink-0 outline-none transition-transform"
         aria-label={item.name}
       >
         {content}
@@ -141,7 +142,7 @@ function LogoMarqueeList({
 }) {
   return (
     <div
-      className={`flex shrink-0 items-center gap-16 sm:gap-24 pr-16 sm:pr-24 ${duplicate ? "motion-reduce:hidden" : ""}`}
+      className={`flex shrink-0 items-center gap-12 sm:gap-16 pr-12 sm:pr-16 ${duplicate ? "motion-reduce:hidden" : ""}`}
       aria-hidden={duplicate || undefined}
     >
       {items.map((item, idx) => (
@@ -157,7 +158,7 @@ export default function ClientLogos({ items = [] }: { items?: ClientItem[] }) {
   return (
     <section
       aria-label="Client Partners"
-      className="relative overflow-hidden bg-white py-9 sm:py-11"
+      className="relative overflow-hidden bg-white py-9 sm:py-11 border-b border-line/40"
     >
       <Container>
         <p className="text-center font-display text-[11px] font-medium uppercase tracking-[0.22em] text-slate/70">
@@ -172,7 +173,7 @@ export default function ClientLogos({ items = [] }: { items?: ClientItem[] }) {
         {/* Right fade */}
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent" />
 
-        <div className="flex w-max items-center animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:animate-none">
+        <div className="flex w-max items-center animate-marquee [animation-duration:55s] hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:animate-none">
           <LogoMarqueeList items={items} />
           <LogoMarqueeList items={items} duplicate />
         </div>
