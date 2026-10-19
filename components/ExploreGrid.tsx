@@ -9,10 +9,22 @@ import type { LiveServicesData } from "@/lib/services";
 
 const barColors = ["#1F82C5", "#EA9322", "#15619B", "#F2AC52", "#3D9FDE", "#C97614"];
 
-export default function ExploreGrid({ servicesData }: { servicesData?: LiveServicesData }) {
-  const eyebrow = (servicesData as any)?.homepageEyebrow || "Services & Capabilities";
-  const title = servicesData?.title || servicesSection.title;
-  const intro = servicesData?.intro || servicesSection.intro;
+type ExploreGridProps = {
+  servicesData?: LiveServicesData;
+  content?: {
+    eyebrow?: string;
+    eyebrowColor?: string;
+    title?: string;
+    intro?: string;
+    subtitle?: string;
+  };
+};
+
+export default function ExploreGrid({ servicesData, content }: ExploreGridProps) {
+  const eyebrow = content?.eyebrow || (servicesData as any)?.homepageEyebrow || "Services & Capabilities";
+  const eyebrowColor = content?.eyebrowColor || (servicesData as any)?.eyebrowColor || "#EA9322";
+  const title = content?.title || servicesData?.title || servicesSection.title;
+  const intro = content?.intro || content?.subtitle || servicesData?.intro || servicesSection.intro;
   const items = servicesData?.items && servicesData.items.length > 0
     ? servicesData.items
     : servicesSection.items;
@@ -22,7 +34,7 @@ export default function ExploreGrid({ servicesData }: { servicesData?: LiveServi
       <Container>
         <p
           className="eyebrow"
-          style={{ color: (servicesData as any)?.eyebrowColor || "#EA9322" }}
+          style={{ color: eyebrowColor }}
         >
           {eyebrow}
         </p>

@@ -31,14 +31,14 @@ type ProcessProps = {
     title?: string;
     text?: string;
     attribution?: string;
-    steps?: Array<{ stage?: string; title: string; body: string }>;
+    steps?: Array<{ stage?: string; title: string; body?: string; text?: string }>;
   };
 };
 
 export default function Process({ content }: ProcessProps) {
-  const rawEyebrow = content?.attribution || content?.eyebrow || "Our Methodology";
+  const rawEyebrow = content?.eyebrow || content?.attribution || "Our Approach";
   const cleanEyebrow = rawEyebrow.replace(/^[0-9]{1,2}\s*[\/—–-]\s*/, "").replace(/^.*?\/\s*/, "").trim() || "Our Approach";
-  const title = content?.text || content?.title || "Evidence first. Insight driven. Action focused.";
+  const title = content?.title || content?.text || "Evidence first. Insight driven. Action focused.";
   const displaySteps = content?.steps && content.steps.length > 0 ? content.steps : steps;
 
   return (
@@ -66,7 +66,7 @@ export default function Process({ content }: ProcessProps) {
                   {s.stage || String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-4 font-display text-lg font-semibold text-ink">{s.title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-slate">{s.body}</p>
+                <p className="mt-2.5 text-sm leading-relaxed text-slate">{s.body || (s as any).text}</p>
               </div>
             </Reveal>
           ))}

@@ -62,7 +62,20 @@ type TestimonialItem = {
 
 const avatarColors = ["#1F82C5", "#EA9322", "#3D9FDE", "#C97614", "#15619B", "#F2AC52"];
 
-export default function Testimonials({ items }: { items?: TestimonialItem[] }) {
+type TestimonialContent = {
+  eyebrow?: string;
+  title?: string;
+};
+
+export default function Testimonials({
+  items,
+  content,
+}: {
+  items?: TestimonialItem[];
+  content?: TestimonialContent;
+}) {
+  const eyebrow = content?.eyebrow || "Client Perspectives";
+  const title = content?.title || "What it's like to work with us.";
   const displayQuotes = (items && items.length > 0)
     ? items.map((item, idx) => {
         const name = item.author_name || "";
@@ -106,9 +119,9 @@ export default function Testimonials({ items }: { items?: TestimonialItem[] }) {
       </svg>
 
       <Container className="relative">
-        <p className="eyebrow eyebrow-dark">Client Perspectives</p>
+        <p className="eyebrow eyebrow-dark">{eyebrow}</p>
         <h2 className="mt-3 max-w-lg font-display text-3xl font-semibold tracking-tight sm:text-[2.6rem]">
-          What it's like to work with us.
+          {title}
         </h2>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2">

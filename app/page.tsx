@@ -26,10 +26,16 @@ export default async function Home() {
     <>
       <Hero content={content?.hero} />
       <ClientLogos items={clientLogos as any} />
-      <ExploreGrid servicesData={servicesData} />
-      <Process content={content?.quote} />
+      <ExploreGrid
+        servicesData={servicesData}
+        content={(content as any)?.servicesAndCapabilities || (content as any)?.capabilities || (content as any)?.services}
+      />
+      <Process content={(content as any)?.ourApproach || (content as any)?.quote} />
       <WhyChoose content={content?.about} />
-      <Testimonials items={testimonials as any} />
+      <Testimonials
+        items={testimonials as any}
+        content={(content as any)?.clientPerspectives || (content as any)?.clientPerspective}
+      />
       <CTABanner content={content?.chromatusPro} />
     </>
   );

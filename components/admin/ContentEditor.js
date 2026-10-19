@@ -28,7 +28,19 @@ function blankTemplate(sample) {
   return '';
 }
 
+const CUSTOM_SECTION_LABELS = {
+  hero: 'Hero Section',
+  servicesAndCapabilities: 'Services & Capabilities',
+  capabilities: 'Services & Capabilities',
+  ourApproach: 'Our Approach',
+  about: 'Why Chromatus',
+  clientPerspectives: 'Client Perspectives',
+  clientPerspective: 'Client Perspectives',
+  chromatusPro: 'Chromatus Pro Banner',
+};
+
 function prettyLabel(key) {
+  if (CUSTOM_SECTION_LABELS[key]) return CUSTOM_SECTION_LABELS[key];
   return key
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/[_-]/g, ' ')
