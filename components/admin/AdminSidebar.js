@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -50,6 +50,12 @@ const NAV_GROUPS = [
   }
 ];
 
+const DEFAULT_WIDTH = 256;
+const MIN_WIDTH = 190;
+const MAX_WIDTH = 440;
+const COLLAPSED_WIDTH = 72;
+const SNAP_THRESHOLD = 130;
+
 function SidebarToggleIcon({ collapsed }) {
   return (
     <svg
@@ -79,14 +85,41 @@ export default function AdminSidebar({ username }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
 
-  // Restore collapsed preference from localStorage on mount
+  // Resizable sidebar state
+  const [collapsed, setCollapsed] = useState(false);
+  const [width, setWidth] = useState(DEFAULT_WIDTH);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Keep ref for dragging calculations without stale closures
+  const draggingRef = useRef(false);
+  const collapsedRef = useRef(false);
+  const widthRef = useRef(DEFAULT_WIDTH);
+
+  useEffect(() => {
+    collapsedRef.current = collapsed;
+  }, [collapsed]);
+
+  useEffect(() => {
+    widthRef.current = width;
+  }, [width]);
+
+  // Restore saved width and collapsed preference from localStorage
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('admin_sidebar_collapsed');
-      if (saved !== null) {
-        setCollapsed(saved === 'true');
+      const savedWidth = localStorage.getItem('admin_sidebar_width');
+      const savedCollapsed = localStorage.getItem('admin_sidebar_collapsed');
+      if (savedWidth) {
+        const parsed = parseInt(savedWidth, 10);
+        if (!isNaN(parsed) && parsed >= MIN_WIDTH && parsed <= MAX_WIDTH) {
+          setWidth(parsed);
+          widthRef.current = parsed;
+        }
+      }
+      if (savedCollapsed !== null) {
+        const isCol = savedCollapsed === 'true';
+        setCollapsed(isCol);
+        collapsedRef.current = isCol;
       }
     } catch {}
   }, []);
@@ -108,14 +141,80 @@ export default function AdminSidebar({ username }) {
     };
   }, [mobileOpen]);
 
+  // Drag-to-resize handlers
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+    draggingRef.current = true;
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e) => {
+      if (!draggingRef.current) return;
+      const clientX = e.clientX;
+
+      if (clientX < SNAP_THRESHOLD) {
+        if (!collapsedRef.current) {
+          setCollapsed(true);
+          collapsedRef.current = true;
+          try {
+            localStorage.setItem('admin_sidebar_collapsed', 'true');
+          } catch {}
+        }
+      } else {
+        if (collapsedRef.current) {
+          setCollapsed(false);
+          collapsedRef.current = false;
+          try {
+            localStorage.setItem('admin_sidebar_collapsed', 'false');
+          } catch {}
+        }
+        const clamped = Math.min(Math.max(clientX, MIN_WIDTH), MAX_WIDTH);
+        setWidth(clamped);
+        widthRef.current = clamped;
+        try {
+          localStorage.setItem('admin_sidebar_width', String(clamped));
+        } catch {}
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      draggingRef.current = false;
+      try {
+        localStorage.setItem('admin_sidebar_collapsed', String(collapsedRef.current));
+        localStorage.setItem('admin_sidebar_width', String(widthRef.current));
+      } catch {}
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+  }, [isDragging]);
+
   function toggleCollapsed() {
     setCollapsed((prev) => {
       const next = !prev;
+      collapsedRef.current = next;
       try {
         localStorage.setItem('admin_sidebar_collapsed', String(next));
       } catch {}
       return next;
     });
+  }
+
+  function handleDoubleClickHandle() {
+    toggleCollapsed();
   }
 
   async function handleLogout() {
@@ -182,7 +281,7 @@ export default function AdminSidebar({ username }) {
             {isCollapsed ? (
               <div className="my-2 border-t border-white/10 mx-1" title={group.title} />
             ) : (
-              <p className="px-3 text-[10px] font-bold tracking-wider uppercase text-white/45 mb-1.5">
+              <p className="px-3 text-[10px] font-bold tracking-wider uppercase text-white/45 mb-1.5 truncate">
                 {group.title}
               </p>
             )}
@@ -374,13 +473,28 @@ export default function AdminSidebar({ username }) {
         {renderSidebarContent(false)}
       </aside>
 
-      {/* Desktop Persistent Sidebar with smooth collapse/expand transition */}
+      {/* Desktop Persistent Resizable Sidebar */}
       <aside
-        className={`hidden md:flex shrink-0 bg-navy text-white flex-col h-screen sticky top-0 border-r border-white/10 shadow-sm transition-[width] duration-300 ease-in-out z-20 ${
-          collapsed ? 'w-[72px]' : 'w-64'
+        style={{ width: collapsed ? `${COLLAPSED_WIDTH}px` : `${width}px` }}
+        className={`hidden md:flex shrink-0 bg-navy text-white flex-col h-screen sticky top-0 border-r border-white/10 shadow-sm relative z-20 ${
+          isDragging ? 'select-none' : 'transition-[width] duration-300 ease-in-out'
         }`}
       >
         {renderSidebarContent(collapsed)}
+
+        {/* Resizable Right Border Handle */}
+        <div
+          onMouseDown={handleMouseDown}
+          onDoubleClick={handleDoubleClickHandle}
+          className="hidden md:block absolute top-0 -right-1 w-2.5 h-full cursor-col-resize hover:bg-brandblue/30 active:bg-brandblue/60 transition-colors z-40 group"
+          title="Drag to adjust width • Double-click to toggle collapse"
+        >
+          <div
+            className={`w-0.5 h-full mx-auto transition-colors ${
+              isDragging ? 'bg-brandorange' : 'bg-transparent group-hover:bg-brandblue'
+            }`}
+          />
+        </div>
       </aside>
     </>
   );
