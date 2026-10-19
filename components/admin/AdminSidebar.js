@@ -50,11 +50,46 @@ const NAV_GROUPS = [
   }
 ];
 
+function SidebarToggleIcon({ collapsed }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="shrink-0 transition-transform duration-200"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+      <line x1="9" y1="3" x2="9" y2="21" />
+      {collapsed ? (
+        <polyline points="13 10 16 12 13 14" />
+      ) : (
+        <polyline points="15 10 12 12 15 14" />
+      )}
+    </svg>
+  );
+}
+
 export default function AdminSidebar({ username }) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+
+  // Restore collapsed preference from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('admin_sidebar_collapsed');
+      if (saved !== null) {
+        setCollapsed(saved === 'true');
+      }
+    } catch {}
+  }, []);
 
   // Close mobile drawer when route changes
   useEffect(() => {
@@ -73,6 +108,16 @@ export default function AdminSidebar({ username }) {
     };
   }, [mobileOpen]);
 
+  function toggleCollapsed() {
+    setCollapsed((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('admin_sidebar_collapsed', String(next));
+      } catch {}
+      return next;
+    });
+  }
+
   async function handleLogout() {
     await fetch('/api/admin/logout', { method: 'POST' });
     router.push('/admin/login');
@@ -85,36 +130,90 @@ export default function AdminSidebar({ username }) {
     return pathname === path || (path !== '/admin' && pathname.startsWith(`${path}/`));
   }
 
-  const sidebarNavContent = (
+  const renderSidebarContent = (isCollapsed) => (
     <>
       {/* Brand Header */}
-      <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between shrink-0 bg-navy">
-        <div>
-          <span className="text-[11px] font-bold tracking-[0.22em] text-brandorange block leading-none">
-            CHROMATUS
-          </span>
-          <p className="text-sm font-semibold text-white/95 mt-1">Management CMS</p>
+      {isCollapsed ? (
+        <div className="px-2 py-4 border-b border-white/10 flex items-center justify-center shrink-0 bg-navy h-16">
+          <button
+            type="button"
+            onClick={toggleCollapsed}
+            title="Expand sidebar"
+            className="w-10 h-10 rounded-lg flex items-center justify-center text-white/75 hover:text-white hover:bg-white/10 transition"
+            aria-label="Expand sidebar"
+          >
+            <SidebarToggleIcon collapsed={true} />
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={() => setMobileOpen(false)}
-          className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition"
-          aria-label="Close menu"
-        >
-          ✕
-        </button>
-      </div>
+      ) : (
+        <div className="px-4 py-4 border-b border-white/10 flex items-center justify-between shrink-0 bg-navy h-16">
+          <div className="overflow-hidden">
+            <span className="text-[11px] font-bold tracking-[0.22em] text-brandorange block leading-none">
+              CHROMATUS
+            </span>
+            <p className="text-sm font-semibold text-white/95 mt-1 truncate">Management CMS</p>
+          </div>
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={toggleCollapsed}
+              title="Collapse sidebar"
+              className="hidden md:flex w-8 h-8 rounded-lg items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition"
+              aria-label="Collapse sidebar"
+            >
+              <SidebarToggleIcon collapsed={false} />
+            </button>
+            <button
+              type="button"
+              onClick={() => setMobileOpen(false)}
+              className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition"
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Nav Groups */}
-      <nav className="flex-1 px-3 py-4 space-y-5 overflow-y-auto custom-scrollbar">
+      <nav className={`flex-1 ${isCollapsed ? 'px-2 py-3 space-y-3' : 'px-3 py-4 space-y-5'} overflow-y-auto custom-scrollbar`}>
         {NAV_GROUPS.map((group) => (
           <div key={group.title}>
-            <p className="px-3 text-[10px] font-bold tracking-wider uppercase text-white/45 mb-1.5">
-              {group.title}
-            </p>
-            <div className="space-y-0.5">
+            {isCollapsed ? (
+              <div className="my-2 border-t border-white/10 mx-1" title={group.title} />
+            ) : (
+              <p className="px-3 text-[10px] font-bold tracking-wider uppercase text-white/45 mb-1.5">
+                {group.title}
+              </p>
+            )}
+            <div className={isCollapsed ? 'space-y-1.5' : 'space-y-0.5'}>
               {group.items.map((item) => {
                 const active = isActive(item.href);
+
+                if (isCollapsed) {
+                  return (
+                    <div key={item.href} className="relative group flex items-center justify-center">
+                      <Link
+                        href={item.href}
+                        title={item.label}
+                        className={`flex items-center justify-center rounded-lg w-10 h-10 transition duration-150 ${
+                          active
+                            ? 'bg-brandblue text-white font-semibold shadow-xs'
+                            : 'text-white/75 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        <span className="text-base leading-none shrink-0" aria-hidden>{item.icon}</span>
+                      </Link>
+                      {/* Floating tooltip */}
+                      <div className="pointer-events-none absolute left-full ml-2 z-50 hidden md:group-hover:flex items-center">
+                        <div className="bg-[#071d2b] text-white text-xs font-semibold px-2.5 py-1.5 rounded-md shadow-xl border border-white/15 whitespace-nowrap">
+                          {item.label}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
                   <Link
                     key={item.href}
@@ -137,32 +236,84 @@ export default function AdminSidebar({ username }) {
       </nav>
 
       {/* Footer User Info */}
-      <div className="px-5 py-3.5 border-t border-white/10 bg-black/20 shrink-0">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-xs text-white/70 truncate font-mono">
-            User: <span className="font-semibold text-white">{username}</span>
-          </p>
-          <span className="w-2 h-2 rounded-full bg-emerald-400" title="Connected" />
+      {isCollapsed ? (
+        <div className="p-2 border-t border-white/10 bg-black/20 shrink-0 flex flex-col items-center gap-2">
+          <div className="relative group flex items-center justify-center">
+            <div
+              className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white relative cursor-default"
+              title={`User: ${username}`}
+            >
+              {username ? String(username).charAt(0).toUpperCase() : 'A'}
+              <span className="w-2 h-2 rounded-full bg-emerald-400 absolute bottom-0 right-0 border border-navy" title="Connected" />
+            </div>
+            <div className="pointer-events-none absolute left-full ml-2 z-50 hidden md:group-hover:flex items-center">
+              <div className="bg-[#071d2b] text-white text-xs font-semibold px-2.5 py-1.5 rounded-md shadow-xl border border-white/15 whitespace-nowrap">
+                User: {username}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative group flex items-center justify-center">
+            <Link
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Live Site ↗"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition text-sm"
+            >
+              ↗
+            </Link>
+            <div className="pointer-events-none absolute left-full ml-2 z-50 hidden md:group-hover:flex items-center">
+              <div className="bg-[#071d2b] text-white text-xs font-semibold px-2.5 py-1.5 rounded-md shadow-xl border border-white/15 whitespace-nowrap">
+                Live Site ↗
+              </div>
+            </div>
+          </div>
+
+          <div className="relative group flex items-center justify-center">
+            <button
+              type="button"
+              onClick={handleLogout}
+              title="Sign out"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-brandorange hover:text-brandorange-light hover:bg-white/10 transition text-sm font-semibold"
+            >
+              ⏻
+            </button>
+            <div className="pointer-events-none absolute left-full ml-2 z-50 hidden md:group-hover:flex items-center">
+              <div className="bg-[#071d2b] text-white text-xs font-semibold px-2.5 py-1.5 rounded-md shadow-xl border border-white/15 whitespace-nowrap">
+                Sign out
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center justify-between gap-3 pt-1 border-t border-white/5">
-          <Link
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-white/70 hover:text-white flex items-center gap-1 transition"
-          >
-            <span>Live Site</span>
-            <span className="text-[10px]">↗</span>
-          </Link>
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="text-xs font-semibold text-brandorange hover:text-brandorange-light transition"
-          >
-            Sign out
-          </button>
+      ) : (
+        <div className="px-5 py-3.5 border-t border-white/10 bg-black/20 shrink-0">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs text-white/70 truncate font-mono">
+              User: <span className="font-semibold text-white">{username}</span>
+            </p>
+            <span className="w-2 h-2 rounded-full bg-emerald-400" title="Connected" />
+          </div>
+          <div className="flex items-center justify-between gap-3 pt-1 border-t border-white/5">
+            <Link
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-white/70 hover:text-white flex items-center gap-1 transition"
+            >
+              <span>Live Site</span>
+              <span className="text-[10px]">↗</span>
+            </Link>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="text-xs font-semibold text-brandorange hover:text-brandorange-light transition"
+            >
+              Sign out
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 
@@ -220,12 +371,16 @@ export default function AdminSidebar({ username }) {
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        {sidebarNavContent}
+        {renderSidebarContent(false)}
       </aside>
 
-      {/* Desktop Persistent Sidebar */}
-      <aside className="hidden md:flex w-64 shrink-0 bg-navy text-white flex-col h-screen sticky top-0 border-r border-white/10 shadow-sm">
-        {sidebarNavContent}
+      {/* Desktop Persistent Sidebar with smooth collapse/expand transition */}
+      <aside
+        className={`hidden md:flex shrink-0 bg-navy text-white flex-col h-screen sticky top-0 border-r border-white/10 shadow-sm transition-[width] duration-300 ease-in-out z-20 ${
+          collapsed ? 'w-[72px]' : 'w-64'
+        }`}
+      >
+        {renderSidebarContent(collapsed)}
       </aside>
     </>
   );
