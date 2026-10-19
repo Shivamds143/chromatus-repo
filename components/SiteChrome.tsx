@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
+import CookieConsentBanner from "@/components/CookieConsentBanner";
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const isAdmin = usePathname().startsWith("/admin");
@@ -16,6 +17,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       <main className="flex-1">{children}</main>
       <Footer />
       <ScrollToTop />
+      <CookieConsentBanner />
     </>
   );
 }

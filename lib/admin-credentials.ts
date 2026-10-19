@@ -84,6 +84,28 @@ export async function saveCredentials(creds: StoredCredentials): Promise<void> {
       },
       { upsert: true }
     );
+
+    // Synchronize admin_users collection
+    try {
+      const { hashPassword } = await import("./adminAuth");
+      await db.collection("admin_users").updateOne(
+        {
+          $or: [
+            { username: creds.username },
+            { email: creds.email }
+          ]
+        },
+        {
+          $set: {
+            username: creds.username,
+            email: creds.email,
+            password_hash: hashPassword(creds.password),
+            updated_at: new Date()
+          }
+        },
+        { upsert: true }
+      );
+    } catch {}
   } catch (err) {
     console.warn("Could not save admin credentials to database:", err);
   }

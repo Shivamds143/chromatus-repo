@@ -11,8 +11,15 @@ import { listPublishedTestimonials } from "@/lib/testimonials";
 import { listPublishedClients } from "@/lib/clients";
 import { getLiveServicesData } from "@/lib/services";
 
+import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSeoMetadata("/");
+}
 
 export default async function Home() {
   const content = await getPageContent("home", home);

@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
 import { getSiteSettings, settingsToCssVars } from "@/lib/settings";
+import { getGlobalElements } from "@/lib/globalElements";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -86,8 +87,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await getSiteSettings().catch(() => null);
-  const cssVars = settings ? settingsToCssVars(settings) : "";
+  const [settings, globalElements] = await Promise.all([
+    getSiteSettings().catch(() => null),
+    getGlobalElements().catch(() => null),
+  ]);
+  const cssVars = settingsToCssVars(settings, globalElements);
 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>

@@ -30,25 +30,35 @@ export function generateStaticParams() {
   return insightsSection.items.map((item) => ({ slug: item.slug }));
 }
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await Promise.resolve(params);
   const item = insightsSection.items.find((i) => i.slug === slug);
+  let fallback: { title?: string; description?: string } = { title: "Insights — Chromatus Consulting" };
   if (item) {
     const cmsKey = SLUG_TO_CMS_KEY[slug];
     if (cmsKey) {
-      const fallback = getDefaultForKey(cmsKey);
-      const cmsData = await getPageContent(cmsKey, fallback);
+      const fb = getDefaultForKey(cmsKey);
+      const cmsData = await getPageContent(cmsKey, fb);
       if (cmsData?.title) {
-        return { title: `${cmsData.title} — Chromatus Consulting` };
+        fallback = { title: `${cmsData.title} — Chromatus Consulting`, description: cmsData.lead || item.summary };
+      } else {
+        fallback = { title: `${item.title} — Chromatus Consulting`, description: item.summary };
       }
+    } else {
+      fallback = { title: `${item.title} — Chromatus Consulting`, description: item.summary };
     }
-    return { title: `${item.title} — Chromatus Consulting` };
+  } else {
+    const article = await getArticleBySlug(slug);
+    if (article) {
+      fallback = {
+        title: `${article.title} — Chromatus Insights`,
+        description: article.summary || article.excerpt || "",
+      };
+    }
   }
-  const article = await getArticleBySlug(slug);
-  if (article) {
-    return { title: `${article.title} — Chromatus Insights` };
-  }
-  return { title: "Insights — Chromatus Consulting" };
+  return buildSeoMetadata(`/insights/${slug}`, fallback);
 }
 
 export default async function InsightsSubPage({ params }: Props) {

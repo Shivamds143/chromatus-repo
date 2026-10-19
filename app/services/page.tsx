@@ -2,16 +2,17 @@ import type { Metadata } from "next";
 import SectionHub from "@/components/SectionHub";
 import { servicesSection } from "@/lib/content";
 import { getLiveServicesData } from "@/lib/services";
+import { buildSeoMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getLiveServicesData();
-  return {
+  return buildSeoMetadata("/services", {
     title: `${data.title || "Services"} — Chromatus Consulting`,
     description: data.intro || servicesSection.intro,
-  };
+  });
 }
 
 export default async function ServicesPage() {

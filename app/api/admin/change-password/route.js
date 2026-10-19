@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getAdminSession } from '@/lib/requireAdmin';
 import { findAdminByUsername, verifyPassword, hashPassword } from '@/lib/adminAuth';
 import { safeWrite } from '@/lib/mongodb';
+import { getActiveCredentials, saveCredentials } from '@/lib/admin-credentials';
 
 export async function POST(request) {
   const session = await getAdminSession();
@@ -26,13 +27,38 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Current password is incorrect.' }, { status: 401 });
   }
 
-  const { ok, error } = await safeWrite((db) =>
-    db.collection('admin_users').updateOne(
-      { username: session.username },
-      { $set: { password_hash: hashPassword(newPassword) } }
-    )
-  );
+  const newHash = hashPassword(newPassword);
+  const { ok, error } = await safeWrite(async (db) => {
+    await db.collection('admin_users').updateOne(
+      {
+        $or: [
+          { username: session.username },
+          { email: session.username }
+        ]
+      },
+      {
+        $set: {
+          username: admin.username || session.username,
+          password_hash: newHash,
+          updated_at: new Date()
+        }
+      },
+      { upsert: true }
+    );
+  });
   if (!ok) return NextResponse.json({ error: error || 'Update failed' }, { status: 500 });
+
+  try {
+    const creds = await getActiveCredentials();
+    await saveCredentials({
+      username: creds.username || session.username,
+      email: creds.email || session.username,
+      password: newPassword,
+      updatedAt: new Date().toISOString()
+    });
+  } catch (e) {
+    console.warn('Could not sync admin credentials store:', e);
+  }
 
   return NextResponse.json({ ok: true });
 }

@@ -10,13 +10,17 @@ import { careersSection } from "@/lib/content";
 import { getPageContent } from "@/lib/cms";
 import { careers as fallbackCareers } from "@/data/content/misc";
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export const metadata: Metadata = {
-  title: "Careers & Open Positions — Chromatus Consulting",
-  description: careersSection.intro,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSeoMetadata("/careers", {
+    title: "Careers & Open Positions — Chromatus Consulting",
+    description: careersSection.intro,
+  });
+}
 
 const barColors = ["#1F82C5", "#EA9322", "#15619B", "#F2AC52", "#3D9FDE", "#C97614"];
 

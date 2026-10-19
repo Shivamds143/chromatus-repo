@@ -26,6 +26,7 @@ export default function Header() {
   const [liveIndustries, setLiveIndustries] = useState<any[]>(industriesSection.items);
   const [industriesEnabled, setIndustriesEnabled] = useState(true);
   const [headerCta, setHeaderCta] = useState({ label: "Chromatus Pro", href: "/contact#contact-form" });
+  const [siteInfo, setSiteInfo] = useState({ siteName: "CHROMATUS", logoUrl: "" });
 
   useEffect(() => {
     let cancelled = false;
@@ -64,14 +65,20 @@ export default function Header() {
       if (industriesData && typeof industriesData.enabled === 'boolean') {
         setIndustriesEnabled(industriesData.enabled);
       }
+      if (globalData?.settings?.siteName) {
+        setSiteInfo({
+          siteName: globalData.settings.siteName,
+          logoUrl: globalData.settings.logoUrl || ""
+        });
+      }
       if (globalData?.elements?.headerCtaLabel) {
         setHeaderCta({
           label: globalData.elements.headerCtaLabel,
           href: globalData.elements.headerCtaHref || "/contact#contact-form"
         });
       }
-      if (globalData?.settings && typeof document !== "undefined") {
-        const css = settingsToCssVars(globalData.settings);
+      if ((globalData?.settings || globalData?.elements) && typeof document !== "undefined") {
+        const css = settingsToCssVars(globalData.settings, globalData.elements);
         if (css) {
           let styleEl = document.getElementById("theme-vars");
           if (!styleEl) {
@@ -105,9 +112,14 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-paper/10 bg-ink/95 backdrop-blur">
       <Container className="flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <LogoMark className="h-10 w-auto" />
+          {siteInfo.logoUrl && siteInfo.logoUrl !== "/images/logo.png" ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={siteInfo.logoUrl} alt={siteInfo.siteName || "Logo"} className="h-9 w-auto object-contain" />
+          ) : (
+            <LogoMark className="h-10 w-auto" />
+          )}
           <span className="font-display text-[17px] sm:text-lg font-bold uppercase tracking-[0.14em] text-white leading-none">
-            CHROMATUS
+            {siteInfo.siteName || "CHROMATUS"}
           </span>
         </Link>
 

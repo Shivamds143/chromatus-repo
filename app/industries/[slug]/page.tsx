@@ -28,6 +28,8 @@ export async function generateStaticParams() {
   ];
 }
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const enabled = await getIndustriesEnabled();
   if (!enabled) return { title: "Not Found" };
@@ -36,30 +38,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const item = industriesSection.items.find((i) => i.slug === slug);
   const cmsKey = INDUSTRY_SLUG_TO_CMS_KEY[slug];
 
+  let fallback: { title?: string; description?: string } = { title: "Chromatus Consulting" };
   if (item || cmsKey) {
     if (cmsKey) {
-      const fallback = getDefaultForKey(cmsKey);
-      const cmsData = await getPageContent(cmsKey, fallback);
+      const fb = getDefaultForKey(cmsKey);
+      const cmsData = await getPageContent(cmsKey, fb);
       if (cmsData?.title) {
-        return {
+        fallback = {
           title: `${cmsData.title} — Chromatus Consulting`,
           description: cmsData.lead || item?.summary || "",
         };
+      } else if (item) {
+        fallback = { title: `${item.title} — Chromatus Consulting`, description: item.summary };
       }
+    } else if (item) {
+      fallback = { title: `${item.title} — Chromatus Consulting`, description: item.summary };
     }
-    if (item) {
-      return { title: `${item.title} — Chromatus Consulting`, description: item.summary };
+  } else {
+    const customPage: any = await getCustomPageBySlug(slug, { preview, pageType: "industry" });
+    if (customPage) {
+      fallback = {
+        title: `${customPage.title} — Chromatus Consulting`,
+        description: customPage.meta_description || "",
+      };
     }
   }
-
-  const customPage: any = await getCustomPageBySlug(slug, { preview, pageType: "industry" });
-  if (customPage) {
-    return {
-      title: `${customPage.title} — Chromatus Consulting`,
-      description: customPage.meta_description || "",
-    };
-  }
-  return { title: "Chromatus Consulting" };
+  return buildSeoMetadata(`/industries/${slug}`, fallback);
 }
 
 export default async function IndustriesSubPage({ params }: Props) {

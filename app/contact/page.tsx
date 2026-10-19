@@ -5,13 +5,17 @@ import ContactForm from "@/components/ContactForm";
 import { getPageContent } from "@/lib/cms";
 import { contact as fallbackContact } from "@/data/content/misc";
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export const metadata: Metadata = {
-  title: "Contact Us — Chromatus Consulting",
-  description: "Get in touch, locations, and contact details for Chromatus Consulting.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSeoMetadata("/contact", {
+    title: "Contact Us — Chromatus Consulting",
+    description: "Get in touch, locations, and contact details for Chromatus Consulting.",
+  });
+}
 
 const defaultInquiries = [
   { label: "New business & project scoping", value: "info@chromatus.com" },

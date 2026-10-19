@@ -4,13 +4,17 @@ import { aboutSection } from "@/lib/content";
 import { getPageContent } from "@/lib/cms";
 import { aboutOverview } from "@/data/content/about";
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export const metadata: Metadata = {
-  title: "About Us — Chromatus Consulting",
-  description: aboutSection.intro,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSeoMetadata("/about", {
+    title: "About Us — Chromatus Consulting",
+    description: aboutSection.intro,
+  });
+}
 
 export default async function AboutPage() {
   const content = await getPageContent("aboutOverview", aboutOverview);

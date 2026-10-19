@@ -4,10 +4,14 @@ import Container from "@/components/Container";
 import { getPageContent } from "@/lib/cms";
 import { legal } from "@/data/content/misc";
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export const metadata: Metadata = { title: "Terms & Conditions — Chromatus Consulting" };
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSeoMetadata("/terms", { title: "Terms & Conditions — Chromatus Consulting" });
+}
 
 export default async function TermsPage() {
   const content = await getPageContent("legal_terms", legal.terms);

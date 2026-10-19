@@ -5,10 +5,14 @@ import { getPageContent } from "@/lib/cms";
 import { faq as fallbackFaq } from "@/data/content/misc";
 import { listPublishedFaqs } from "@/lib/faqs";
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export const metadata: Metadata = { title: "FAQ — Chromatus Consulting" };
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSeoMetadata("/faq", { title: "FAQ — Chromatus Consulting" });
+}
 
 const fallbackFaqs = [
   {

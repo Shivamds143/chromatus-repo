@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Container from "./Container";
 
@@ -6,16 +9,52 @@ type CTABannerProps = {
     title?: string;
     lead?: string;
     cta?: { label?: string; href?: string };
+    secondaryCta?: { label?: string; href?: string };
   };
 };
 
 export default function CTABanner({ content }: CTABannerProps) {
-  const title = content?.title || "Have a market question you need answered properly?";
+  const [globalData, setGlobalData] = useState<any>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/global-elements")
+      .then((res) => res.json())
+      .then((json) => {
+        if (!cancelled && json?.elements) {
+          setGlobalData(json.elements);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const title =
+    content?.title ||
+    globalData?.ctaBandHeading ||
+    "Schedule a consultation and let's solve something extraordinary together.";
   const lead =
     content?.lead ||
     "Tell us the decision you're trying to make — we'll tell you the fastest credible way to get there.";
-  const ctaLabel = content?.cta?.label || "Chromatus Pro";
-  const ctaHref = content?.cta?.href || "/contact#contact-form";
+  const ctaLabel =
+    content?.cta?.label ||
+    globalData?.ctaBandPrimaryLabel ||
+    "Talk to an expert";
+  const ctaHref =
+    content?.cta?.href ||
+    globalData?.ctaBandPrimaryHref ||
+    "/contact#contact-form";
+  const secondaryLabel =
+    content?.secondaryCta?.label ||
+    globalData?.ctaBandSecondaryLabel ||
+    null;
+  const secondaryHref =
+    content?.secondaryCta?.href ||
+    globalData?.ctaBandSecondaryHref ||
+    "/contact#contact-form";
+  const phone = globalData?.contactPhone || "+91 74984 65144";
 
   return (
     <section className="bg-signal">
@@ -38,12 +77,21 @@ export default function CTABanner({ content }: CTABannerProps) {
               <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
-          <a
-            href="tel:+917498465144"
-            className="rounded-lg border border-ink/30 px-7 py-3.5 text-sm font-medium text-ink transition hover:border-ink"
-          >
-            +91 74984 65144
-          </a>
+          {secondaryLabel && secondaryLabel.toLowerCase() !== ctaLabel.toLowerCase() ? (
+            <Link
+              href={secondaryHref}
+              className="rounded-lg border border-ink/30 px-7 py-3.5 text-sm font-medium text-ink transition hover:border-ink hover:bg-ink/5"
+            >
+              {secondaryLabel}
+            </Link>
+          ) : (
+            <a
+              href={`tel:${phone.replace(/\s+/g, "")}`}
+              className="rounded-lg border border-ink/30 px-7 py-3.5 text-sm font-medium text-ink transition hover:border-ink hover:bg-ink/5"
+            >
+              {phone}
+            </a>
+          )}
         </div>
       </Container>
     </section>

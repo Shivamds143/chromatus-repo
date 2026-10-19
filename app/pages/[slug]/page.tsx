@@ -15,14 +15,18 @@ type Props = {
   params: Promise<{ slug: string }> | { slug: string };
 };
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await Promise.resolve(params);
   const page: any = await getCustomPageBySlug(slug, { pageType: "custom" });
-  if (!page) return { title: "Chromatus Consulting" };
-  return {
-    title: `${page.title} — Chromatus Consulting`,
-    description: page.meta_description || "",
-  };
+  const fallback = page
+    ? {
+        title: `${page.title} — Chromatus Consulting`,
+        description: page.meta_description || "",
+      }
+    : { title: "Chromatus Consulting" };
+  return buildSeoMetadata(`/pages/${slug}`, fallback);
 }
 
 export default async function CustomPageView({ params }: Props) {

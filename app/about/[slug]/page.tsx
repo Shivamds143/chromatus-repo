@@ -25,21 +25,27 @@ export function generateStaticParams() {
     .map((item) => ({ slug: item.slug }));
 }
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await Promise.resolve(params);
   const item = aboutSection.items.find((i) => i.slug === slug);
+  let fallback: { title?: string; description?: string } = { title: "Chromatus Consulting" };
   if (item) {
     const cmsKey = SLUG_TO_CMS_KEY[slug];
     if (cmsKey) {
-      const fallback = getDefaultForKey(cmsKey);
-      const cmsData = await getPageContent(cmsKey, fallback);
+      const fb = getDefaultForKey(cmsKey);
+      const cmsData = await getPageContent(cmsKey, fb);
       if (cmsData?.title) {
-        return { title: `${cmsData.title} — Chromatus Consulting` };
+        fallback = { title: `${cmsData.title} — Chromatus Consulting`, description: cmsData.lead || item.summary };
+      } else {
+        fallback = { title: `${item.title} — Chromatus Consulting`, description: item.summary };
       }
+    } else {
+      fallback = { title: `${item.title} — Chromatus Consulting`, description: item.summary };
     }
-    return { title: `${item.title} — Chromatus Consulting` };
   }
-  return { title: "Chromatus Consulting" };
+  return buildSeoMetadata(`/about/${slug}`, fallback);
 }
 
 export default async function AboutSubPage({ params }: Props) {

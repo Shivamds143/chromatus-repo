@@ -8,13 +8,17 @@ import { getArticles } from "@/lib/insights";
 import { getPageContent } from "@/lib/cms";
 import { insightsOverview } from "@/data/content/insights";
 
+import { buildSeoMetadata } from "@/lib/seo";
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export const metadata: Metadata = {
-  title: "Insights — Chromatus Consulting",
-  description: insightsSection.intro,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSeoMetadata("/insights", {
+    title: "Insights — Chromatus Consulting",
+    description: insightsSection.intro,
+  });
+}
 
 export default async function InsightsPage() {
   const [articles, content] = await Promise.all([
